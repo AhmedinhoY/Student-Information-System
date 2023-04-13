@@ -47,8 +47,10 @@ require('user-profile.php');
 
             <div class="icons">
                   <button style="background:none;">
-                        <div class="fa fa-home fa-lg" id="home-btn" style="color: white;">
-                        </div>
+                        <a href="index.php">
+                              <div class="fa fa-home fa-lg" id="home-btn" style="color: white;">
+                              </div>
+                        </a>
                   </button>
                   <button style="background:none;">
                         <div class="fa fa-sign-out fa-lg" id="sign-out-btn" style="color: white;"></div>
@@ -58,5 +60,5 @@ require('user-profile.php');
                         </div>
                   </button>
             </div>
-</div> 
+      </div>
       <!-- header section ends -->

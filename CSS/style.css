@@ -30,16 +30,18 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 7rem;
 }
+
 h5 {
   margin: 0px;
 }
 
 .header-container {
-  background-color: var(--blue);
   display: flex;
   justify-content: space-between;
-  color: white;
   align-items: center;
+  color: white;
+  background-color: var(--blue);
+  border-bottom: 4px solid #cfae78;
 }
 
 .header {
