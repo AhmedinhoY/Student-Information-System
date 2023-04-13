@@ -66,3 +66,12 @@ h5 {
   font-size: 25px;
   padding: 0.5rem 2.5%;
 }
+
+.footer .bottom-footer {
+  background: var(--blue);
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  padding: 1rem 0rem;
+  border-top: 3px solid var(--gold);
+}
