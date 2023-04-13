@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
+
+:root {
+  --black: #000000;
+  --gold: #cfae78;
+  --blue: #21559b;
+  --bg: #f6f6f6;
+  --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+  --box-shadow2: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.05);
+  --border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  --outline: 0.1rem solid rgba(0, 0, 0, 0.1);
+  --outline-hover: 0.2rem solid var(--black);
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  text-transform: capitalize;
+  transition: all 0.2s linear;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+}
+h5 {
+  margin: 0px;
+}
+
+.header-container {
+  background-color: var(--blue);
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  padding: 0.5rem 2.5%;
+  align-items: center;
+}
+
+.header-container .header .logo {
+  font-size: 25.6px;
+  font-weight: bolder;
+}
+
+.header-container .header img {
+  height: 75px;
+  width: 75px;
+  margin-right: 0.5rem;
+}
+
+.icons {
+  align-items: center;
+  font-size: 25px;
+  padding: 0.5rem 2.5%;
+}
