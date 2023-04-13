@@ -1,12 +1,12 @@
 <!-- footer section starts -->
 <div class="row footer mt-1">
       <div class="bottom-footer">
-            <h5>Copyright © 2023, University of Bahrain | All rights reserved
+            <p>Copyright © 2023, University of Bahrain | All rights reserved
                   <!-- </br>
                   This website is developed by Ahmed
                   Yusuf, Ahmed Alzakri,
                   , Ali Shaik Hussain, Hussain Barakat -->
-            </h5>
+            </p>
       </div>
 </div>
 <!-- footer section ends -->
