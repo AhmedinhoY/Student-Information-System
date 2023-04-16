@@ -47,6 +47,7 @@ p {
   color: white;
   background-color: var(--blue);
   border-bottom: 4px solid #cfae78;
+  margin-bottom: 45px;
 }
 
 .header {
@@ -79,10 +80,82 @@ p {
   text-align: center;
   padding: 1rem 0rem;
   border-top: 3px solid var(--gold);
+  margin-top: 45px;
 }
 
 .footer .bottom-footer p {
   margin: 0px;
+}
+
+.form {
+  min-height: 50vh;
+  width: 35%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: var(--bg);
+}
+
+.form .form-element .form-header {
+  padding: 10px 15px;
+  display: flex;
+}
+.form .form-element .form-header h2 {
+  font-size: 30px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.form .form-element .form-body form {
+  width: 100%;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  font-size: 20px;
+  margin: auto;
+}
+
+.form .form-element .form-body form input {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 17px;
+  margin: 8px 0;
+  background: #eee;
+  border-radius: 5px;
+}
+
+.form .form-element .form-body form .form-btn {
+  color: #fff;
+  background: var(--blue);
+  text-transform: capitalize;
+  font-size: 20px;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px 15px;
+  margin: 8px 0;
+  border-radius: 5px;
+}
+
+.form .form-element .form-body form .form-btn:hover {
+  /* background: #fff; */
+  color: var(--gold);
+}
+
+.form .form-element .form-body form p {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.form .form-element .form-body form p a {
+  color: var(--darkpink);
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {
