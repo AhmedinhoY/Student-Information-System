@@ -40,6 +40,16 @@ p {
   margin: 0px;
 }
 
+select {
+  word-wrap: normal;
+  padding: 10px 15px;
+  font-size: 17px;
+  margin: 8px 0px;
+  background: #eee;
+  border-radius: 5px;
+  text-align: center;
+}
+
 .header-container {
   display: flex;
   justify-content: space-between;
