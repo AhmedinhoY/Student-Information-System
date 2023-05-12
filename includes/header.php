@@ -24,6 +24,9 @@ require('user-profile.php');
 
       <!-- custom css file link  -->
       <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/style1.css">
+
+
 
       <!-- bootstrap -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -61,4 +64,64 @@ require('user-profile.php');
                   </button>
             </div>
       </div>
+
+      <nav class="sidebar ">
+
+            <div class="menu-bar">
+                  <div class="menu">
+
+                        <li class="search-box">
+                              <i class='fa fa-search icon'></i>
+                              <input type="text" placeholder="Search...">
+                        </li>
+
+                        <ul class="menu-links">
+                              <li class="nav-link">
+                                    <a href="#">
+                                          <i class='fa fa-th-large icon'></i>
+                                          <span class="text nav-text">Dashboard</span>
+                                    </a>
+                              </li>
+
+                              <li class="nav-link">
+                                    <a href="#">
+                                          <i class='fa fa-eye icon'></i>
+                                          <span class="text nav-text">Viewing</span>
+                                    </a>
+                              </li>
+
+                              <li class="nav-link">
+                                    <a href="#">
+                                          <i class='fa fa-graduation-cap icon'></i>
+                                          <span class="text nav-text">Academic Affairs</span>
+                                    </a>
+                              </li>
+
+                              <li class="nav-link">
+                                    <a href="#">
+                                          <i class='fa fa-laptop icon'></i>
+                                          <span class="text nav-text">My E-services</span>
+                                    </a>
+                              </li>
+
+                              <li class="nav-link">
+                                    <a href="#">
+                                          <i class='fa fa-hand-pointer-o icon'></i>
+                                          <span class="text nav-text">My Requests</span>
+                                    </a>
+                              </li>
+
+                              <li class="nav-link">
+                                    <a href="#">
+                                          <i class='fa fa-file-text icon'></i>
+                                          <span class="text nav-text">Reports</span>
+                                    </a>
+                              </li>
+
+                        </ul>
+                  </div>
+            </div>
+
+      </nav>
+
       <!-- header section ends -->
