@@ -9,7 +9,7 @@ require('user-profile.php');
 <head>
       <link rel="shortcut icon" href="img/UoB.png" />
 
-      <title>University of Bahrain SIS</title>
+      <title>University of Bahrain</title>
       <meta charset="UTF-8">
       <meta http-equcomv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +45,7 @@ require('user-profile.php');
 
 <body>
       <!-- header section starts -->
-      <div class="header-container">
+      <header class="header-container">
             <div header class="header">
                   <img src="img/UoB.png" alt="University of Bahrain Logo">
                   <h5 class="logo">University of Bahrain SIS</h5>
@@ -66,7 +66,7 @@ require('user-profile.php');
                         </div>
                   </button>
             </div>
-      </div>
+      </header>
 
       <div class="sidebar">
             <!-- <li class="search-box">
@@ -75,13 +75,13 @@ require('user-profile.php');
             </li> -->
             <ul class="nav-links">
                   <li>
-                        <a href="#">
+                        <a href="index.php">
                               <i class='fa fa-th-large icon'></i>
                               <span class="link_name">Dashboard</span>
                         </a>
                   </li>
-                  <li>
-                        <div class="iocn-link">
+                  <li class=" " id="submenu-1">
+                        <div class="iocn-link" onclick="toggleMenu1()">
                               <a href="#">
                                     <i class='fa fa-eye icon'></i>
                                     <span class="link_name">Viewing</span>
@@ -89,14 +89,12 @@ require('user-profile.php');
                               <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
                         </div>
                         <ul class="sub-menu">
-                              <li><a class="link_name" href="#">Category</a></li>
-                              <li><a href="#">HTML & CSS</a></li>
-                              <li><a href="#">JavaScript</a></li>
-                              <li><a href="#">PHP & MySQL</a></li>
+                              <li><a href="#">Academic Plan</a></li>
+                              <li><a href="#">Contact Details</a></li>
                         </ul>
                   </li>
-                  <li>
-                        <div class="iocn-link">
+                  <li class=" " id="submenu-2">
+                        <div class="iocn-link" onclick="toggleMenu2()">
                               <a href="#">
                                     <i class='fa fa-graduation-cap icon'></i>
                                     <span class="link_name">Academic Affairs</span>
@@ -104,14 +102,12 @@ require('user-profile.php');
                               <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
                         </div>
                         <ul class="sub-menu">
-                              <li><a class="link_name" href="#">Posts</a></li>
-                              <li><a href="#">Web Design</a></li>
-                              <li><a href="#">Login Form</a></li>
-                              <li><a href="#">Card Design</a></li>
+                              <li><a href="#">Course Attendence</a></li>
+                              <li><a href="#">Course Registration</a></li>
                         </ul>
                   </li>
-                  <li>
-                        <div class="iocn-link">
+                  <li class=" " id="submenu-3">
+                        <div class="iocn-link" onclick="toggleMenu3()">
                               <a href="#">
                                     <i class="bx bx-laptop"></i>
                                     <span class="link_name">My E-services</span>
@@ -119,13 +115,13 @@ require('user-profile.php');
                               <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
                         </div>
                         <ul class="sub-menu">
-                              <li><a class="link_name" href="#">My E-services</a></li>
-                              <li><a href="#">GPA Simulator</a></li>
-                              <li><a href="#">GPA Calculator</a></li>
+                              <li><a href="gpa-simulator.php">Course Evaluation</a></li>
+                              <li><a href="gpa-simulator.php">GPA Simulator</a></li>
+                              <li><a href="gpa-calculator.php">GPA Calculator</a></li>
                         </ul>
                   </li>
-                  <li>
-                        <div class="iocn-link">
+                  <li class=" " id="submenu-4">
+                        <div class="iocn-link" onclick="toggleMenu4()">
 
                               <a href="#">
                                     <i class='fa fa-hand-pointer-o icon'></i>
@@ -134,14 +130,12 @@ require('user-profile.php');
                               <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
                         </div>
                         <ul class="sub-menu">
-                              <li><a class="link_name" href="#">Posts</a></li>
-                              <li><a href="#">Web Design</a></li>
-                              <li><a href="#">Login Form</a></li>
-                              <li><a href="#">Card Design</a></li>
+                              <li><a href="#">Course Withdrawal</a></li>
+                              <li><a href="#">Official Withdrawal</a></li>
                         </ul>
                   </li>
-                  <li>
-                        <div class="iocn-link">
+                  <li class=" " id="submenu-5">
+                        <div class="iocn-link" onclick="toggleMenu5()">
                               <a href="#">
                                     <i class='fa fa-file-text icon'></i>
                                     <span class="link_name">Reports</span>
@@ -149,10 +143,8 @@ require('user-profile.php');
                               <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
                         </div>
                         <ul class="sub-menu">
-                              <li><a class="link_name" href="#">Reports</a></li>
-                              <li><a href="#">UI Face</a></li>
-                              <li><a href="#">Pigments</a></li>
-                              <li><a href="#">Box Icons</a></li>
+                              <li><a href="#">Course Schecule</a></li>
+                              <li><a href="#">Academic Transcript</a></li>
                         </ul>
                   </li>
             </ul>
