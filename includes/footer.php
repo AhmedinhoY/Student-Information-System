@@ -1,5 +1,5 @@
 <!-- footer section starts -->
-<div class="row footer mt-1 ">
+<div class="footer">
       <div class="bottom-footer">
             <p>Copyright © 2023, University of Bahrain | All rights reserved
                   <!-- </br>

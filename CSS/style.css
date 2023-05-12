@@ -1,15 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
 
 :root {
+  /* ======colors====== */
   --black: #000000;
   --gold: #cfae78;
   --blue: #21559b;
   --bg: #f6f6f6;
+  --sidebar-color: #fff;
+  --sidebar-text-color: #707070;
+
   --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
   --box-shadow2: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.05);
   --border: 0.1rem solid rgba(0, 0, 0, 0.1);
   --outline: 0.1rem solid rgba(0, 0, 0, 0.1);
   --outline-hover: 0.2rem solid var(--black);
+
+  /* ====== Transition ====== */
+  --tran-03: all 0.2s ease;
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.3s ease;
+  --tran-05: all 0.3s ease;
 }
 
 * {
@@ -40,6 +50,10 @@ p {
   margin: 0px;
 }
 
+body {
+  padding-top: 65px;
+}
+
 select {
   word-wrap: normal;
   padding: 10px 15px;
@@ -52,15 +66,18 @@ select {
 
 .header-container {
   position: fixed;
+  top: 0;
+  z-index: 1000;
   height: 65px;
   width: 100%;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   color: white;
   background-color: var(--blue);
   border-bottom: 4px solid #cfae78;
-  z-index: 1000;
 }
 
 .header {
@@ -84,35 +101,37 @@ select {
   font-size: 2.5rem;
   padding: 0.5rem 2.5%;
 }
+
 .footer {
+  height: 35px;
   width: 100%;
-  position: absolute;
+  position: relative;
   bottom: 0;
-  z-index: 1000;
+  margin-left: 255px;
 }
 .footer .bottom-footer {
   background: var(--blue);
   color: white;
   font-size: 1.5rem;
-  text-align: center;
-  padding: 1rem 0rem;
+  padding: 1rem 3rem;
   border-top: 3px solid var(--gold);
-  margin-top: 45px;
 }
 
 .footer .bottom-footer p {
   margin: 0px;
 }
-
+.container {
+  min-height: 100vh;
+  margin-left: 255px;
+}
 .form {
   min-height: 50vh;
-  width: 35%;
-  margin: auto;
-  padding: 20px;
+  /* width: 35%; */
+  margin: 25px;
   border-radius: 10px;
   box-shadow: var(--box-shadow);
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
   padding: 20px;
   background: var(--bg);
 }
