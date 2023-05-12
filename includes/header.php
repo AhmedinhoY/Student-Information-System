@@ -22,6 +22,9 @@ require('user-profile.php');
       <!-- font awesome cdn link  -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+      <!-- Boxicons cdn link -->
+      <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
       <!-- custom css file link  -->
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="css/style1.css">
@@ -65,63 +68,94 @@ require('user-profile.php');
             </div>
       </div>
 
-      <nav class="sidebar ">
-
-            <div class="menu-bar">
-                  <div class="menu">
-
-                        <li class="search-box">
-                              <i class='fa fa-search icon'></i>
-                              <input type="text" placeholder="Search...">
-                        </li>
-
-                        <ul class="menu-links">
-                              <li class="nav-link">
-                                    <a href="#">
-                                          <i class='fa fa-th-large icon'></i>
-                                          <span class="text nav-text">Dashboard</span>
-                                    </a>
-                              </li>
-
-                              <li class="nav-link">
-                                    <a href="#">
-                                          <i class='fa fa-eye icon'></i>
-                                          <span class="text nav-text">Viewing</span>
-                                    </a>
-                              </li>
-
-                              <li class="nav-link">
-                                    <a href="#">
-                                          <i class='fa fa-graduation-cap icon'></i>
-                                          <span class="text nav-text">Academic Affairs</span>
-                                    </a>
-                              </li>
-
-                              <li class="nav-link">
-                                    <a href="#">
-                                          <i class='fa fa-laptop icon'></i>
-                                          <span class="text nav-text">My E-services</span>
-                                    </a>
-                              </li>
-
-                              <li class="nav-link">
-                                    <a href="#">
-                                          <i class='fa fa-hand-pointer-o icon'></i>
-                                          <span class="text nav-text">My Requests</span>
-                                    </a>
-                              </li>
-
-                              <li class="nav-link">
-                                    <a href="#">
-                                          <i class='fa fa-file-text icon'></i>
-                                          <span class="text nav-text">Reports</span>
-                                    </a>
-                              </li>
-
+      <div class="sidebar">
+            <!-- <li class="search-box">
+                  <i class='fa fa-search icon'></i>
+                  <input type="text" placeholder="Search...">
+            </li> -->
+            <ul class="nav-links">
+                  <li>
+                        <a href="#">
+                              <i class='fa fa-th-large icon'></i>
+                              <span class="link_name">Dashboard</span>
+                        </a>
+                  </li>
+                  <li>
+                        <div class="iocn-link">
+                              <a href="#">
+                                    <i class='fa fa-eye icon'></i>
+                                    <span class="link_name">Viewing</span>
+                              </a>
+                              <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
+                        </div>
+                        <ul class="sub-menu">
+                              <li><a class="link_name" href="#">Category</a></li>
+                              <li><a href="#">HTML & CSS</a></li>
+                              <li><a href="#">JavaScript</a></li>
+                              <li><a href="#">PHP & MySQL</a></li>
                         </ul>
-                  </div>
-            </div>
+                  </li>
+                  <li>
+                        <div class="iocn-link">
+                              <a href="#">
+                                    <i class='fa fa-graduation-cap icon'></i>
+                                    <span class="link_name">Academic Affairs</span>
+                              </a>
+                              <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
+                        </div>
+                        <ul class="sub-menu">
+                              <li><a class="link_name" href="#">Posts</a></li>
+                              <li><a href="#">Web Design</a></li>
+                              <li><a href="#">Login Form</a></li>
+                              <li><a href="#">Card Design</a></li>
+                        </ul>
+                  </li>
+                  <li>
+                        <div class="iocn-link">
+                              <a href="#">
+                                    <i class="bx bx-laptop"></i>
+                                    <span class="link_name">My E-services</span>
+                              </a>
+                              <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
+                        </div>
+                        <ul class="sub-menu">
+                              <li><a class="link_name" href="#">My E-services</a></li>
+                              <li><a href="#">GPA Simulator</a></li>
+                              <li><a href="#">GPA Calculator</a></li>
+                        </ul>
+                  </li>
+                  <li>
+                        <div class="iocn-link">
 
-      </nav>
+                              <a href="#">
+                                    <i class='fa fa-hand-pointer-o icon'></i>
+                                    <span class="link_name">My Requests</span>
+                              </a>
+                              <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
+                        </div>
+                        <ul class="sub-menu">
+                              <li><a class="link_name" href="#">Posts</a></li>
+                              <li><a href="#">Web Design</a></li>
+                              <li><a href="#">Login Form</a></li>
+                              <li><a href="#">Card Design</a></li>
+                        </ul>
+                  </li>
+                  <li>
+                        <div class="iocn-link">
+                              <a href="#">
+                                    <i class='fa fa-file-text icon'></i>
+                                    <span class="link_name">Reports</span>
+                              </a>
+                              <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
+                        </div>
+                        <ul class="sub-menu">
+                              <li><a class="link_name" href="#">Reports</a></li>
+                              <li><a href="#">UI Face</a></li>
+                              <li><a href="#">Pigments</a></li>
+                              <li><a href="#">Box Icons</a></li>
+                        </ul>
+                  </li>
+            </ul>
+      </div>
 
       <!-- header section ends -->
