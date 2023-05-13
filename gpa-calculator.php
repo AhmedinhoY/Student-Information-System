@@ -135,50 +135,7 @@
                                                 <td><i class="fa fa-times" aria-hidden="true"></i></td>
 
                                           </tr>
-                                          <tr>
-                                                <td><input type="text" name="cCode" placeholder="Course 6"></td>
-                                                <td><input type="text" name="cHours"></td>
-                                                <td>
-                                                      <select name="grade">
-                                                            <option selected>Select a grade</option>
-                                                            <option value="A">A (90-100)</option>
-                                                            <option value="A-">A- (87-89)</option>
-                                                            <option value="B+">B+ (84-86)</option>
-                                                            <option value="B">B (80-83)</option>
-                                                            <option value="B-">B- (77-79)</option>
-                                                            <option value="C">C+ (74-76)</option>
-                                                            <option value="C">C (70-73)</option>
-                                                            <option value="C-">C- (67-69)</option>
-                                                            <option value="D">D+ (64-66)</option>
-                                                            <option value="D">D (60-63)</option>
-                                                            <option value="F">F (0-60)</option>
-                                                      </select>
-                                                </td>
-                                                <td><i class="fa fa-times" aria-hidden="true"></i></td>
 
-                                          </tr>
-                                          <tr>
-                                                <td><input type="text" name="cCode" placeholder="Course 7"></td>
-                                                <td><input type="text" name="cHours"></td>
-                                                <td>
-                                                      <select name="grade">
-                                                            <option selected>Select a grade</option>
-                                                            <option value="A">A (90-100)</option>
-                                                            <option value="A-">A- (87-89)</option>
-                                                            <option value="B+">B+ (84-86)</option>
-                                                            <option value="B">B (80-83)</option>
-                                                            <option value="B-">B- (77-79)</option>
-                                                            <option value="C">C+ (74-76)</option>
-                                                            <option value="C">C (70-73)</option>
-                                                            <option value="C-">C- (67-69)</option>
-                                                            <option value="D">D+ (64-66)</option>
-                                                            <option value="D">D (60-63)</option>
-                                                            <option value="F">F (0-60)</option>
-                                                      </select>
-                                                </td>
-                                                <td><i class="fa fa-times" aria-hidden="true"></i></td>
-
-                                          </tr>
                                           <tr>
                                                 <td colspan="4"> <label>Enter your current CGPA</label></br>
                                                       <input type="text" name="CGPA">

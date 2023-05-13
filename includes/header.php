@@ -48,7 +48,7 @@ require('user-profile.php');
       <header class="header-container">
             <div header class="header">
                   <img src="img/UoB.png" alt="University of Bahrain Logo">
-                  <h5 class="logo">University of Bahrain SIS</h5>
+                  <h5 class="logo">University of Bahrain</h5>
             </div>
 
             <div class="icons">
