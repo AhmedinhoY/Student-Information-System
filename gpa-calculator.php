@@ -5,7 +5,7 @@
 
 ?>
 <div class="container">
-      <div class="form" id="form" style="width: 85%;">
+      <div class="form" id="form">
             <div class="form-element" id="gpa-sim-form">
 
                   <div class="form-header">
