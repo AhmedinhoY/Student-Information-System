@@ -46,6 +46,8 @@ require('user-profile.php');
 <body>
       <!-- header section starts -->
       <header class="header-container">
+            <!-- ----= Done by: Ahmed Yusuf =---- -->
+
             <div header class="header">
                   <img src="img/UoB.png" alt="University of Bahrain Logo">
                   <h5 class="logo">University of Bahrain</h5>
@@ -69,6 +71,8 @@ require('user-profile.php');
       </header>
 
       <div class="sidebar">
+            <!-- ----= Done by: Ahmed Yusuf =---- -->
+
             <!-- <li class="search-box">
                   <i class='fa fa-search icon'></i>
                   <input type="text" placeholder="Search...">

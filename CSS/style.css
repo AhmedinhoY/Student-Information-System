@@ -369,17 +369,91 @@ select {
 }
 
 .dashboard-container {
-  min-height: 30vh;
+  min-height: 20vh;
 
   background: var(--bg);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   padding: 20px;
+  margin-bottom: 10px;
 }
 .dashboard-container h2 {
-  text-transform: uppercase;
   margin-bottom: 10px;
   color: #333;
+}
+.dashboard-container .dashboard-text-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.dashboard-container .dashboard-text {
+  width: fit-content;
+  height: auto;
+  font-size: 1.55rem;
+  background: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+
+  margin: 15px 15px 0 0;
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-container .dashboard-text h3 {
+  color: var(--blue);
+}
+
+/* ====== circular container ======= */
+.circule-container-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  padding: 10px;
+  align-items: center;
+}
+.cirule-container {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background: #fff;
+  margin-right: 15px;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+}
+.circular-progress {
+  position: relative;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  margin: 10px;
+  background: conic-gradient(var(--blue), calc(360deg * 0.975), #ededed 0deg);
+  /* progress degree = percentage * 3.6
+     ex. progress degree = 75 * 3.6 = 270 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.circular-progress::before {
+  content: "";
+  position: absolute;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.progress-value {
+  position: relative;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+.circule-text {
+  font-size: 1.55rem;
+  font-weight: 500;
+  color: #606060;
+  text-align: center;
 }
 
 /* ====== Media Queries ====== */

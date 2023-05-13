@@ -1,11 +1,7 @@
-<?php require('includes/header.php');
-
-
-
-
-?>
+<?php require('includes/header.php'); ?>
 <div class="container">
       <div class="form" id="form">
+            <!-- ----= Done by: Ahmed Yusuf =---- -->
             <div class="form-element" id="gpa-sim-form">
 
                   <div class="form-header">
