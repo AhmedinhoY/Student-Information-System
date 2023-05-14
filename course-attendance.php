@@ -13,7 +13,7 @@
                   </div>
                   <div class="div-body">
                         <div class="inner-inner-div">
-                              <table class="table">
+                              <table class="table table-hover">
                                     <thead>
                                           <tr>
                                                 <th scope="col">Course Code</th>
