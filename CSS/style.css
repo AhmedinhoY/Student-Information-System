@@ -352,6 +352,51 @@ select {
   color: var(--darkpink);
   cursor: pointer;
 }
+/* ====== Divs ====== */
+
+.outer-div {
+  min-height: 50vh;
+  /* width: 35%; */
+  margin: 25px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  /* align-items: center;
+  justify-content: center; */
+  padding: 20px;
+  background: var(--bg);
+}
+.inner-inner-div {
+  width: 100%;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  font-size: 1.55rem;
+  margin-bottom: 10px;
+}
+.outer-div .inner-div .div-header {
+  padding: 10px 15px;
+  display: flex;
+}
+.outer-div .inner-div .div-header h2 {
+  font-size: 30px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* ====== Tables ====== */
+
+.outer-div .inner-div .div-body .inner-inner-div th {
+  font-size: 1.7rem;
+  text-align: center;
+}
+.outer-div .inner-div .div-body .inner-inner-div td {
+  font-size: 1.65rem;
+  text-align: center;
+  font-weight: 450;
+  padding: 10px;
+}
 
 /* ======= Containers ====== */
 
@@ -438,8 +483,8 @@ select {
 .circular-progress::before {
   content: "";
   position: absolute;
-  height: 80px;
-  width: 80px;
+  height: 90px;
+  width: 90px;
   border-radius: 50%;
   background-color: #fff;
 }

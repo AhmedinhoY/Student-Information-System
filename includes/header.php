@@ -106,8 +106,8 @@ require('user-profile.php');
                               <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
                         </div>
                         <ul class="sub-menu">
-                              <li><a href="#">Course Attendence</a></li>
-                              <li><a href="#">Course Registration</a></li>
+                              <li><a href="course-attendance.php">Course Attendence</a></li>
+                              <li><a href="course-registration.php">Course Registration</a></li>
                         </ul>
                   </li>
                   <li class=" " id="submenu-3">
@@ -119,7 +119,7 @@ require('user-profile.php');
                               <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
                         </div>
                         <ul class="sub-menu">
-                              <li><a href="gpa-simulator.php">Course Evaluation</a></li>
+                              <li><a href="course-evaluation.php">Course Evaluation</a></li>
                               <li><a href="gpa-simulator.php">GPA Simulator</a></li>
                               <li><a href="gpa-calculator.php">GPA Calculator</a></li>
                         </ul>
@@ -134,7 +134,7 @@ require('user-profile.php');
                               <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
                         </div>
                         <ul class="sub-menu">
-                              <li><a href="#">Course Withdrawal</a></li>
+                              <li><a href="course-withdrawal.php">Course Withdrawal</a></li>
                               <li><a href="#">Official Withdrawal</a></li>
                         </ul>
                   </li>
@@ -147,8 +147,8 @@ require('user-profile.php');
                               <i class="fa fa-angle-right arrow" aria-hidden="true"></i>
                         </div>
                         <ul class="sub-menu">
-                              <li><a href="#">Course Schecule</a></li>
-                              <li><a href="#">Academic Transcript</a></li>
+                              <li><a href="course-schedule.php">Course Schedule</a></li>
+                              <li><a href="academic-transcript.php">Academic Transcript</a></li>
                         </ul>
                   </li>
             </ul>
