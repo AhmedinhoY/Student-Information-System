@@ -23,7 +23,7 @@
                               <h3>Advisor:</h3> Dr.Ali Hassan Al-Safar
                         </div> -->
                         <div class="dashboard-text">
-                              <h3>Registered CH:</h3> 12.00
+                              <h3>Registered CH:</h3> 15.00
                         </div>
                         <div class="dashboard-text">
                               <h3>Passed CH:</h3> 75.00 (56.8%)
@@ -47,7 +47,7 @@
             </div>
       </div>
       <div class="row ">
-            
+
             <div class="dashboard-container " style="width:68%; height: 30vh; margin-right:10px;">
                   <h2>Today's TimeTable</h2>
 
@@ -76,7 +76,7 @@
                                     <span class="progress-value">97.5%</span>
                               </div>
                               <span class="circule-text">
-                                    <h3>ITCS321</h3>
+                                    <h3>ITCS489</h3>
                               </span>
                         </div>
                         <div class="cirule-container">
@@ -84,7 +84,7 @@
                                     <span class="progress-value">97.5%</span>
                               </div>
                               <span class="circule-text">
-                                    <h3>ITCS396</h3>
+                                    <h3>ITCS489</h3>
                               </span>
                         </div>
                         <div class="cirule-container">
@@ -92,7 +92,7 @@
                                     <span class="progress-value">97.5%</span>
                               </div>
                               <span class="circule-text">
-                                    <h3>ITCE314</h3>
+                                    <h3>ITCE489</h3>
                               </span>
                         </div>
                         <div class="cirule-container">
@@ -100,7 +100,7 @@
                                     <span class="progress-value">97.5%</span>
                               </div>
                               <span class="circule-text">
-                                    <h3>ITCS317</h3>
+                                    <h3>ITCS489</h3>
                               </span>
                         </div>
                         <!-- <div class="cirule-container">

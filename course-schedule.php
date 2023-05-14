@@ -21,7 +21,7 @@
                                     <h3>MCGPA:</h3> 4.00
                               </div>
                               <div class="dashboard-text">
-                                    <h3>Registered CH:</h3> 12.00
+                                    <h3>Registered CH:</h3> 15.00
                               </div>
                         </div>
                   </div>
