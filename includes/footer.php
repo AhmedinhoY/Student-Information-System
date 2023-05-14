@@ -20,3 +20,6 @@
 </body>
 
 </html>
+<?php
+require('includes/functions.php');
+?>
