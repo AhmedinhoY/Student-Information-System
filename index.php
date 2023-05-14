@@ -4,7 +4,7 @@
       <div class="row">
             <!-- ----= Done by: Ahmed Yusuf =---- -->
             <div class="dashboard-container col-12" style="">
-                  <h2>Welcome, <span style="text-transform: uppercase;">Ahmed Yusuf Ahmed</span></h2>
+                  <h2>Welcome, <span style="text-transform: uppercase;">Ahmed Yusuf Ahmed Saleh</span></h2>
                   <div class="dashboard-text-container">
 
                         <div class="dashboard-text">
