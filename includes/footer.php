@@ -1,4 +1,7 @@
 <!-- footer section starts -->
+<?php
+
+?>
 <div class="footer">
       <div class="bottom-footer">
             <p>Copyright © 2023, University of Bahrain | All rights reserved
@@ -20,6 +23,3 @@
 </body>
 
 </html>
-<?php
-require('includes/functions.php');
-?>

@@ -31,7 +31,7 @@
   outline: none;
   border: none;
   text-decoration: none;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   transition: all 0.2s linear;
 }
 
@@ -80,6 +80,12 @@ select {
 ::selection {
   background-color: var(--blue);
   color: #fff;
+}
+
+.seperator {
+  width: 0px;
+  border: 0.05rem solid rgba(0, 0, 0, 0.1);
+  margin: 0 10px;
 }
 
 /* ====== Header ====== */
@@ -281,6 +287,37 @@ select {
   display: block;
 }
 
+/* ======= control ======= */
+
+.form .form-element .log-in-control .control-container {
+  text-align: center;
+  font-size: 1.65rem;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  margin: auto;
+}
+.button-container .form-btn {
+  color: #fff;
+  background: var(--blue);
+  font-size: 1.55rem;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px 15px;
+  margin: 0;
+  border-radius: 8px;
+  text-transform: none;
+  text-decoration: none;
+}
+
+.button-container .form-btn:hover {
+  /* background: #fff; */
+  color: var(--gold);
+}
+
 /* ====== Forms ====== */
 
 .form {
@@ -293,6 +330,17 @@ select {
   justify-content: center; */
   padding: 20px;
   background: var(--bg);
+}
+
+.form .form-element {
+  margin: auto 15px auto 15px;
+}
+
+.login-form-element {
+  display: none;
+}
+.login-form-element-active {
+  display: block;
 }
 
 .form .form-element .form-header {
@@ -325,7 +373,7 @@ select {
   border-radius: 5px;
 }
 
-.form .form-element .form-body form .form-btn {
+.form-btn {
   color: #fff;
   background: var(--blue);
   text-transform: capitalize;
@@ -337,7 +385,7 @@ select {
   border-radius: 5px;
 }
 
-.form .form-element .form-body form .form-btn:hover {
+.form-btn:hover {
   /* background: #fff; */
   color: var(--gold);
 }

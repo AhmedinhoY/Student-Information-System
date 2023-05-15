@@ -1,3 +1,27 @@
+const form = document.getElementById("form");
+const overlay = document.getElementById("overlay");
+const student_login = document.getElementById("student-login-form");
+const staff_login = document.getElementById("staff-login-form");
+const admin_login = document.getElementById("admin-login-form");
+
+function studentLogin() {
+  student_login.classList.add("login-form-element-active");
+  staff_login.classList.remove("login-form-element-active");
+  admin_login.classList.remove("login-form-element-active");
+}
+
+function staffLogin() {
+  student_login.classList.remove("login-form-element-active");
+  staff_login.classList.add("login-form-element-active");
+  admin_login.classList.remove("login-form-element-active");
+}
+
+function adminLogin() {
+  student_login.classList.remove("login-form-element-active");
+  staff_login.classList.remove("login-form-element-active");
+  admin_login.classList.add("login-form-element-active");
+}
+
 let subMenu1 = document.getElementById("submenu-1");
 
 function toggleMenu1() {

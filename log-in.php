@@ -1,14 +1,16 @@
 <?php
+require('includes/functions.php');
 // username regular expression and session should be replaced and edited..
 $lgERRmsg = "";
-if (isset($_POST['sb'])) {
+// student login
+if (isset($_POST['stu-sb'])) {
     session_start();
     //Include functions
     try {
         require('includes/connection.php');
         
-        $lgUsername = test_input($_POST['username']);
-        if (!preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/", $lgUsername)) {
+        $lg_stuUsername = test_input($_POST['stu-username']);
+        if (!preg_match("/^202003838/", $lg_stuUsername)) {
             $lgERRmsg = "Invalid username format, please enter a valid username (your academic ID number)";
         }
         $login_sql = "select * from studentInfo where studentID='$lgUername'";
@@ -18,11 +20,11 @@ if (isset($_POST['sb'])) {
         die("Error: " . $e->getMessage());
     }
     if ($row = $lg_result->fetch()) {
-        if (password_verify($_POST['ps'], $row[5])) {
+        if (password_verify($_POST['stu-ps'], $row[5])) {
 
-            $_SESSION['activeUser'] = $lgUsername;
+            $_SESSION['activeUser'] = $lg_stuUsername;
             $_SESSION['user_data'] = array(
-                'studerntID' => $row['studentId'],
+                'studentID' => $row['studentId'],
                 'fullName' => $row['fullName'],
                 'email' => $row['email']
             //     'user_type' => $row['user_type']
@@ -30,7 +32,73 @@ if (isset($_POST['sb'])) {
         } 
       }
 
-        } 
+} 
+
+
+//staff login
+else if (isset($_POST['sta-sb'])) {
+      session_start();
+      //Include functions
+      try {
+          require('includes/connection.php');
+          
+          $lg_staUsername = test_input($_POST['sta-username']);
+          if (!preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/", $lg_staUsername)) {
+              $lgERRmsg = "Invalid username format, please enter a valid username";
+          }
+          $login_sql = "select * from staff where staffID='$lg_staUsername'";
+          $lg_result = $db->query($login_sql);
+          $db = null;
+      } catch (PDOException $e) {
+          die("Error: " . $e->getMessage());
+      }
+      if ($row = $lg_result->fetch()) {
+          if (password_verify($_POST['sta-ps'], $row[5])) {
+  
+              $_SESSION['activeUser'] = $lg_staUsername;
+              $_SESSION['user_data'] = array(
+                  'staffID' => $row['staffId'],
+                  'fullName' => $row['fullName'],
+                  'email' => $row['email']
+              //     'user_type' => $row['user_type']
+              );
+          } 
+        }
+  
+  } 
+
+  
+// admin login
+else if (isset($_POST['adm-sb'])) {
+      session_start();
+      //Include functions
+      try {
+          require('includes/connection.php');
+          
+          $lg_admUsername = test_input($_POST['adm-username']);
+          if (!preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/", $lg_admUsername)) {
+              $lgERRmsg = "Invalid username format, please enter a valid username";
+          }
+          $login_sql = "select * from admin where adminID='$lg_admUsername'";
+          $lg_result = $db->query($login_sql);
+          $db = null;
+      } catch (PDOException $e) {
+          die("Error: " . $e->getMessage());
+      }
+      if ($row = $lg_result->fetch()) {
+          if (password_verify($_POST['adm-ps'], $row[5])) {
+  
+              $_SESSION['activeUser'] = $lg_admUsername;
+              $_SESSION['user_data'] = array(
+                  'adminID' => $row['adminId'],
+                  'fullName' => $row['fullName'],
+                  'email' => $row['email']
+              //     'user_type' => $row['user_type']
+              );
+          } 
+        }
+  
+  } 
 ?>
 
 <!DOCTYPE html>
@@ -67,55 +135,126 @@ if (isset($_POST['sb'])) {
       </script>
 </head>
 
-<body>
+<body style="height:100vh;">
       <!-- header section starts -->
       <div class="header-container">
             <div header class="header">
                   <img src="img/UoB.png" alt="University of Bahrain Logo">
                   <h5 class="logo">University of Bahrain SIS</h5>
             </div>
-
-            <!-- <div class="icons">
-                  <button style="background:none;">
-                        <a href="index.php">
-                              <div class="fa fa-home fa-lg" id="home-btn" style="color: white;">
-                              </div>
-                        </a>
-                  </button>
-                  <button style="background:none;">
-                        <div class="fa fa-sign-out fa-lg" id="sign-out-btn" style="color: white;"></div>
-                  </button>
-                  <button style="background:none;" onclick="openForm()">
-                        <div class="fa fa-user fa-lg" data-form-target="#form" id="user-btn" style="color: white;">
-                        </div>
-                  </button>
-            </div> -->
       </div>
+
       <!-- header section ends -->
 
-
-      <div class="form" id="form">
-            <div class="form-element" id="login-form">
-
-                  <div class="form-header">
-                        <h2>Log in</h2>
-                        <!-- <button class="close-button" onclick="closeForm()">&times;</button> -->
+      <div class="container" style="margin-left:0; max-width:100%; height:100vh;">
+            <div class="form" id="form"
+                  style="width:75%; margin: 50px auto 50px auto; display:flex; justify-content: space-around">
+                  <div class="form-element">
+                        <div class="log-in-control">
+                              <div class="control-container">
+                                    <h2 style="text-transform:uppercase;">welcome to the University of Bahrain</h2>
+                                    <p>The road to excellence starts at UOB. Apply now to obtain a world class
+                                          education.
+                                    </p>
+                                    <div class="button-container">
+                                          <br /><a class="form-btn" onclick="studentLogin()">Login as a Student</a>
+                                          <br /><a class="form-btn" onclick="staffLogin()">Login as a Staff</a>
+                                          <br /><a class="form-btn" onclick="adminLogin()">Login as an Admin</a>
+                                    </div>
+                              </div>
+                        </div>
                   </div>
-                  <div class="form-body">
-                        <form action="" method="post" id="log-in">
-                              <span style="color:red">
-                                    <?php echo $lgERRmsg; ?>
-                              </span> <br />
-                              <label>Username</label></br>
-                              <input type="text" name="username" placeholder="Enter your username (Student ID)"><br />
-                              <label>Password</label></br>
-                              <input type="password" name="ps" placeholder="Enter your password"><br />
-                              <button type="submit" name="sb" class="form-btn">Log in</button>
-                              <!-- <p>Don't have account? <a onclick="hideLogin()">Register</a></p> -->
+                  <div class="seperator"></div>
 
-                        </form>
+                  <!-- student login form -->
+                  <div class="form-element login-form-element login-form-element-active" id="student-login-form"
+                        style="width:40%;">
+
+                        <div class="form-header">
+                              <h2>Student Login</h2>
+                        </div>
+                        <div class="form-body">
+                              <form action="index.php" method="post" id="log-in">
+                                    <span style="color:red">
+                                          <?php echo $lgERRmsg; ?>
+                                    </span> <br />
+                                    <label>Username</label></br>
+                                    <input type="text" name="sta-username"
+                                          placeholder="Enter your username (Student ID)"><br />
+                                    <label>Password</label></br>
+                                    <input type="password" name="sta-ps" placeholder="Enter your password"><br />
+                                    <button type="submit" name="sta-sb" class="form-btn">Log in</button>
+                              </form>
+                        </div>
+                  </div>
+
+                  <!-- staff login form -->
+                  <div class="form-element login-form-element" id="staff-login-form" style="width:40%;">
+
+                        <div class="form-header">
+                              <h2>Staff Login</h2>
+                        </div>
+                        <div class="form-body">
+                              <form action="" method="post" id="log-in">
+                                    <span style="color:red">
+                                          <?php echo $lgERRmsg; ?>
+                                    </span> <br />
+                                    <label>Username</label></br>
+                                    <input type="text" name="sta-username" placeholder="Enter your username"><br />
+                                    <label>Password</label></br>
+                                    <input type="password" name="sta-ps" placeholder="Enter your password"><br />
+                                    <button type="submit" name="sta-sb" class="form-btn">Log in</button>
+
+                              </form>
+                        </div>
+                  </div>
+
+                  <!-- admin login form -->
+                  <div class="form-element login-form-element" id="admin-login-form" style="width:40%;">
+
+                        <div class="form-header">
+                              <h2>Admin Login</h2>
+                        </div>
+                        <div class="form-body">
+                              <form action="" method="post" id="log-in">
+                                    <span style="color:red">
+                                          <?php echo $lgERRmsg; ?>
+                                    </span> <br />
+                                    <label>Username</label></br>
+                                    <input type="text" name="adm-username" placeholder="Enter your username"><br />
+                                    <label>Password</label></br>
+                                    <input type="password" name="adm-ps" placeholder="Enter your password"><br />
+                                    <button type="submit" name="adm-sb" class="form-btn">Log in</button>
+
+                              </form>
+                        </div>
                   </div>
             </div>
       </div>
 
-      <?php require('includes/footer.php'); ?>
+      <!-- footer section starts -->
+      <?php
+
+?>
+      <div class="footer" style="margin-left:0; position: absolute;">
+            <div class="bottom-footer">
+                  <p>Copyright © 2023, University of Bahrain | All rights reserved
+                        <!-- </br>
+                  This website is developed by Ahmed
+                  Yusuf, Ahmed Alzakri,
+                  , Ali Shaik Hussain, Hussain Barakat -->
+                  </p>
+            </div>
+      </div>
+      <!-- footer section ends -->
+
+
+      <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+      <!-- custom js file link  -->
+      <script src="js/script.js"></script>
+
+</body>
+
+</html>
