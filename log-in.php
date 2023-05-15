@@ -10,7 +10,7 @@ if (isset($_POST['stu-sb'])) {
         require('includes/connection.php');
         
         $lg_stuUsername = test_input($_POST['stu-username']);
-        if (!preg_match("/^202003838/", $lg_stuUsername)) {
+        if (!preg_match("/^(((201)\d)|((202)[0-4]))(\d\d\d\d\d)/", $lg_stuUsername)) {
             $lgERRmsg = "Invalid username format, please enter a valid username (your academic ID number)";
         }
         $login_sql = "select * from studentInfo where studentID='$lgUername'";
@@ -43,10 +43,10 @@ else if (isset($_POST['sta-sb'])) {
           require('includes/connection.php');
           
           $lg_staUsername = test_input($_POST['sta-username']);
-          if (!preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/", $lg_staUsername)) {
+          if (!preg_match("/^(\w+)@uob.edu.bh/", $lg_staUsername)) {
               $lgERRmsg = "Invalid username format, please enter a valid username";
           }
-          $login_sql = "select * from staff where staffID='$lg_staUsername'";
+          $login_sql = "select * from staff where email='$lg_staUsername'";
           $lg_result = $db->query($login_sql);
           $db = null;
       } catch (PDOException $e) {
@@ -57,9 +57,8 @@ else if (isset($_POST['sta-sb'])) {
   
               $_SESSION['activeUser'] = $lg_staUsername;
               $_SESSION['user_data'] = array(
-                  'staffID' => $row['staffId'],
+                  'staffEmail' => $row['email'],
                   'fullName' => $row['fullName'],
-                  'email' => $row['email']
               //     'user_type' => $row['user_type']
               );
           } 
@@ -76,10 +75,10 @@ else if (isset($_POST['adm-sb'])) {
           require('includes/connection.php');
           
           $lg_admUsername = test_input($_POST['adm-username']);
-          if (!preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/", $lg_admUsername)) {
+          if (!preg_match("/^(\w+)@uob.edu.bh/", $lg_admUsername)) {
               $lgERRmsg = "Invalid username format, please enter a valid username";
           }
-          $login_sql = "select * from admin where adminID='$lg_admUsername'";
+          $login_sql = "select * from admin where email='$lg_admUsername'";
           $lg_result = $db->query($login_sql);
           $db = null;
       } catch (PDOException $e) {
@@ -148,7 +147,7 @@ else if (isset($_POST['adm-sb'])) {
 
       <div class="container" style="margin-left:0; max-width:100%; height:100vh;">
             <div class="form" id="login-form">
-                  <div class="form-element" id="control-form-element" >
+                  <div class="form-element" id="control-form-element">
                         <div class="log-in-control">
                               <div class="control-container">
                                     <h2 style="text-transform:uppercase;">welcome to the University of Bahrain</h2>
@@ -166,7 +165,7 @@ else if (isset($_POST['adm-sb'])) {
                   <div class="seperator"></div>
 
                   <!-- student login form -->
-                  <div class="form-element login-form-element login-form-element-active" id="student-login-form" >
+                  <div class="form-element login-form-element login-form-element-active" id="student-login-form">
 
                         <div class="form-header">
                               <h2>Student Login</h2>
@@ -187,13 +186,13 @@ else if (isset($_POST['adm-sb'])) {
                   </div>
 
                   <!-- staff login form -->
-                  <div class="form-element login-form-element" id="staff-login-form" >
+                  <div class="form-element login-form-element" id="staff-login-form">
 
                         <div class="form-header">
                               <h2>Staff Login</h2>
                         </div>
                         <div class="form-body">
-                              <form action="" method="post" id="log-in">
+                              <form action="staff/staff-index.php" method="post" id="log-in">
                                     <span style="color:red">
                                           <?php echo $lgERRmsg; ?>
                                     </span> <br />
@@ -208,13 +207,13 @@ else if (isset($_POST['adm-sb'])) {
                   </div>
 
                   <!-- admin login form -->
-                  <div class="form-element login-form-element" id="admin-login-form" >
+                  <div class="form-element login-form-element" id="admin-login-form">
 
                         <div class="form-header">
                               <h2>Admin Login</h2>
                         </div>
                         <div class="form-body">
-                              <form action="" method="post" id="log-in">
+                              <form action="admin/admin-index.php" method="post" id="log-in">
                                     <span style="color:red">
                                           <?php echo $lgERRmsg; ?>
                                     </span> <br />

@@ -606,6 +606,12 @@ select {
   #admin-login-form {
     width: 40%;
   }
+  #login-form #staff-login-form {
+    width: 40%;
+  }
+  #login-form #admin-login-form {
+    width: 40%;
+  }
 
   /*large laptop view*/
 }
