@@ -287,37 +287,6 @@ select {
   display: block;
 }
 
-/* ======= control ======= */
-
-.form .form-element .log-in-control .control-container {
-  text-align: center;
-  font-size: 1.65rem;
-}
-.button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: fit-content;
-  margin: auto;
-}
-.button-container .form-btn {
-  color: #fff;
-  background: var(--blue);
-  font-size: 1.55rem;
-  cursor: pointer;
-  width: 100%;
-  padding: 10px 15px;
-  margin: 0;
-  border-radius: 8px;
-  text-transform: none;
-  text-decoration: none;
-}
-
-.button-container .form-btn:hover {
-  /* background: #fff; */
-  color: var(--gold);
-}
-
 /* ====== Forms ====== */
 
 .form {
@@ -334,6 +303,10 @@ select {
 
 .form .form-element {
   margin: auto 15px auto 15px;
+}
+
+#login-form .form-element {
+  width: 50%;
 }
 
 .login-form-element {
@@ -400,6 +373,44 @@ select {
   color: var(--darkpink);
   cursor: pointer;
 }
+
+#login-form {
+  margin: 50px auto 50px auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* ======= login control ======= */
+
+.form .form-element .log-in-control .control-container {
+  text-align: center;
+  font-size: 1.65rem;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  margin: auto;
+}
+.button-container .form-btn {
+  color: #fff;
+  background: var(--blue);
+  font-size: 1.55rem;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px 15px;
+  margin: 0;
+  border-radius: 8px;
+  text-transform: none;
+  text-decoration: none;
+}
+
+.button-container .form-btn:hover {
+  /* background: #fff; */
+  color: var(--gold);
+}
+
 /* ====== Divs ====== */
 
 .outer-div {
@@ -573,9 +584,30 @@ select {
 
 @media (min-width: 768px) {
   /*tablet view*/
+  #login-form {
+    min-width: 75%;
+    max-width: 90%;
+  }
 }
 @media (min-width: 1024px) {
   /*laptop view*/
+}
+@media (min-width: 1440px) {
+  #login-form {
+    width: 75%;
+  }
+
+  #login-form #control-form-element {
+    width: 60%;
+  }
+
+  #login-form #student-login-form,
+  #staff-login-form,
+  #admin-login-form {
+    width: 40%;
+  }
+
+  /*large laptop view*/
 }
 
 @media screen and (max-width: 400px) {

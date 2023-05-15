@@ -102,7 +102,7 @@ else if (isset($_POST['adm-sb'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="overflow-y:hidden;">
 
 <head>
       <link rel="shortcut icon" href="img/UoB.png" />
@@ -135,7 +135,7 @@ else if (isset($_POST['adm-sb'])) {
       </script>
 </head>
 
-<body style="height:100vh;">
+<body style="overflow-y:hidden;">
       <!-- header section starts -->
       <div class="header-container">
             <div header class="header">
@@ -147,9 +147,8 @@ else if (isset($_POST['adm-sb'])) {
       <!-- header section ends -->
 
       <div class="container" style="margin-left:0; max-width:100%; height:100vh;">
-            <div class="form" id="form"
-                  style="width:75%; margin: 50px auto 50px auto; display:flex; justify-content: space-around">
-                  <div class="form-element">
+            <div class="form" id="login-form">
+                  <div class="form-element" id="control-form-element" >
                         <div class="log-in-control">
                               <div class="control-container">
                                     <h2 style="text-transform:uppercase;">welcome to the University of Bahrain</h2>
@@ -167,8 +166,7 @@ else if (isset($_POST['adm-sb'])) {
                   <div class="seperator"></div>
 
                   <!-- student login form -->
-                  <div class="form-element login-form-element login-form-element-active" id="student-login-form"
-                        style="width:40%;">
+                  <div class="form-element login-form-element login-form-element-active" id="student-login-form" >
 
                         <div class="form-header">
                               <h2>Student Login</h2>
@@ -189,7 +187,7 @@ else if (isset($_POST['adm-sb'])) {
                   </div>
 
                   <!-- staff login form -->
-                  <div class="form-element login-form-element" id="staff-login-form" style="width:40%;">
+                  <div class="form-element login-form-element" id="staff-login-form" >
 
                         <div class="form-header">
                               <h2>Staff Login</h2>
@@ -210,7 +208,7 @@ else if (isset($_POST['adm-sb'])) {
                   </div>
 
                   <!-- admin login form -->
-                  <div class="form-element login-form-element" id="admin-login-form" style="width:40%;">
+                  <div class="form-element login-form-element" id="admin-login-form" >
 
                         <div class="form-header">
                               <h2>Admin Login</h2>
@@ -236,7 +234,7 @@ else if (isset($_POST['adm-sb'])) {
       <?php
 
 ?>
-      <div class="footer" style="margin-left:0; position: absolute;">
+      <div class="footer" style="margin-left:0; position:fixed;">
             <div class="bottom-footer">
                   <p>Copyright © 2023, University of Bahrain | All rights reserved
                         <!-- </br>

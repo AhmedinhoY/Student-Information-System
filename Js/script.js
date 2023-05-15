@@ -1,5 +1,4 @@
-const form = document.getElementById("form");
-const overlay = document.getElementById("overlay");
+const form = document.getElementById("login-form");
 const student_login = document.getElementById("student-login-form");
 const staff_login = document.getElementById("staff-login-form");
 const admin_login = document.getElementById("admin-login-form");
