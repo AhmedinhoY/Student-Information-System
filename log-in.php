@@ -1,11 +1,11 @@
 <?php
+require('includes/header.php');
 require('includes/functions.php');
 // username regular expression and session should be replaced and edited..
 $lgERRmsg = "";
 // student login
 if (isset($_POST['stu-sb'])) {
-    session_start();
-    //Include functions
+      //Include functions
     try {
         require('includes/connection.php');
         
@@ -13,7 +13,7 @@ if (isset($_POST['stu-sb'])) {
         if (!preg_match("/^(((201)\d)|((202)[0-4]))(\d\d\d\d\d)/", $lg_stuUsername)) {
             $lgERRmsg = "Invalid username format, please enter a valid username (your academic ID number)";
         }
-        $login_sql = "select * from studentInfo where studentID='$lgUername'";
+        $login_sql = "select * from studentInfo where studentID='$lg_stuUsername'";
         $lg_result = $db->query($login_sql);
         $db = null;
     } catch (PDOException $e) {
@@ -22,13 +22,15 @@ if (isset($_POST['stu-sb'])) {
     if ($row = $lg_result->fetch()) {
         if (password_verify($_POST['stu-ps'], $row[5])) {
 
-            $_SESSION['activeUser'] = $lg_stuUsername;
-            $_SESSION['user_data'] = array(
-                'studentID' => $row['studentId'],
-                'fullName' => $row['fullName'],
+            $_SESSION['active_user'] = $row[0];
+            $_SESSION['student_data'] = array(
+                'student_ID' => $row['studentID'],
+                'full_name' => $row['fullName'],
                 'email' => $row['email']
             //     'user_type' => $row['user_type']
             );
+            echo 'Successfully';
+            header("Location: index.php");
         } 
       }
 
@@ -36,8 +38,7 @@ if (isset($_POST['stu-sb'])) {
 
 
 //staff login
-else if (isset($_POST['sta-sb'])) {
-      session_start();
+if (isset($_POST['sta-sb'])) {
       //Include functions
       try {
           require('includes/connection.php');
@@ -55,21 +56,22 @@ else if (isset($_POST['sta-sb'])) {
       if ($row = $lg_result->fetch()) {
           if (password_verify($_POST['sta-ps'], $row[5])) {
   
-              $_SESSION['activeUser'] = $lg_staUsername;
-              $_SESSION['user_data'] = array(
-                  'staffEmail' => $row['email'],
-                  'fullName' => $row['fullName'],
-              //     'user_type' => $row['user_type']
+              $_SESSION['active_user'] = $lg_staUsername;
+              $_SESSION['staff_data'] = array(
+                  'staff_ID' => $row[0],
+                  'full_name' => $row[1],
+                  'email' => $row['email']
               );
           } 
         }
+        header('Location: staff-index.php');
+
   
   } 
 
   
 // admin login
-else if (isset($_POST['adm-sb'])) {
-      session_start();
+if (isset($_POST['adm-sb'])) {
       //Include functions
       try {
           require('includes/connection.php');
@@ -87,14 +89,16 @@ else if (isset($_POST['adm-sb'])) {
       if ($row = $lg_result->fetch()) {
           if (password_verify($_POST['adm-ps'], $row[5])) {
   
-              $_SESSION['activeUser'] = $lg_admUsername;
-              $_SESSION['user_data'] = array(
-                  'adminID' => $row['adminId'],
+              $_SESSION['active_user'] = $lg_admUsername;
+              $_SESSION['admin_data'] = array(
+                  'admin_ID' => $row['adminId'],
                   'fullName' => $row['fullName'],
                   'email' => $row['email']
               //     'user_type' => $row['user_type']
               );
           } 
+          header('Location: admin-index.php');
+
         }
   
   } 
@@ -171,16 +175,16 @@ else if (isset($_POST['adm-sb'])) {
                               <h2>Student Login</h2>
                         </div>
                         <div class="form-body">
-                              <form action="index.php" method="post" id="log-in">
+                              <form action="" method="post" id="log-in">
                                     <span style="color:red">
                                           <?php echo $lgERRmsg; ?>
                                     </span> <br />
                                     <label>Username</label></br>
-                                    <input type="text" name="sta-username"
+                                    <input type="text" name="stu-username"
                                           placeholder="Enter your username (Student ID)"><br />
                                     <label>Password</label></br>
-                                    <input type="password" name="sta-ps" placeholder="Enter your password"><br />
-                                    <button type="submit" name="sta-sb" class="form-btn">Log in</button>
+                                    <input type="password" name="stu-ps" placeholder="Enter your password"><br />
+                                    <button type="submit" name="stu-sb" class="form-btn">Log in</button>
                               </form>
                         </div>
                   </div>
@@ -192,7 +196,7 @@ else if (isset($_POST['adm-sb'])) {
                               <h2>Staff Login</h2>
                         </div>
                         <div class="form-body">
-                              <form action="staff/staff-index.php" method="post" id="log-in">
+                              <form action="" method="post" id="log-in">
                                     <span style="color:red">
                                           <?php echo $lgERRmsg; ?>
                                     </span> <br />
@@ -213,7 +217,7 @@ else if (isset($_POST['adm-sb'])) {
                               <h2>Admin Login</h2>
                         </div>
                         <div class="form-body">
-                              <form action="admin/admin-index.php" method="post" id="log-in">
+                              <form action="" method="post" id="log-in">
                                     <span style="color:red">
                                           <?php echo $lgERRmsg; ?>
                                     </span> <br />

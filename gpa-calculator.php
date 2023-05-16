@@ -1,4 +1,6 @@
 <?php require('includes/header.php'); ?>
+<?php require('includes/sidebar.php'); ?>
+
 <div class="container">
       <div class="form" id="form">
             <!-- ----= Done by: Ahmed Yusuf =---- -->

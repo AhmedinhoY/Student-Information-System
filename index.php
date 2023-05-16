@@ -1,14 +1,25 @@
-<?php require('includes/header.php'); ?>
+<?php require('includes/header.php'); 
+require('includes/sidebar.php');
+
+$active_user= $_SESSION['active_user'];
+$student_id= $_SESSION['student_data']['student_ID'];
+$full_name= $_SESSION['student_data']['full_name'];
+$email= $_SESSION['student_data']['email'];
+
+?>
 
 <div class="container">
       <div class="row">
             <!-- ----= Done by: Ahmed Yusuf =---- -->
             <div class="dashboard-container col-12" style="">
-                  <h2>Welcome, <span style="text-transform: uppercase;">Ahmed Yusuf Ahmed Saleh</span></h2>
+                  <h2>Welcome, <span style="text-transform: uppercase;"><?php 
+                        echo $full_name; ?></span>
+                  </h2>
                   <div class="dashboard-text-container">
 
                         <div class="dashboard-text">
-                              <h3>Student ID:</h3> 202003838
+                              <h3>Student ID:</h3> <?php 
+                        echo $active_user; ?>
                         </div>
                         <div class="dashboard-text">
                               <h3>College:</h3> College of Information Technology
