@@ -9,8 +9,8 @@ if (isset($_POST['stu-sb'])) {
     try {
         require('includes/connection.php');
         
-        $lg_stuUsername = test_input($_POST['stu-username']);
-        if (!preg_match("/^(((201)\d)|((202)[0-4]))(\d\d\d\d\d)/", $lg_stuUsername)) {
+        $lg_stuUsername = test_input($_POST['stu-un']);
+        if (!preg_match("/^((201)\d)|((202)[0-4])\d\d\d\d\d$/", $lg_stuUsername)) {
             $lgERRmsg = "Invalid username format, please enter a valid username (your academic ID number)";
         }
         $login_sql = "select * from studentInfo where studentID='$lg_stuUsername'";
@@ -29,9 +29,10 @@ if (isset($_POST['stu-sb'])) {
                 'email' => $row['email']
             //     'user_type' => $row['user_type']
             );
-            echo 'Successfully';
             header("Location: index.php");
-        } 
+        } else {
+            $lgERRmsg= "*Wrong username or password";
+        }
       }
 
 } 
@@ -44,7 +45,7 @@ if (isset($_POST['sta-sb'])) {
           require('includes/connection.php');
           
           $lg_staUsername = test_input($_POST['sta-username']);
-          if (!preg_match("/^(\w+)@uob.edu.bh/", $lg_staUsername)) {
+          if (!preg_match("/^(\w+)@uob.edu.bh$/", $lg_staUsername)) {
               $lgERRmsg = "Invalid username format, please enter a valid username";
           }
           $login_sql = "select * from staff where email='$lg_staUsername'";
@@ -63,8 +64,10 @@ if (isset($_POST['sta-sb'])) {
                   'email' => $row['email']
               );
           } 
+          header('Location: staff-index.php');
+        } else {
+            $lgERRmsg= "*Wrong username or password";
         }
-        header('Location: staff-index.php');
 
   
   } 
@@ -77,7 +80,7 @@ if (isset($_POST['adm-sb'])) {
           require('includes/connection.php');
           
           $lg_admUsername = test_input($_POST['adm-username']);
-          if (!preg_match("/^(\w+)@uob.edu.bh/", $lg_admUsername)) {
+          if (!preg_match("/^(\w+)@uob.edu.bh$/", $lg_admUsername)) {
               $lgERRmsg = "Invalid username format, please enter a valid username";
           }
           $login_sql = "select * from admin where email='$lg_admUsername'";
@@ -96,9 +99,10 @@ if (isset($_POST['adm-sb'])) {
                   'email' => $row['email']
               //     'user_type' => $row['user_type']
               );
-          } 
-          header('Location: admin-index.php');
-
+              header('Location: admin-index.php');
+          } else {
+            $lgERRmsg= "*Wrong username or password";
+        }
         }
   
   } 
@@ -143,7 +147,7 @@ if (isset($_POST['adm-sb'])) {
       <div class="header-container">
             <div header class="header">
                   <img src="img/UoB.png" alt="University of Bahrain Logo">
-                  <h5 class="logo">University of Bahrain SIS</h5>
+                  <h5 class="logo">University of Bahrain</h5>
             </div>
       </div>
 
@@ -176,11 +180,11 @@ if (isset($_POST['adm-sb'])) {
                         </div>
                         <div class="form-body">
                               <form action="" method="post" id="log-in">
-                                    <span style="color:red">
+                                    <span style="color:red; text-transform:lowercase; font-size:1.45rem">
                                           <?php echo $lgERRmsg; ?>
                                     </span> <br />
                                     <label>Username</label></br>
-                                    <input type="text" name="stu-username"
+                                    <input type="text" name="stu-un"
                                           placeholder="Enter your username (Student ID)"><br />
                                     <label>Password</label></br>
                                     <input type="password" name="stu-ps" placeholder="Enter your password"><br />
@@ -197,7 +201,7 @@ if (isset($_POST['adm-sb'])) {
                         </div>
                         <div class="form-body">
                               <form action="" method="post" id="log-in">
-                                    <span style="color:red">
+                                    <span style="color:red; text-transform:lowercase; font-size:1.45rem">
                                           <?php echo $lgERRmsg; ?>
                                     </span> <br />
                                     <label>Username</label></br>
@@ -218,7 +222,7 @@ if (isset($_POST['adm-sb'])) {
                         </div>
                         <div class="form-body">
                               <form action="" method="post" id="log-in">
-                                    <span style="color:red">
+                                    <span style="color:red; text-transform:lowercase; font-size:1.45rem">
                                           <?php echo $lgERRmsg; ?>
                                     </span> <br />
                                     <label>Username</label></br>

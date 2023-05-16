@@ -1,12 +1,17 @@
 <?php
 
 session_start();
-if (isset($_SESSION['user_is_logged_in']) || isset($_SESSION['activeUser'])) {
+// if (isset($_SESSION['user_is_logged_in']) || isset($_SESSION['activeUser'])) {
 
 
-} else {
+// } else {
 
-    header("Location: log-in.php");
+//     header("Location: log-in.php");
+// }
+if(isset($_POST['log-out'])){
+      session_unset();
+      session_destroy();
+      header("Location: log-in.php");
 }
 
 
@@ -65,16 +70,18 @@ if (isset($_SESSION['user_is_logged_in']) || isset($_SESSION['activeUser'])) {
             </div>
 
             <div class="icons">
-                  <button style="background:none;">
+                  <button class="button" style="background:none;">
                         <a href="index.php">
                               <div class="fa fa-home fa-lg" id="home-btn" style="color: white;">
                               </div>
                         </a>
                   </button>
-                  <button style="background:none;">
-                        <div class="fa fa-sign-out fa-lg" id="sign-out-btn" style="color: white;"></div>
-                  </button>
-                  <button style="background:none;" onclick="openForm()">
+                  <form method="post">
+                        <button class="button" style="background:none;" type="submit" name="log-out">
+                              <div class="fa fa-sign-out fa-lg" id="sign-out-btn" style="color: white;"></div>
+                        </button>
+                  </form>
+                  <button class="button" style="background:none;" onclick="openForm()">
                         <div class="fa fa-user fa-lg" data-form-target="#form" id="user-btn" style="color: white;">
                         </div>
                   </button>

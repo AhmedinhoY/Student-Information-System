@@ -1,5 +1,24 @@
 <?php require('includes/header.php'); ?>
 <?php require('includes/sidebar.php'); ?>
+<?php 
+
+$active_user= $_SESSION['active_user'];
+$student_id= $_SESSION['student_data']['student_ID'];
+$full_name= $_SESSION['student_data']['full_name'];
+$email= $_SESSION['student_data']['email'];
+
+try {
+      require('includes/connection.php');
+      $sql_query= " select * from studentInfo where studentID = '$student_id' ";
+      $student_query= "select studentInfo.studentID, course.courseID, course.credits, staff.fullName,  from ";
+      $rs= $db->query($sql_query);
+      $row= $rs->fetch();
+
+}catch (PDOException $e){
+      die("error: " . $e->getMessage());
+}
+
+?>
 
 <div class="container">
       <!-- ----= Done by: Ahmed Yusuf =---- -->

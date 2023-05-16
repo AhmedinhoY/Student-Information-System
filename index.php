@@ -6,6 +6,16 @@ $student_id= $_SESSION['student_data']['student_ID'];
 $full_name= $_SESSION['student_data']['full_name'];
 $email= $_SESSION['student_data']['email'];
 
+try {
+      require('includes/connection.php');
+      $sql_query= " select * from studentInfo where studentID = '$student_id' ";
+      $rs= $db->query($sql_query);
+      $row= $rs->fetch();
+
+}catch (PDOException $e){
+      die("error: " . $e->getMessage());
+}
+
 ?>
 
 <div class="container">
@@ -19,13 +29,15 @@ $email= $_SESSION['student_data']['email'];
 
                         <div class="dashboard-text">
                               <h3>Student ID:</h3> <?php 
-                        echo $active_user; ?>
+                        echo $row['studentID']; ?>
                         </div>
                         <div class="dashboard-text">
-                              <h3>College:</h3> College of Information Technology
+                              <h3>College:</h3> <?php 
+                        echo $row['college']; ?>
                         </div>
                         <div class="dashboard-text">
-                              <h3>Major:</h3> B.Sc. in Computer Science
+                              <h3>Major:</h3> <?php 
+                        echo $row['major']; ?>
                         </div>
                         <!-- <div class="dashboard-text">
                               <h3>Minor:</h3> --
@@ -37,22 +49,27 @@ $email= $_SESSION['student_data']['email'];
                               <h3>Registered CH:</h3> 15.00
                         </div>
                         <div class="dashboard-text">
-                              <h3>Passed CH:</h3> 75.00 (56.8%)
+                              <h3>Passed CH:</h3> <?php 
+                        echo $row['passedCH']; ?>
                         </div>
                         <div class="dashboard-text">
                               <h3>Remaining CH:</h3> 57.00 (43.2%)
                         </div>
                         <div class="dashboard-text">
-                              <h3>Enrollment Status:</h3> Enrolled
+                              <h3>Enrollment Status:</h3> <?php 
+                        echo $row['enrollmentStatus']; ?>
                         </div>
                         <div class="dashboard-text">
-                              <h3>Academic Status:</h3> Excellence
+                              <h3>Academic Status:</h3> <?php 
+                        echo $row['academicStatus']; ?>
                         </div>
                         <div class="dashboard-text">
-                              <h3>CGPA:</h3> 4.00
+                              <h3>CGPA:</h3> <?php 
+                        echo $row['CGPA']; ?>
                         </div>
                         <div class="dashboard-text">
-                              <h3>MCGPA:</h3> 4.00
+                              <h3>MCGPA:</h3> <?php 
+                        echo $row['MCGPA']; ?>
                         </div>
                   </div>
             </div>

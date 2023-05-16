@@ -1,6 +1,29 @@
 <?php require('includes/header.php'); ?>
 <?php require('includes/sidebar.php'); ?>
+<?php 
 
+$active_user= $_SESSION['active_user'];
+$student_id= $_SESSION['student_data']['student_ID'];
+$full_name= $_SESSION['student_data']['full_name'];
+$email= $_SESSION['student_data']['email'];
+
+try {
+      require('includes/connection.php');
+      $sql_query= " select * from studentInfo where studentID = '$student_id' ";
+      $sql_rs= $db->query($sql_query);
+      $row= $sql_rs->fetch();
+
+      $student_query= "select studentClassroom.courseID, course.courseName, course.credits
+      from studentClassroom inner join course on studentClassroom.courseID = course.courseID
+      where studentClassroom.studentID = '$student_id'";
+      $student_rs= $db->query($student_query);
+      // $student_row= $student_rs->fetch();
+
+}catch (PDOException $e){
+      die("error: " . $e->getMessage());
+}
+
+?>
 <div class="container">
       <div class="form" id="form">
             <!-- ----= Done by: Ahmed Yusuf =---- -->
@@ -27,10 +50,11 @@
                                           </tr>
                                     </thead>
                                     <tbody>
+                                          <?php foreach ($student_rs as $srs){ ?>
                                           <tr>
-                                                <td>ITCS489</td>
-                                                <td>Software Engineering II</td>
-                                                <td>3</td>
+                                                <td><?php echo $srs[0]; ?></td>
+                                                <td><?php echo $srs[1]; ?></td>
+                                                <td><?php echo $srs[2]; ?></td>
                                                 <td>
                                                       <select name="grade">
                                                             <option selected>-</option>
@@ -48,27 +72,9 @@
                                                       </select>
                                                 </td>
                                           </tr>
-                                          <tr>
-                                                <td>ITCS347</td>
-                                                <td>Algorithms Analysis and Design</td>
-                                                <td>3</td>
-                                                <td>
-                                                      <select name="grade">
-                                                            <option selected>-</option>
-                                                            <option value="A">A</option>
-                                                            <option value="A-">A-</option>
-                                                            <option value="B+">B+</option>
-                                                            <option value="B">B</option>
-                                                            <option value="B-">B-</option>
-                                                            <option value="C">C+</option>
-                                                            <option value="C">C</option>
-                                                            <option value="C-">C-</option>
-                                                            <option value="D">D+</option>
-                                                            <option value="D">D</option>
-                                                            <option value="F">F</option>
-                                                      </select>
-                                                </td>
-                                          </tr>
+                                          <?php
+                                          }     ?>
+
                                     </tbody>
                               </table>
 

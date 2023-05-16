@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 16, 2023 at 01:09 AM
+-- Generation Time: May 16, 2023 at 04:43 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -76,11 +76,19 @@ INSERT INTO `admin` (`adminID`, `fullName`, `picture`, `email`, `password`, `CPR
 
 CREATE TABLE `classroom` (
   `classroomID` int(9) NOT NULL,
+  `campus` enum('Sakheer','Isa Town','Manama') NOT NULL,
   `section` varchar(10) NOT NULL,
-  `availableTime` datetime NOT NULL,
   `capacity` int(3) NOT NULL,
   `type` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `classroom`
+--
+
+INSERT INTO `classroom` (`classroomID`, `campus`, `section`, `capacity`, `type`) VALUES
+(1, 'Sakheer', 'S40-2046', 40, 'Study classroom'),
+(2, 'Sakheer', 'S40-2050', 45, 'Study classroom');
 
 -- --------------------------------------------------------
 
@@ -93,10 +101,41 @@ CREATE TABLE `course` (
   `courseName` varchar(255) NOT NULL,
   `courseDescription` varchar(255) NOT NULL,
   `credits` int(3) NOT NULL,
-  `semester` int(3) NOT NULL,
-  `examDate` datetime NOT NULL,
   `pre-requisite` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`courseID`, `courseName`, `courseDescription`, `credits`, `pre-requisite`) VALUES
+('ITCS255', 'Discrete Mathematics II', 'Discrete Mathematics II', 3, 'ITCS254'),
+('ITCS489', 'Software Engineering II', 'Software Engineering II', 3, 'ITCS389');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courseTiming`
+--
+
+CREATE TABLE `courseTiming` (
+  `courseID` varchar(9) NOT NULL,
+  `instructorID` int(9) NOT NULL,
+  `section` int(2) NOT NULL,
+  `classroomID` int(9) NOT NULL,
+  `lecturesTime` time NOT NULL,
+  `lecturesDay` varchar(9) NOT NULL,
+  `Year` year(4) NOT NULL,
+  `Semester` enum('1','2','3') NOT NULL,
+  `examDate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `courseTiming`
+--
+
+INSERT INTO `courseTiming` (`courseID`, `instructorID`, `section`, `classroomID`, `lecturesTime`, `lecturesDay`, `Year`, `Semester`, `examDate`) VALUES
+('ITCS489', 2, 1, 1, '11:00:00', 'UTH', 2023, '2', '2023-06-07');
 
 -- --------------------------------------------------------
 
@@ -135,7 +174,8 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`staffID`, `fullName`, `picture`, `email`, `password`, `CPR`, `gender`, `phoneNumber`, `jobTitle`, `officeNumber`) VALUES
-(1, 'DR. Ali Hassan AlSaffar', '', 'aalsaffar@uob.edu.bh', 'Aalsaffar1', '011111111', 'male', 34111111, 'Assistant Proffesor', 'S40-2060');
+(1, 'DR. Ali Hassan AlSaffar', '', 'aalsaffar@uob.edu.bh', 'Aalsaffar1', '011111111', 'male', 34111111, 'Assistant Proffesor', 'S40-2060'),
+(2, 'Dr. Taher Saleh Khaid Homeed', '', 'tskhomeed@uob.edu.bh', 'Tskhomeed1', '022222222', 'male', 34222222, 'Assistant Professor', 'S40-2061');
 
 -- --------------------------------------------------------
 
@@ -145,10 +185,21 @@ INSERT INTO `staff` (`staffID`, `fullName`, `picture`, `email`, `password`, `CPR
 
 CREATE TABLE `studentClassroom` (
   `studentID` int(9) NOT NULL,
+  `section` int(2) NOT NULL,
   `courseID` varchar(9) NOT NULL,
   `instructorID` int(9) NOT NULL,
-  `classroomID` int(9) NOT NULL
+  `classroomID` int(9) NOT NULL,
+  `year` year(4) NOT NULL,
+  `semester` enum('1','2','3') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `studentClassroom`
+--
+
+INSERT INTO `studentClassroom` (`studentID`, `section`, `courseID`, `instructorID`, `classroomID`, `year`, `semester`) VALUES
+(202003838, 1, 'ITCS489', 2, 1, 2023, '2'),
+(202003838, 3, 'ITCS255', 1, 2, 2023, '2');
 
 -- --------------------------------------------------------
 
@@ -183,7 +234,7 @@ CREATE TABLE `studentInfo` (
 --
 
 INSERT INTO `studentInfo` (`studentID`, `fullName`, `picture`, `CPR`, `email`, `password`, `phoneNumber`, `gender`, `addressID`, `college`, `major`, `minor`, `CGPA`, `MCGPA`, `passedCH`, `academicStatus`, `enrollmentStatus`, `advisorID`, `yearOfJoin`) VALUES
-(202003838, 'Ahmed Yusuf Ahmed Saleh', '', '021201111', '202003838@stu.uob.edu.bh', 'Ahmedahmed1', 36728829, 'male', 1, 'College of Information Technology', 'B.Sc. in Computer Science', NULL, '4.00', '4.00', 75, 'Excellence', 'Enrolled', 1, 2020);
+(202003838, 'Ahmed Yusuf Ahmed Saleh', '', '021201111', '202003838@stu.uob.edu.bh', '$2y$10$nx6dgnkuZ6n9u4.tW7tBkOHDKQLoVj4rf8McFue6mJMXncnvUR04C', 36728829, 'male', 1, 'College of Information Technology', 'B.Sc. in Computer Science', NULL, '4.00', '4.00', 75, 'Excellence', 'Enrolled', 1, 2020);
 
 --
 -- Indexes for dumped tables
@@ -215,6 +266,14 @@ ALTER TABLE `classroom`
 --
 ALTER TABLE `course`
   ADD PRIMARY KEY (`courseID`);
+
+--
+-- Indexes for table `courseTiming`
+--
+ALTER TABLE `courseTiming`
+  ADD KEY `courseID` (`courseID`),
+  ADD KEY `classroomID` (`classroomID`),
+  ADD KEY `instructorID` (`instructorID`);
 
 --
 -- Indexes for table `grade`
@@ -266,11 +325,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staffID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `staffID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `courseTiming`
+--
+ALTER TABLE `courseTiming`
+  ADD CONSTRAINT `coursetiming_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`),
+  ADD CONSTRAINT `coursetiming_ibfk_2` FOREIGN KEY (`classroomID`) REFERENCES `classroom` (`classroomID`),
+  ADD CONSTRAINT `coursetiming_ibfk_3` FOREIGN KEY (`instructorID`) REFERENCES `staff` (`staffID`);
 
 --
 -- Constraints for table `grade`
