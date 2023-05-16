@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 16, 2023 at 04:43 PM
+-- Generation Time: May 16, 2023 at 07:38 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -123,19 +123,23 @@ CREATE TABLE `courseTiming` (
   `instructorID` int(9) NOT NULL,
   `section` int(2) NOT NULL,
   `classroomID` int(9) NOT NULL,
-  `lecturesTime` time NOT NULL,
-  `lecturesDay` varchar(9) NOT NULL,
-  `Year` year(4) NOT NULL,
-  `Semester` enum('1','2','3') NOT NULL,
-  `examDate` date NOT NULL
+  `lecturesDay` varchar(5) NOT NULL,
+  `lecturesTime` varchar(11) NOT NULL,
+  `year` year(4) NOT NULL,
+  `semester` enum('1','2','3') NOT NULL,
+  `examDate` varchar(10) NOT NULL,
+  `examTime` varchar(11) NOT NULL,
+  `examPlace` varchar(8) NOT NULL DEFAULT 'TBA'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `courseTiming`
 --
 
-INSERT INTO `courseTiming` (`courseID`, `instructorID`, `section`, `classroomID`, `lecturesTime`, `lecturesDay`, `Year`, `Semester`, `examDate`) VALUES
-('ITCS489', 2, 1, 1, '11:00:00', 'UTH', 2023, '2', '2023-06-07');
+INSERT INTO `courseTiming` (`courseID`, `instructorID`, `section`, `classroomID`, `lecturesDay`, `lecturesTime`, `year`, `semester`, `examDate`, `examTime`, `examPlace`) VALUES
+('ITCS255', 1, 3, 2, 'MW', '9:30-10:45', 2023, '2', '2023-06-05', '8:30-10:30', 'TBA'),
+('ITCS489', 2, 1, 1, 'UTH', '11:00-11:50', 2023, '2', '2023-06-07', '13:30-15:30', 'TBA'),
+('ITCS489', 2, 2, 1, 'UTH', '12:00-12:50', 2023, '2', '2023-06-07', '13:30-15:30', 'TBA');
 
 -- --------------------------------------------------------
 
@@ -271,8 +275,8 @@ ALTER TABLE `course`
 -- Indexes for table `courseTiming`
 --
 ALTER TABLE `courseTiming`
-  ADD KEY `courseID` (`courseID`),
-  ADD KEY `classroomID` (`classroomID`),
+  ADD UNIQUE KEY `courseID` (`courseID`,`instructorID`,`section`,`classroomID`,`lecturesDay`,`lecturesTime`,`year`,`semester`,`examDate`,`examTime`,`examPlace`),
+  ADD KEY `coursetiming_ibfk_1` (`classroomID`),
   ADD KEY `instructorID` (`instructorID`);
 
 --
@@ -295,7 +299,7 @@ ALTER TABLE `staff`
 -- Indexes for table `studentClassroom`
 --
 ALTER TABLE `studentClassroom`
-  ADD KEY `studentID` (`studentID`),
+  ADD UNIQUE KEY `studentID` (`studentID`,`section`,`courseID`,`instructorID`,`classroomID`,`year`,`semester`),
   ADD KEY `classroomID` (`classroomID`),
   ADD KEY `courseID` (`courseID`),
   ADD KEY `instructorID` (`instructorID`);
@@ -335,9 +339,9 @@ ALTER TABLE `staff`
 -- Constraints for table `courseTiming`
 --
 ALTER TABLE `courseTiming`
-  ADD CONSTRAINT `coursetiming_ibfk_1` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`),
-  ADD CONSTRAINT `coursetiming_ibfk_2` FOREIGN KEY (`classroomID`) REFERENCES `classroom` (`classroomID`),
-  ADD CONSTRAINT `coursetiming_ibfk_3` FOREIGN KEY (`instructorID`) REFERENCES `staff` (`staffID`);
+  ADD CONSTRAINT `coursetiming_ibfk_1` FOREIGN KEY (`classroomID`) REFERENCES `classroom` (`classroomID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `coursetiming_ibfk_2` FOREIGN KEY (`instructorID`) REFERENCES `staff` (`staffID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `coursetiming_ibfk_3` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `grade`

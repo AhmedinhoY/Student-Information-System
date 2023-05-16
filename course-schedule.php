@@ -10,9 +10,20 @@ $email= $_SESSION['student_data']['email'];
 try {
       require('includes/connection.php');
       $sql_query= " select * from studentInfo where studentID = '$student_id' ";
-      $student_query= "select studentInfo.studentID, course.courseID, course.credits, staff.fullName,  from ";
       $rs= $db->query($sql_query);
       $row= $rs->fetch();
+
+      $schedule_query= " SELECT studentClassroom.courseID, staff.fullName, courseTiming.lecturesDay,
+      courseTiming.lecturesTime, classroom.campus, classroom.section, course.credits, 
+      courseTiming.examDate, courseTiming.examTime, courseTiming.examPlace
+      FROM studentClassroom
+      LEFT JOIN staff ON studentClassroom.instructorID = staff.staffID
+      LEFT JOIN courseTiming ON courseTiming.instructorID = staff.staffID
+      LEFT JOIN classroom ON courseTiming.classroomID = classroom.classroomID
+      LEFT JOIN course ON courseTiming.courseID = course.courseID
+      WHERE studentClassroom.studentID= '$student_id' ";
+
+      $schedule_rs= $db->query("$schedule_query");
 
 }catch (PDOException $e){
       die("error: " . $e->getMessage());
@@ -28,21 +39,21 @@ try {
                         <h2>Course Schedule</h2>
                   </div>
                   <div class="inner-inner-div">
-                        <h2 style="text-transform: uppercase;">Ahmed Yusuf Ahmed Saleh</h2>
-                        <p style="">Student ID: 202003838</p>
-                        <p style="margin-top:-0.4rem ">B.Sc. in Computer Science</p>
+                        <h2 style="text-transform: uppercase;"><?php echo $row['fullName']; ?></h2>
+                        <p style="">Student ID: <?php echo $row['studentID']; ?></p>
+                        <p style="margin-top:-0.4rem "><?php echo $row['major']; ?></p>
                         <div class="dashboard-text-container">
                               <div class="dashboard-text">
-                                    <h3>Academic Status:</h3> Excellence
+                                    <h3>Academic Status:</h3> <?php echo $row['academicStatus']; ?>
                               </div>
                               <div class="dashboard-text">
-                                    <h3>CGPA:</h3> 4.00
+                                    <h3>CGPA:</h3> <?php echo $row['CGPA']; ?>
                               </div>
                               <div class="dashboard-text">
-                                    <h3>MCGPA:</h3> 4.00
+                                    <h3>MCGPA:</h3> <?php echo $row['MCGPA']; ?>
                               </div>
                               <div class="dashboard-text">
-                                    <h3>Registered CH:</h3> 15.00
+                                    <h3>Registered CH:</h3> not calculated yet
                               </div>
                         </div>
                   </div>
@@ -52,66 +63,32 @@ try {
                                     <thead>
                                           <tr>
                                                 <th scope="col">Course Code</th>
+                                                <th scope="col">instructor</th>
                                                 <th scope="col">Day</th>
+                                                <th scope="col">Time</th>
                                                 <th scope="col">Campus</th>
                                                 <th scope="col">Room</th>
                                                 <th scope="col">CH</th>
                                                 <th scope="col">Exam Date</th>
                                                 <th scope="col">Exam Place</th>
-                                                <th scope="col">Status</th>
                                           </tr>
                                     </thead>
                                     <tbody>
+                                          <?php
+                                          foreach ($schedule_rs as $schedule_row) { ?>
                                           <tr>
-                                                <td>ITCS489</td>
-                                                <td>UTH</td>
-                                                <td>Sakheer</td>
-                                                <td>S40-2046</td>
-                                                <td>3</td>
-                                                <td>07-06-2023 <br /> 11:30-13:30</td>
-                                                <td>TO BE ANNOUNCED</td>
-                                                <td></td>
+                                                <td><?php echo $schedule_row[0]; ?></td>
+                                                <td><?php echo $schedule_row[1]; ?></td>
+                                                <td><?php echo $schedule_row[2]; ?></td>
+                                                <td><?php echo $schedule_row[3]; ?></td>
+                                                <td><?php echo $schedule_row[4]; ?></td>
+                                                <td><?php echo $schedule_row[5]; ?></td>
+                                                <td><?php echo $schedule_row[6]; ?></td>
+                                                <td><?php echo $schedule_row[7]. "<br/>". $schedule_row[8]; ?></td>
+                                                <td><?php echo $schedule_row[9]; ?></td>
                                           </tr>
-                                          <tr>
-                                                <td>ITCS489</td>
-                                                <td>UTH</td>
-                                                <td>Sakheer</td>
-                                                <td>S40-2046</td>
-                                                <td>3</td>
-                                                <td>07-06-2023 <br /> 11:30-13:30</td>
-                                                <td>TO BE ANNOUNCED</td>
-                                                <td></td>
-                                          </tr>
-                                          <tr>
-                                                <td>ITCS489</td>
-                                                <td>UTH</td>
-                                                <td>Sakheer</td>
-                                                <td>S40-2046</td>
-                                                <td>3</td>
-                                                <td>07-06-2023 <br /> 11:30-13:30</td>
-                                                <td>TO BE ANNOUNCED</td>
-                                                <td></td>
-                                          </tr>
-                                          <tr>
-                                                <td>ITCS489</td>
-                                                <td>UTH</td>
-                                                <td>Sakheer</td>
-                                                <td>S40-2046</td>
-                                                <td>3</td>
-                                                <td>07-06-2023 <br /> 11:30-13:30</td>
-                                                <td>TO BE ANNOUNCED</td>
-                                                <td></td>
-                                          </tr>
-                                          <tr>
-                                                <td>ITCS489</td>
-                                                <td>UTH</td>
-                                                <td>Sakheer</td>
-                                                <td>S40-2046</td>
-                                                <td>3</td>
-                                                <td>07-06-2023 <br /> 11:30-13:30</td>
-                                                <td>TO BE ANNOUNCED</td>
-                                                <td></td>
-                                          </tr>
+                                          <?php } ?>
+
                                     </tbody>
                               </table>
                         </div>
