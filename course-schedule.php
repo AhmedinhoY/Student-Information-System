@@ -13,7 +13,7 @@ try {
       $rs= $db->query($sql_query);
       $row= $rs->fetch();
 
-      $schedule_query= " SELECT studentClassroom.courseID, staff.fullName, courseTiming.lecturesDay,
+      $schedule_query= " SELECT studentClassroom.courseID, courseTiming.section, staff.fullName, courseTiming.lecturesDay,
       courseTiming.lecturesTime, classroom.campus, classroom.section, course.credits, 
       courseTiming.examDate, courseTiming.examTime, courseTiming.examPlace
       FROM studentClassroom
@@ -77,15 +77,15 @@ try {
                                           <?php
                                           foreach ($schedule_rs as $schedule_row) { ?>
                                           <tr>
-                                                <td><?php echo $schedule_row[0]; ?></td>
-                                                <td><?php echo $schedule_row[1]; ?></td>
+                                                <td><?php echo $schedule_row[0]. "-" . $schedule_row[1]; ?></td>
                                                 <td><?php echo $schedule_row[2]; ?></td>
                                                 <td><?php echo $schedule_row[3]; ?></td>
                                                 <td><?php echo $schedule_row[4]; ?></td>
                                                 <td><?php echo $schedule_row[5]; ?></td>
                                                 <td><?php echo $schedule_row[6]; ?></td>
-                                                <td><?php echo $schedule_row[7]. "<br/>". $schedule_row[8]; ?></td>
-                                                <td><?php echo $schedule_row[9]; ?></td>
+                                                <td><?php echo $schedule_row[7]; ?></td>
+                                                <td><?php echo $schedule_row[8]. "<br/>". $schedule_row[9]; ?></td>
+                                                <td><?php echo $schedule_row[10]; ?></td>
                                           </tr>
                                           <?php } ?>
 
