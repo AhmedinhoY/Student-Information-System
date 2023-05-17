@@ -74,6 +74,9 @@ function addRow() {
 }
 
 function deleteRow(btn) {
-  var row = btn.parentNode.parentNode;
-  row.parentNode.removeChild(row);
+  var rows = table.getElementsByTagName("tr");
+  for (let i = 0; i < rows.length - 5; i++) {
+    var row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+  }
 }
