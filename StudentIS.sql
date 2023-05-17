@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 16, 2023 at 07:38 PM
+-- Generation Time: May 17, 2023 at 05:43 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -115,6 +115,34 @@ INSERT INTO `course` (`courseID`, `courseName`, `courseDescription`, `credits`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `courseAttendance`
+--
+
+CREATE TABLE `courseAttendance` (
+  `attendanceID` int(11) NOT NULL,
+  `studentID` int(9) NOT NULL,
+  `courseID` varchar(9) NOT NULL,
+  `instructorID` int(9) NOT NULL,
+  `section` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `lecturesDay` varchar(5) NOT NULL,
+  `status` enum('present','absent','absent with excuse') NOT NULL,
+  `year` year(4) NOT NULL,
+  `semester` enum('1','2','3') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `courseAttendance`
+--
+
+INSERT INTO `courseAttendance` (`attendanceID`, `studentID`, `courseID`, `instructorID`, `section`, `date`, `lecturesDay`, `status`, `year`, `semester`) VALUES
+(1, 202003838, 'ITCS489', 2, 1, '2023-05-16', 'UTH', 'present', 2023, '2'),
+(2, 202003838, 'ITCS255', 1, 2, '2023-05-15', 'MW', 'absent with excuse', 2023, '2'),
+(3, 202003838, 'ITCS489', 2, 1, '2023-05-14', 'UTH', 'absent', 2023, '2');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `courseTiming`
 --
 
@@ -188,6 +216,7 @@ INSERT INTO `staff` (`staffID`, `fullName`, `picture`, `email`, `password`, `CPR
 --
 
 CREATE TABLE `studentClassroom` (
+  `studentClassroomID` int(11) NOT NULL,
   `studentID` int(9) NOT NULL,
   `section` int(2) NOT NULL,
   `courseID` varchar(9) NOT NULL,
@@ -201,9 +230,9 @@ CREATE TABLE `studentClassroom` (
 -- Dumping data for table `studentClassroom`
 --
 
-INSERT INTO `studentClassroom` (`studentID`, `section`, `courseID`, `instructorID`, `classroomID`, `year`, `semester`) VALUES
-(202003838, 1, 'ITCS489', 2, 1, 2023, '2'),
-(202003838, 3, 'ITCS255', 1, 2, 2023, '2');
+INSERT INTO `studentClassroom` (`studentClassroomID`, `studentID`, `section`, `courseID`, `instructorID`, `classroomID`, `year`, `semester`) VALUES
+(1, 202003838, 1, 'ITCS489', 2, 1, 2023, '2'),
+(2, 202003838, 3, 'ITCS255', 1, 2, 2023, '2');
 
 -- --------------------------------------------------------
 
@@ -272,6 +301,17 @@ ALTER TABLE `course`
   ADD PRIMARY KEY (`courseID`);
 
 --
+-- Indexes for table `courseAttendance`
+--
+ALTER TABLE `courseAttendance`
+  ADD PRIMARY KEY (`attendanceID`),
+  ADD UNIQUE KEY `attendanceID` (`attendanceID`,`studentID`,`courseID`,`instructorID`,`section`,`date`,`lecturesDay`,`status`,`year`,`semester`),
+  ADD KEY `courseattendance_ibfk_1` (`studentID`),
+  ADD KEY `courseattendance_ibfk_2` (`courseID`),
+  ADD KEY `instructorID` (`instructorID`),
+  ADD KEY `section` (`section`);
+
+--
 -- Indexes for table `courseTiming`
 --
 ALTER TABLE `courseTiming`
@@ -299,7 +339,8 @@ ALTER TABLE `staff`
 -- Indexes for table `studentClassroom`
 --
 ALTER TABLE `studentClassroom`
-  ADD UNIQUE KEY `studentID` (`studentID`,`section`,`courseID`,`instructorID`,`classroomID`,`year`,`semester`),
+  ADD PRIMARY KEY (`studentClassroomID`),
+  ADD UNIQUE KEY `studentID` (`studentID`,`section`,`courseID`,`instructorID`,`classroomID`,`year`,`semester`,`studentClassroomID`) USING BTREE,
   ADD KEY `classroomID` (`classroomID`),
   ADD KEY `courseID` (`courseID`),
   ADD KEY `instructorID` (`instructorID`);
@@ -326,14 +367,35 @@ ALTER TABLE `admin`
   MODIFY `adminID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `courseAttendance`
+--
+ALTER TABLE `courseAttendance`
+  MODIFY `attendanceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
   MODIFY `staffID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `studentClassroom`
+--
+ALTER TABLE `studentClassroom`
+  MODIFY `studentClassroomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `courseAttendance`
+--
+ALTER TABLE `courseAttendance`
+  ADD CONSTRAINT `courseattendance_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `studentInfo` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `courseattendance_ibfk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `courseattendance_ibfk_3` FOREIGN KEY (`instructorID`) REFERENCES `staff` (`staffID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `courseattendance_ibfk_4` FOREIGN KEY (`section`) REFERENCES `studentClassroom` (`studentClassroomID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `courseTiming`
