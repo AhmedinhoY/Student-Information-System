@@ -66,7 +66,7 @@ function addRow() {
 
   cell1.innerHTML =
     '<input type="text" name="cCode" placeholder="Course Name">';
-  cell2.innerHTML = '<input type="text" name="cHours">';
+  cell2.innerHTML = '<input type="text" name="cHours" placeholder="Credits">';
   cell3.innerHTML =
     '<select name="grade"><option selected>Select a grade</option><option value="A">A (90-100)</option><option value="A-">A- (87-89)</option><option value="B+">B+ (84-86)</option><option value="B">B (80-83)</option><option value="B-">B- (77-79)</option><option value="C">C+ (74-76)</option><option value="C">C (70-73)</option><option value="C-">C- (67-69)</option><option value="D">D+ (64-66)</option><option value="D">D (60-63)</option><option value="F">F (0-60)</option></select> ';
   cell4.innerHTML =
