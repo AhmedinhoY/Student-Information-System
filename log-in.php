@@ -7,33 +7,38 @@ $lgERRmsg = "";
 if (isset($_POST['stu-sb'])) {
       //Include functions
     try {
-        require('includes/connection.php');
-        
-        $lg_stuUsername = test_input($_POST['stu-un']);
-        if (!preg_match("/^((201)\d)|((202)[0-4])\d\d\d\d\d$/", $lg_stuUsername)) {
-            $lgERRmsg = "Invalid username format, please enter a valid username (your academic ID number)";
-        }
-        $login_sql = "select * from studentInfo where studentID='$lg_stuUsername'";
-        $lg_result = $db->query($login_sql);
+            require('includes/connection.php'); 
+
+            $lg_stuUsername = test_input($_POST['stu-un']);
+            $login_sql = "select * from studentInfo where studentID='$lg_stuUsername'";
+            $lg_result = $db->query($login_sql);
+            
+            if (!preg_match("/^((201)\d)|((202)[0-4])\d\d\d\d\d$/", $lg_stuUsername)) {
+                $lgERRmsg = "Invalid username format, please enter a valid username (your academic ID number)";
+            } else {    
+                  if ($row = $lg_result->fetch()) {
+                      if (password_verify($_POST['stu-ps'], $row[5])) {
+                  
+                             $_SESSION['active_user'] = $row[0];
+                             $_SESSION['student_data'] = array(
+                              'student_ID' => $row['studentID'],
+                              'full_name' => $row['fullName'],
+                              'email' => $row['email']
+                              );
+                              header("Location: index.php");
+                      } 
+                      else {
+                          $lgERRmsg= "*Wrong username or password";
+                      }
+                  }   
+              
+            }
+
         $db = null;
     } catch (PDOException $e) {
         die("Error: " . $e->getMessage());
     }
-    if ($row = $lg_result->fetch()) {
-        if (password_verify($_POST['stu-ps'], $row[5])) {
 
-            $_SESSION['active_user'] = $row[0];
-            $_SESSION['student_data'] = array(
-                'student_ID' => $row['studentID'],
-                'full_name' => $row['fullName'],
-                'email' => $row['email']
-            //     'user_type' => $row['user_type']
-            );
-            header("Location: index.php");
-        } else {
-            $lgERRmsg= "*Wrong username or password";
-        }
-      }
 
 } 
 
@@ -45,29 +50,34 @@ if (isset($_POST['sta-sb'])) {
           require('includes/connection.php');
           
           $lg_staUsername = test_input($_POST['sta-username']);
-          if (!preg_match("/^(\w+)@uob.edu.bh$/", $lg_staUsername)) {
-              $lgERRmsg = "Invalid username format, please enter a valid username";
-          }
           $login_sql = "select * from staff where email='$lg_staUsername'";
           $lg_result = $db->query($login_sql);
+
+          if (!preg_match("/^(\w+)@uob.edu.bh$/", $lg_staUsername)) {
+              $lgERRmsg = "Invalid username format, please enter a valid username";
+          } else {       
+            if ($row = $lg_result->fetch()) {
+            if (password_verify($_POST['sta-ps'], $row[5])) {
+    
+                $_SESSION['active_user'] = $lg_staUsername;
+                $_SESSION['staff_data'] = array(
+                    'staff_ID' => $row[0],
+                    'full_name' => $row[1],
+                    'email' => $row['email']
+                );
+            } 
+            header('Location: staff-index.php');
+            } 
+            else {
+              $lgERRmsg= "*Wrong username or password";
+            }
+          }
+          
           $db = null;
       } catch (PDOException $e) {
           die("Error: " . $e->getMessage());
       }
-      if ($row = $lg_result->fetch()) {
-          if (password_verify($_POST['sta-ps'], $row[5])) {
-  
-              $_SESSION['active_user'] = $lg_staUsername;
-              $_SESSION['staff_data'] = array(
-                  'staff_ID' => $row[0],
-                  'full_name' => $row[1],
-                  'email' => $row['email']
-              );
-          } 
-          header('Location: staff-index.php');
-        } else {
-            $lgERRmsg= "*Wrong username or password";
-        }
+
 
   
   } 
@@ -80,32 +90,38 @@ if (isset($_POST['adm-sb'])) {
           require('includes/connection.php');
           
           $lg_admUsername = test_input($_POST['adm-username']);
+          $login_sql = "select * from admin where email='$lg_admUsername'";
+          $lg_result = $db->query($login_sql);
+
           if (!preg_match("/^(\w+)@uob.edu.bh$/", $lg_admUsername)) {
               $lgERRmsg = "Invalid username format, please enter a valid username";
           }
-          $login_sql = "select * from admin where email='$lg_admUsername'";
-          $lg_result = $db->query($login_sql);
+          else {
+            if ($row = $lg_result->fetch()) {
+                  if (password_verify($_POST['adm-ps'], $row[5])) {
+          
+                      $_SESSION['active_user'] = $lg_admUsername;
+                      $_SESSION['admin_data'] = array(
+                          'admin_ID' => $row['adminId'],
+                          'fullName' => $row['fullName'],
+                          'email' => $row['email']
+                      //     'user_type' => $row['user_type']
+                      );
+                      header('Location: admin-index.php');
+                  } else {
+                    $lgERRmsg= "*Wrong username or password";
+                }
+            }
+
+          }
+          
+          
           $db = null;
       } catch (PDOException $e) {
           die("Error: " . $e->getMessage());
       }
-      if ($row = $lg_result->fetch()) {
-          if (password_verify($_POST['adm-ps'], $row[5])) {
-  
-              $_SESSION['active_user'] = $lg_admUsername;
-              $_SESSION['admin_data'] = array(
-                  'admin_ID' => $row['adminId'],
-                  'fullName' => $row['fullName'],
-                  'email' => $row['email']
-              //     'user_type' => $row['user_type']
-              );
-              header('Location: admin-index.php');
-          } else {
-            $lgERRmsg= "*Wrong username or password";
-        }
-        }
-  
-  } 
+
+} 
 ?>
 
 <!DOCTYPE html>
