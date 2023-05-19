@@ -1,0 +1,189 @@
+
+/*this box is to make a seprate things from the container as it gives me more flexibility */
+.contact-info{
+  width: 100%;
+  min-height: 500px;
+  margin: 10px;
+}
+
+.box1 , .box2 {
+  margin-bottom: 30px;
+}
+.box1{
+  width: 97%;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  padding: 10px 20px 10px 20px;
+  box-shadow: 2px 3px 15px 1px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+.left-side{
+flex: 4;
+}
+
+.top{
+  margin-bottom: 10px;
+}
+
+.bottom{
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  width: 100%;
+}
+
+
+.bottom i{
+  font-size: 10px;
+}
+
+.id11{
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  column-gap: 3px;
+  margin-right: 10px;
+}
+
+.degree11{
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+  column-gap: 3px;
+}
+
+.id11:hover , .degree11:hover{
+  color: gainsboro;
+  opacity: 10;
+  cursor: pointer;
+}
+
+.right-side{
+  flex: 1.01;
+
+}
+.right-side .top{
+  display: flex;
+  column-gap: 10px;
+}
+
+.bottom{
+  display: flex;
+}
+
+.bottom input{
+  flex: 1;
+}
+
+.box2{
+  width: 97%;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: center;
+  padding: 10px 20px 10px 20px;
+  box-shadow: 2px 3px 15px 1px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+.box2 .title{
+  width: 100%;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: grey;
+  color: grey;
+}
+
+.box2 table{
+  
+  width: 100%;
+  margin-top: 10px;
+  color:grey;
+}
+
+.box2 tr,td,th{
+  text-align: center;
+  vertical-align: center;
+  padding: 3px;
+
+}
+
+.box2 table:hover{
+  opacity: 0.7;
+}
+
+.box2 .bottom-part{
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    column-gap: 30px;
+
+}
+.right-part{
+  flex:1;
+
+}
+
+.right-part .table-container{
+  width: 100%;
+
+}
+
+.Edit-btn{
+  margin-top: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  column-gap: 3px;
+}
+
+.Edit-btn button{
+  padding: 10px 20px 10px 20px;
+  border-radius: 10px;
+  background-color: grey;
+  color: white;
+}
+
+.Edit-btn button:hover{
+  opacity: 0.7;
+  transition: .4s;
+}
+
+.Edit-btn button:active{
+  opacity: 0.4;
+}
+
+.update-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+    align-items: left;
+  vertical-align: center;
+  display: none; /* hiding the table here , then with js we will change this attribute*/
+
+}
+.update-container .bb1{
+  display: flex;
+  column-gap: 10px;
+  margin-top: 10px;
+  align-items: left;
+  vertical-align: center;
+  flex: 0.5;
+
+}
+
+.bb1 input{
+  border: 1px solid grey;
+  flex: 0.17;
+  
+}
+
+.Edit-btn .hide{
+  display: none;
+}
+
+
+
