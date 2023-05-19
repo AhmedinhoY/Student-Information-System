@@ -131,6 +131,7 @@ function TableHide() {
   const updateContainer = document.getElementById("update-container");
   const hideUpdate = document.getElementById("update-btn");
   const hideTable = document.getElementById("hide-btn");
+
   hideTable.classList.toggle("hide-btn");
   hideUpdate.classList.toggle("hide-btn");
   updateContainer.classList.add("hide-btn");
