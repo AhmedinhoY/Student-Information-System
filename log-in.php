@@ -44,34 +44,35 @@ if (isset($_POST['stu-sb'])) {
 
 
 //staff login
-if (isset($_POST['sta-sb'])) {
+else if (isset($_POST['sta-sb'])) {
       //Include functions
       try {
           require('includes/connection.php');
           
           $lg_staUsername = test_input($_POST['sta-username']);
-          $login_sql = "select * from staff where email='$lg_staUsername'";
-          $lg_result = $db->query($login_sql);
+          $sta_login_sql = "select * from staff where email='$lg_staUsername'";
+          $sta_lg_result = $db->query($sta_login_sql);
 
           if (!preg_match("/^(\w+)@uob.edu.bh$/", $lg_staUsername)) {
               $lgERRmsg = "Invalid username format, please enter a valid username";
           } else {       
-            if ($row = $lg_result->fetch()) {
-            if (password_verify($_POST['sta-ps'], $row[5])) {
+            if ($row_1 = $sta_lg_result->fetch()) {
+            if (password_verify($_POST['sta-ps'], $row_1['password'])) {
     
                 $_SESSION['active_user'] = $lg_staUsername;
                 $_SESSION['staff_data'] = array(
-                    'staff_ID' => $row[0],
-                    'full_name' => $row[1],
-                    'email' => $row['email']
+                    'staff_ID' => $row_1['staffID'],
+                    'full_name' => $row_1['fullName'],
+                    'email' => $row_1['email']
                 );
+                header('Location: staff-index.php');
             } 
-            header('Location: staff-index.php');
             } 
             else {
               $lgERRmsg= "*Wrong username or password";
             }
           }
+
           
           $db = null;
       } catch (PDOException $e) {
@@ -84,7 +85,7 @@ if (isset($_POST['sta-sb'])) {
 
   
 // admin login
-if (isset($_POST['adm-sb'])) {
+else if (isset($_POST['adm-sb'])) {
       //Include functions
       try {
           require('includes/connection.php');
@@ -98,7 +99,7 @@ if (isset($_POST['adm-sb'])) {
           }
           else {
             if ($row = $lg_result->fetch()) {
-                  if (password_verify($_POST['adm-ps'], $row[5])) {
+                  if (password_verify($_POST['adm-ps'], $row['password'])) {
           
                       $_SESSION['active_user'] = $lg_admUsername;
                       $_SESSION['admin_data'] = array(
