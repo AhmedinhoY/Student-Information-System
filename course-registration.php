@@ -12,7 +12,7 @@ try {
       $rs= $db->query($sql_query);
       $row= $rs->fetch();
 
-      $sections_query= "select courseTiming.courseID, staff.fullName, courseTiming.section, classroom.section,
+      $sections_query= "select courseTiming.courseID, staff.fullName, courseTiming.section, classroom.room,
       courseTiming.lecturesDay, courseTiming.lecturesTime, courseTiming.examDate, courseTiming.examTime
       FROM courseTiming 
         LEFT JOIN staff ON courseTiming.instructorID = staff.staffID 
@@ -54,24 +54,30 @@ try {
                                     <h2>Sections</h2>
                                     <div class="sections" style="">
                                           <?php foreach ($sections_rs as $row) { ?>
-                                          <div class="inner-inner-div"
+                                          <button class="inner-inner-div"
                                                 style="display: flex; flex-direction:column; margin: 15px 0; background: #efefef; box-shadow:none; ">
                                                 <h2 style="margin-bottom:5px;">Section No. <?php echo $row[2]; ?></h2>
                                                 <!-- <h3>Course Code: <?php echo $row[0]; ?></h3> -->
-                                                <h3 style="margin-bottom:3px;"><span
-                                                            style="color: var(--blue);">Instructor:</span> </br>
-                                                      <?php echo $row[1]; ?></h3>
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left">
+                                                      <span style="color:var(--blue);">Instructor: </span> </br>
+                                                      <?php echo $row[1]; ?>
+                                                </h3>
                                                 <!-- <h3>Room: <?php echo $row[3]; ?></h3> -->
-                                                <h3 style="margin-bottom:3px;"><span
-                                                            style="color: var(--blue);">Lectures Days:</span> </br>
-                                                      <?php echo $row[4]; ?></h3>
-                                                <h3 style="margin-bottom:3px;"><span
-                                                            style="color: var(--blue);">Lectures Time:</span> </br>
-                                                      <?php echo $row[5]; ?></h3>
-                                                <h3 style="margin-bottom:3px;"><span style="color: var(--blue);">Exam
-                                                            Time:</span> </br>
-                                                      <?php echo $row[6].", ".$row[7]; ?></h3>
-                                          </div> <?php } ?>
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
+                                                      <span style="color:var(--blue);">Lectures
+                                                            Days: </span> </br>
+                                                      <?php echo $row[4]; ?>
+                                                </h3>
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
+                                                      <span style="color:var(--blue);">Lectures
+                                                            Time: </span> </br>
+                                                      <?php echo $row[5]; ?>
+                                                </h3>
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
+                                                      <span style="color:var(--blue);"> Exam Time: </br> </span>
+                                                      <?php echo $row[6].", ".$row[7]; ?>
+                                                </h3>
+                                          </button> <?php } ?>
 
                                     </div>
                         </div>
@@ -81,35 +87,45 @@ try {
 
                                     <h2>Section Details</h2>
                                     <div class="sections" style="">
-                                          <div class="inner-inner-div"
+                                          <button class="inner-inner-div"
                                                 style="display: flex; flex-direction:column; margin: 15px 0; background: #efefef; box-shadow:none; ">
-                                                <h2 style="margin-bottom:5px;">Section No.</h2>
-
-                                                <h3>
-                                                      <span style="color: var(--blue);">Course Code: </span> </br>
-
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left">
+                                                      <span style="color:var(--blue);">Course Code: </span> </br>
+                                                      <?php echo $row[0]; ?>
                                                 </h3>
-                                                <h3 style="margin-bottom:3px;">
-                                                      <span style="color: var(--blue);">Instructor:</span> </br>
-
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left">
+                                                      <span style="color:var(--blue);">Section: </span> </br>
+                                                      <?php echo $row[2]; ?>
                                                 </h3>
-                                                <h3>
-                                                      <span style="color: var(--blue);">Room:</span> </br>
-
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left">
+                                                      <span style="color:var(--blue);">Available Seats: </span> </br>
+                                                      40
                                                 </h3>
-                                                <h3 style="margin-bottom:3px;">
-                                                      <span style="color: var(--blue);">Lectures Days:</span> </br>
-
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left">
+                                                      <span style="color:var(--blue);">Instructor: </span> </br>
+                                                      <?php echo $row[1]; ?>
                                                 </h3>
-                                                <h3 style="margin-bottom:3px;">
-                                                      <span style="color: var(--blue);">Lectures Time:</span> </br>
 
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
+                                                      <span style="color:var(--blue);">Room: </span> </br>
+                                                      <?php echo $row[3]; ?>
                                                 </h3>
-                                                <h3 style="margin-bottom:3px;">
-                                                      <span style="color: var(--blue);">Exam Time:</span> </br>
-
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
+                                                      <span style="color:var(--blue);">Lectures
+                                                            Days: </span> </br>
+                                                      <?php echo $row[4]; ?>
                                                 </h3>
-                                          </div>
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
+                                                      <span style="color:var(--blue);">Lectures
+                                                            Time: </span> </br>
+                                                      <?php echo $row[5]; ?>
+                                                </h3>
+                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
+                                                      <span style="color:var(--blue);"> Exam Time: </br> </span>
+                                                      <?php echo $row[6].", ".$row[7]; ?>
+                                                </h3>
+                                                <button class="form-btn2">Add Seat</button>
+                                          </button>
 
                                     </div>
                         </div>
