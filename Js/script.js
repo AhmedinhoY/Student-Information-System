@@ -80,3 +80,58 @@ function deleteRow(btn) {
     row.parentNode.removeChild(row);
   }
 }
+
+// ====== Contact Details ======
+
+var contactTable = document.getElementById("contact-table"),
+  rIndex;
+
+for (var i = 0; i < table.rows.length; i++) {
+  table.rows[i].onclick = function () {
+    rIndex = this.rowIndex;
+    console.log(rIndex);
+    document.getElementById("block").value = this.cells[0].innerHTML;
+    document.getElementById("Road").value = this.cells[1].innerHTML;
+    document.getElementById("Building").value = this.cells[2].innerHTML;
+    document.getElementById("Flat").value = this.cells[3].innerHTML;
+    document.getElementById("Mobile").value = this.cells[4].innerHTML;
+    document.getElementById("Email").value = this.cells[5].innerHTML;
+    document.getElementById("Emergency").value = this.cells[6].innerHTML;
+  };
+}
+
+function editRow() {
+  table.rows[rIndex].cells[0].innerHTML =
+    document.getElementById("block").value;
+  table.rows[rIndex].cells[1].innerHTML = document.getElementById("Road").value;
+  table.rows[rIndex].cells[2].innerHTML =
+    document.getElementById("Building").value;
+  table.rows[rIndex].cells[3].innerHTML = document.getElementById("Flat").value;
+  table.rows[rIndex].cells[4].innerHTML =
+    document.getElementById("Mobile").value;
+  table.rows[rIndex].cells[5].innerHTML =
+    document.getElementById("Email").value;
+  table.rows[rIndex].cells[6].innerHTML =
+    document.getElementById("Emergency").value;
+
+  document.querySelector(".hide").setAttribute("style", "display:block;");
+}
+
+function TableDisplay() {
+  const updateContainer = document.getElementById("update-container");
+  const hideUpdate = document.getElementById("update-btn");
+  const hideTable = document.getElementById("hide-btn");
+
+  hideTable.classList.remove("hide-btn");
+  hideUpdate.classList.remove("hide-btn");
+  updateContainer.classList.remove("hide-btn");
+}
+
+function TableHide() {
+  const updateContainer = document.getElementById("update-container");
+  const hideUpdate = document.getElementById("update-btn");
+  const hideTable = document.getElementById("hide-btn");
+  hideTable.classList.toggle("hide-btn");
+  hideUpdate.classList.toggle("hide-btn");
+  updateContainer.classList.add("hide-btn");
+}

@@ -27,7 +27,7 @@
                               </a>
                         </li>
                         <li><a href="#">Academic Plan</a></li>
-                        <li><a href="#">Contact Details</a></li>
+                        <li><a href="contactDetails.php">Contact Details</a></li>
                   </ul>
             </li>
             <li class=" " id="submenu-2">

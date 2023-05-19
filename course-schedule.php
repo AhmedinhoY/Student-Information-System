@@ -14,7 +14,7 @@ try {
       $row= $rs->fetch();
 
       $schedule_query= " SELECT studentClassroom.courseID, courseTiming.section, staff.fullName, courseTiming.lecturesDay,
-      courseTiming.lecturesTime, classroom.campus, classroom.section, course.credits, 
+      courseTiming.lecturesTime, classroom.campus, classroom.room, course.credits, 
       courseTiming.examDate, courseTiming.examTime, courseTiming.examPlace
       FROM studentClassroom
       LEFT JOIN staff ON studentClassroom.instructorID = staff.staffID

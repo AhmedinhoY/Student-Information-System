@@ -585,6 +585,17 @@ select {
   text-align: center;
 }
 
+.hide-btn {
+  display: none;
+}
+
+.table-input {
+  width: 100%;
+  text-align: center;
+  background: #efefef;
+  border-radius: 3px;
+}
+
 /* ====== Media Queries ====== */
 
 @media (max-width: 767px) {
