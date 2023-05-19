@@ -1,135 +1,242 @@
 <?php require('includes/header.php'); ?>
 <?php require('includes/sidebar.php'); ?>
-<!--Done by Ali Al-shaikh-->
-<!--links-->
-    <!--the reset sheet by someone please add his name here-->
-    <link rel="stylesheet" href="styles/css-reset.css">
-    <link rel="stylesheet" href="CSS/style.css"> 
-    <link rel="stylesheet" href="CSS/course-registeration.css">
+<?php
+$active_user= $_SESSION['active_user'];
+$student_id= $_SESSION['student_data']['student_ID'];
+$full_name= $_SESSION['student_data']['full_name'];
+$email= $_SESSION['student_data']['email'];
+
+try {
+      require('includes/connection.php');
+      $sql_query= " select * from studentInfo where studentID = '$student_id' ";
+      $rs= $db->query($sql_query);
+      $row= $rs->fetch();
+
+      $sections_query= "select courseTiming.courseID, staff.fullName, courseTiming.section, classroom.section,
+      courseTiming.lecturesDay, courseTiming.lecturesTime, courseTiming.examDate, courseTiming.examTime
+      FROM courseTiming 
+        LEFT JOIN staff ON courseTiming.instructorID = staff.staffID 
+        LEFT JOIN classroom ON courseTiming.classroomID = classroom.classroomID;";
+      $sections_rs= $db->query($sections_query);
 
 
-    <!--font Awesome-->
-    <script src="https://kit.fontawesome.com/58aa1d359e.js" crossorigin="anonymous"></script> 
+
+} catch (PDOException $e) {
+  die("error: " . $e->getMessage());
+}
+
+?>
 
 <div class="container">
 
-    <div class="page-title">
-      <i class="fa-solid fa-grip-lines-vertical"></i>
-      <i class="fa-solid fa-arrow-right"></i>
-      <h3>Student Registration Form</h3>
-    </div>
+      <div class="outer-div">
+            <div class="inner-div">
+                  <div class="div-header">
+                        <h2>Course Registration</h2>
+                        <!-- <button class="close-button" onclick="closeForm()">&times;</button> -->
+                  </div>
+                  <div class="divs-wrapper" style="display: flex; margin:auto;">
+                        <div class="inner-inner-div" style="width: 30%; overflow-y: auto; margin-right:15px">
+
+                              <form method="post" action="">
+
+                                    <h2>Offered Courses</h2>
+
+                                    <button class="form-btn2" onclick="showSections()"> ITCS489</button>
+                                    <button class="form-btn2" onclick="showSections()"> ITCS333</button>
+                                    <button class="form-btn2" onclick="showSections()"> ITCS321</button>
+
+                        </div>
+                        <div class="inner-inner-div" style="width: 40%; overflow-y: auto; margin-right:15px;">
+
+                              <form method="post" action="">
+
+                                    <h2>Sections</h2>
+                                    <div class="sections" style="">
+                                          <?php foreach ($sections_rs as $row) { ?>
+                                          <div class="inner-inner-div"
+                                                style="display: flex; flex-direction:column; margin: 15px 0; background: #efefef; box-shadow:none; ">
+                                                <h2 style="margin-bottom:5px;">Section No. <?php echo $row[2]; ?></h2>
+                                                <!-- <h3>Course Code: <?php echo $row[0]; ?></h3> -->
+                                                <h3 style="margin-bottom:3px;"><span
+                                                            style="color: var(--blue);">Instructor:</span> </br>
+                                                      <?php echo $row[1]; ?></h3>
+                                                <!-- <h3>Room: <?php echo $row[3]; ?></h3> -->
+                                                <h3 style="margin-bottom:3px;"><span
+                                                            style="color: var(--blue);">Lectures Days:</span> </br>
+                                                      <?php echo $row[4]; ?></h3>
+                                                <h3 style="margin-bottom:3px;"><span
+                                                            style="color: var(--blue);">Lectures Time:</span> </br>
+                                                      <?php echo $row[5]; ?></h3>
+                                                <h3 style="margin-bottom:3px;"><span style="color: var(--blue);">Exam
+                                                            Time:</span> </br>
+                                                      <?php echo $row[6].", ".$row[7]; ?></h3>
+                                          </div> <?php } ?>
+
+                                    </div>
+                        </div>
+                        <div class="inner-inner-div" style="width: 30%; overflow-y: auto;">
+
+                              <form method="post" action="">
+
+                                    <h2>Section Details</h2>
+                                    <div class="sections" style="">
+                                          <div class="inner-inner-div"
+                                                style="display: flex; flex-direction:column; margin: 15px 0; background: #efefef; box-shadow:none; ">
+                                                <h2 style="margin-bottom:5px;">Section No.</h2>
+
+                                                <h3>
+                                                      <span style="color: var(--blue);">Course Code: </span> </br>
+
+                                                </h3>
+                                                <h3 style="margin-bottom:3px;">
+                                                      <span style="color: var(--blue);">Instructor:</span> </br>
+
+                                                </h3>
+                                                <h3>
+                                                      <span style="color: var(--blue);">Room:</span> </br>
+
+                                                </h3>
+                                                <h3 style="margin-bottom:3px;">
+                                                      <span style="color: var(--blue);">Lectures Days:</span> </br>
+
+                                                </h3>
+                                                <h3 style="margin-bottom:3px;">
+                                                      <span style="color: var(--blue);">Lectures Time:</span> </br>
+
+                                                </h3>
+                                                <h3 style="margin-bottom:3px;">
+                                                      <span style="color: var(--blue);">Exam Time:</span> </br>
+
+                                                </h3>
+                                          </div>
+
+                                    </div>
+                        </div>
+
+                  </div>
+
+            </div>
 
 
 
-    <div class="stu">
 
-      <div class="add-newCourse">
+      </div>
 
-        <div class="offerredCourses">
-
-            <form method="post" action="">
-
-              <div class="box1">
-                  <label for="courses">OfferedCourses: </label>
-                  <select name ="courses" id="courses" >
-                 
-                    <option value="ITCS489" >ITCS489</option>
-                    <option value="ITCS333" >ITCS333</option>
-                    <option value="ITCS321" >ITCS321</option>
-
-                  </select>
-                  <br>
-               
-
-              
-                  <label for="section">section: </label>
-                  <select name ="section" id="section">
-                    <option value="section 01" >section 01</option>
-                    <option value="section 02" >section 02</option>
-                    <option value="section 03" >section 03</option>
-                  </select>
-                  <br>
-              </div>
+      </form>
+</div>
+</div>
+</div>
 
 
-              <div class="section-details">
 
-                <table>
-                    <tr>
-                      <th>Slot</th>
-                      <th>Section</th>
-                      <th>Instructor</th>
-                      <th>Exam Time</th>
-                      <th>Room</th>
-                    </tr>
-
-                    <tr>
-                      <td>[Days: U,T,H]-- [Time: 9:00 - 9:30 ,14:00 -15:40]</td>
-                      <td>1</td>
-                      <td>Dr. Taher</td>
-                      <td>2023-01-07 11:30 - 13:30</td>
-                      <td>S40-1001</td>
-                    </tr>
+<!-- <br>
 
 
-                </table>
 
-              </div>
-
-              
-
-              <div class="box2">
-                <button type="submit" name="rs" >Register</button>
-                <button type="submit" name="cancel" >cancel</button>
-              </div>
-    
-            </form>
-        </div>
+                            <label for="section">section: </label>
+                            <select name="section" id="section">
+                                  <option value="section 01">section 01</option>
+                                  <option value="section 02">section 02</option>
+                                  <option value="section 03">section 03</option>
+                            </select>
+                            <br>
 
 
-      </div><!--add-newCourse-->
-    </div><!--end of stu-registeration-->
+                            <div class="section-details">
+
+                                  <table>
+                                        <tr>
+                                              <th>Slot</th>
+                                              <th>Section</th>
+                                              <th>Instructor</th>
+                                              <th>Exam Time</th>
+                                              <th>Room</th>
+                                        </tr>
+
+                                        <tr>
+                                              <td>[Days: U,T,H]-- [Time: 9:00 - 9:30 ,14:00 -15:40]</td>
+                                              <td>1</td>
+                                              <td>Dr. Taher</td>
+                                              <td>2023-01-07 11:30 - 13:30</td>
+                                              <td>S40-1001</td>
+                                        </tr>
 
 
-    <div class="registeredCourses">
+                                  </table> 
+                  <div class="box2">
+                        <button type="submit" name="rs">Register</button>
+                        <button type="submit" name="cancel">cancel</button>
+                  </div> -->
+</div>
+<!--add-newCourse-->
+</div>
+<!--end of stu-registeration-->
 
-            <form method="post" action="">
+<!-- 
+                  <div class="registeredCourses">
 
-              <div class="box1">
-                <p>20197180</p>
-                <p>ALI SHAIKH HUSAIN</p>
-                <p>B.Sc. in Computer Science - 2016</p>
-                <p>Academic Status: Excellence</p>
-                <p>Academic Load: (12.0 CH To 21.0 CH)</p>
-                <p>Remain CH: 109.00</p>
-                <p>Registered CH: 5.0</p>
-              </div>
+                        <form method="post" action="">
 
-              <div class="box2">
-                <table>
-                  <tr>  
-                      <th>Course Code</th> <th>Section</th>  <th>Course Title</th>  
-                      <th>CH</th>  <th>Slot</th> <th>Rooms</th> <th>Instructor</th>
-                      <th>Fees</th> <th>Paid</th> <th> </th> <th> </th>
-                  </tr>
+                              <div class="box1">
+                                    <p>20197180</p>
+                                    <p>ALI SHAIKH HUSAIN</p>
+                                    <p>B.Sc. in Computer Science - 2016</p>
+                                    <p>Academic Status: Excellence</p>
+                                    <p>Academic Load: (12.0 CH To 21.0 CH)</p>
+                                    <p>Remain CH: 109.00</p>
+                                    <p>Registered CH: 5.0</p>
+                              </div>
 
-                  <tr>
-                      <td>ITCS 489</td> <td>01</td> <td>SOFTWARE ENGINEERING 2</td> <td>3.0</td>
-                      <td>[Days: U,T,H]-- [Time: 9:00 - 9:30 ,14:00 -15:40]</td> <td> S40 - 1067</td>
-                      <td>Dr.Taher</td> <td>24.00</td> <td style="color:red;">No</td> 
-                      <td> <button type='submit' name='replace'> <i class="fa-solid fa-arrows-spin"></i> </button> </td>
-                      <td> <button type='submit' name='delete'> <i class="fa-solid fa-trash"></i> </button> </td>
-                  </tr>
-                </table>
-              </div>
+                              <div class="box2">
+                                    <table>
+                                          <tr>
+                                                <th>Course Code</th>
+                                                <th>Section</th>
+                                                <th>Course Title</th>
+                                                <th>CH</th>
+                                                <th>Slot</th>
+                                                <th>Rooms</th>
+                                                <th>Instructor</th>
+                                                <th>Fees</th>
+                                                <th>Paid</th>
+                                                <th> </th>
+                                                <th> </th>
+                                          </tr>
 
-              <div class="box3">
-                <button type='submit' name='pay' > Pay </button>
-              </div>
-            </form>
+                                          <tr>
+                                                <td>ITCS 489</td>
+                                                <td>01</td>
+                                                <td>SOFTWARE ENGINEERING 2</td>
+                                                <td>3.0</td>
+                                                <td>[Days: U,T,H]-- [Time: 9:00 - 9:30 ,14:00 -15:40]</td>
+                                                <td> S40 - 1067</td>
+                                                <td>Dr.Taher</td>
+                                                <td>24.00</td>
+                                                <td style="color:red;">No</td>
+                                                <td> <button type='submit' name='replace'> <i
+                                                                  class="fa-solid fa-arrows-spin"></i>
+                                                      </button> </td>
+                                                <td> <button type='submit' name='delete'> <i
+                                                                  class="fa-solid fa-trash"></i>
+                                                      </button> </td>
+                                          </tr>
+                                    </table>
+                              </div>
 
-    </div>
+                              <div class="box3">
+                                    <button type='submit' name='pay'> Pay </button>
+                              </div>
+                        </form>
+
+                  </div> -->
+</div>
+</div>
 
 
-</div> <!--end of container-->
+
+
+
+</div>
+<!--end of container-->
 <?php require('includes/footer.php'); ?>
