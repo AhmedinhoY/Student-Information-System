@@ -1,10 +1,7 @@
-<?php require('includes/header.php'); 
+<?php
+require('includes/student-header.php'); 
 require('includes/sidebar.php');
-
-$active_user= $_SESSION['active_user'];
-$student_id= $_SESSION['student_data']['student_ID'];
-$full_name= $_SESSION['student_data']['full_name'];
-$email= $_SESSION['student_data']['email'];
+require('includes/student-sessions.php');
 
 try {
       require('includes/connection.php');
@@ -33,7 +30,7 @@ try {
                         </div>
                         <div class="dashboard-text">
                               <h3>College:</h3> <?php 
-                        echo $row['college']; ?>
+                        echo $row['collegeID']; ?>
                         </div>
                         <div class="dashboard-text">
                               <h3>Major:</h3> <?php 

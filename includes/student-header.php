@@ -2,13 +2,13 @@
 session_start();
 
 if (!isset($_SESSION['active_user'])) {
-      header('Location: ../log-in.php');
+      header('Location: log-in.php');
 }
 
 if(isset($_POST['log-out'])){
       session_unset();
       session_destroy();
-      header("Location: ../log-in.php");
+      header("Location: log-in.php");
 }
 
 

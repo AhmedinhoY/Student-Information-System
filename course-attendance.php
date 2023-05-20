@@ -1,6 +1,6 @@
-<?php require('includes/header.php'); ?>
+<?php require('includes/student-header.php'); ?>
 <?php require('includes/sidebar.php'); ?>
-
+<?php require('includes/student-sessions.php'); ?>
 <?php 
 
 $active_user= $_SESSION['active_user'];

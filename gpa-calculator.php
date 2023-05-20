@@ -1,5 +1,6 @@
-<?php require('includes/header.php'); ?>
+<?php require('includes/student-header.php'); ?>
 <?php require('includes/sidebar.php'); ?>
+<?php require('includes/student-sessions.php'); ?>
 
 <div class="container">
       <div class="form" id="form">

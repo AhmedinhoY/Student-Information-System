@@ -1,5 +1,7 @@
 <?php
-require('includes/header.php');
+// require('includes/header.php');
+session_start();
+
 require('includes/functions.php');
 // username regular expression and session should be replaced and edited..
 $lgERRmsg = "";
@@ -65,7 +67,7 @@ else if (isset($_POST['sta-sb'])) {
                     'full_name' => $row_1['fullName'],
                     'email' => $row_1['email']
                 );
-                header('Location: staff-index.php');
+                header('Location: staff/staff-index.php');
             } 
             } 
             else {
@@ -89,7 +91,7 @@ else if (isset($_POST['adm-sb'])) {
           require('includes/connection.php');
           
           $lg_admUsername = test_input($_POST['adm-username']);
-          $adm_login_sql = "select * from staff where email='$lg_admUsername'";
+          $adm_login_sql = "select * from admin where email='$lg_admUsername'";
           $adm_lg_result = $db->query($adm_login_sql);
 
           if (!preg_match("/^(\w+)@uob.edu.bh$/", $lg_admUsername)) {
@@ -104,7 +106,7 @@ else if (isset($_POST['adm-sb'])) {
                     'full_name' => $row_2['fullName'],
                     'email' => $row_2['email']
                 );
-                header('Location: admin-index.php');
+                header('Location: admin/admin-index.php');
             } 
             } 
             else {
@@ -119,7 +121,7 @@ else if (isset($_POST['adm-sb'])) {
       }
 
   } 
-  
+
 ?>
 
 <!DOCTYPE html>
