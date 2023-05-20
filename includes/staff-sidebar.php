@@ -1,6 +1,7 @@
 <div class="sidebar">
-      <!-- ----= Done by: Ahmed Yusuf =---- -->
-
+      <?php
+      //----= Done by: Ahmed Yusuf =---- 
+      ?>
       <!-- <li class="search-box">
                   <i class='fa fa-search icon'></i>
                   <input type="text" placeholder="Search...">
