@@ -79,50 +79,47 @@ else if (isset($_POST['sta-sb'])) {
           die("Error: " . $e->getMessage());
       }
 
-
-  
   } 
 
   
-// admin login
+//admin login
 else if (isset($_POST['adm-sb'])) {
       //Include functions
       try {
           require('includes/connection.php');
           
           $lg_admUsername = test_input($_POST['adm-username']);
-          $login_sql = "select * from admin where email='$lg_admUsername'";
-          $lg_result = $db->query($login_sql);
+          $adm_login_sql = "select * from staff where email='$lg_admUsername'";
+          $adm_lg_result = $db->query($adm_login_sql);
 
           if (!preg_match("/^(\w+)@uob.edu.bh$/", $lg_admUsername)) {
               $lgERRmsg = "Invalid username format, please enter a valid username";
-          }
-          else {
-            if ($row = $lg_result->fetch()) {
-                  if (password_verify($_POST['adm-ps'], $row['password'])) {
-          
-                      $_SESSION['active_user'] = $lg_admUsername;
-                      $_SESSION['admin_data'] = array(
-                          'admin_ID' => $row['adminId'],
-                          'fullName' => $row['fullName'],
-                          'email' => $row['email']
-                      //     'user_type' => $row['user_type']
-                      );
-                      header('Location: admin-index.php');
-                  } else {
-                    $lgERRmsg= "*Wrong username or password";
-                }
+          } else {       
+            if ($row_2 = $adm_lg_result->fetch()) {
+            if (password_verify($_POST['adm-ps'], $row_2['password'])) {
+    
+                $_SESSION['active_user'] = $lg_admUsername;
+                $_SESSION['admin_data'] = array(
+                    'admin_ID' => $row_2['adminID'],
+                    'full_name' => $row_2['fullName'],
+                    'email' => $row_2['email']
+                );
+                header('Location: admin-index.php');
+            } 
+            } 
+            else {
+              $lgERRmsg= "*Wrong username or password";
             }
-
           }
-          
+
           
           $db = null;
       } catch (PDOException $e) {
           die("Error: " . $e->getMessage());
       }
 
-} 
+  } 
+  
 ?>
 
 <!DOCTYPE html>
