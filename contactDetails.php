@@ -4,12 +4,43 @@
   require('includes/sidebar.php');
   require('includes/student-sessions.php');
 
-
 try {
       require('includes/connection.php');
-      $sql_query= " select * from studentInfo where studentID = '$student_id' ";
+      $sql_query= " select `studentInfo`.`studentID`, `college`.`collegeName`, `major`.`majorName`, `staff`.`fullName`, `studentInfo`.`passedCH`, `studentInfo`.`enrollmentStatus`, `studentInfo`.`academicStatus`, `studentInfo`.`CGPA`, `studentInfo`.`MCGPA`
+      ,`studentInfo`.`flat` , `studentInfo`.`building`, `studentInfo`.`road` , `studentInfo`.`block`, `studentInfo`.`phoneNumber`, `studentInfo`.`email`
+      FROM `studentInfo` 
+      LEFT JOIN `college` ON `studentInfo`.`collegeID` = `college`.`collegeID` 
+      LEFT JOIN `major` ON `major`.`collegeID` = `college`.`collegeID` 
+      LEFT JOIN `staff` ON `studentInfo`.`advisorID` = `staff`.`staffID`
+      WHERE studentID = '$student_id' ";
       $rs= $db->query($sql_query);
       $row= $rs->fetch();
+      $message="";
+
+      if (isset($_POST['update'])) {
+            if (!isset($_POST['flat'])) {
+                  $flat=" ";
+            }else{
+                  $flat= $_POST['flat'];
+            }
+            $building= $_POST['building'];
+            $road= $_POST['road'];
+            $block= $_POST['block'];
+            $mobile_number= $_POST['mobile-number'];
+
+            try {
+                  require('includes/connection.php');
+                  $update_sql_query= " update studentInfo SET 
+                  phoneNumber='$mobile_number', flat='$flat', building='$building', road='$road', block='$block'
+                  WHERE studentID= '$student_id' ";
+                  if ($db->exec($update_sql_query) == TRUE) {
+                        $message = "Your information have been updated successfully!";
+                  }
+
+      }catch (PDOException $e){
+            die("error: " . $e->getMessage());
+      }
+      }
 
 }catch (PDOException $e){
       die("error: " . $e->getMessage());
@@ -39,9 +70,9 @@ try {
                         <h2>Contact Details</h2>
                   </div> -->
                   <div class="inner-inner-div">
-                        <h2 style="text-transform: uppercase;"><?php echo $row['fullName']; ?></h2>
+                        <h2 style="text-transform: uppercase;"><?php echo $full_name; ?></h2>
                         <p style="">Student ID: <?php echo $row['studentID']; ?></p>
-                        <p style="margin-top:-0.4rem "><?php echo $row['major']; ?></p>
+                        <p style="margin-top:-0.4rem "><?php echo $row['majorName']; ?></p>
                         <div class="dashboard-text-container">
 
                               <div class="dashboard-text">
@@ -59,16 +90,14 @@ try {
                               <div class="dashboard-text">
                                     <h3>Passed CH:</h3> <?php echo $row['passedCH']; ?>
                               </div>
-                              <div class="dashboard-text">
-                                    <h3>Remaining CH:</h3> 57.00 (43.2%)
-                              </div>
                         </div>
                   </div>
             </div>
 
             <div class="inner-div">
-                  <div class="div-header">
+                  <div class="div-header" style="display:flex; flex-direction:column;">
                         <h2>Student Details</h2>
+                        <h4><?php echo $message; ?></h4>
                   </div>
                   <div class="div-body">
                         <div class="inner-inner-div">
@@ -76,24 +105,22 @@ try {
                               <table class="table table-hover">
                                     <thead>
                                           <tr>
-                                                <th scope="col" style="width:7%">Block</th>
-                                                <th scope="col" style="width:7%">Road</th>
-                                                <th scope="col" style="width:7%">Buliding</th>
-                                                <th scope="col" style="width:7%">Flat</th>
-                                                <th scope="col" style="width:24%">Mobile Number</th>
-                                                <th scope="col" style="width:24%">Emergency Mobile number</th>
-                                                <th scope="col" style="width:24%">Email</th>
+                                                <th scope="col" style="width:10%">Flat</th>
+                                                <th scope="col" style="width:10%">Buliding</th>
+                                                <th scope="col" style="width:10%">Road</th>
+                                                <th scope="col" style="width:10%">Block</th>
+                                                <th scope="col" style="width:30%">Mobile Number</th>
+                                                <th scope="col" style="width:30%">Email</th>
                                           </tr>
                                     </thead>
                                     <tbody>
                                           <tr>
-                                                <td> 603 </td>
-                                                <td> 341 </td>
-                                                <td> 2329 </td>
-                                                <td> -- </td>
-                                                <td>33992900</td>
-                                                <td>39338895</td>
-                                                <td>alis3348s@gmail.com</td>
+                                                <td> <?php echo $row['flat']; ?></td>
+                                                <td> <?php echo $row['building']; ?> </td>
+                                                <td> <?php echo $row['road']; ?> </td>
+                                                <td> <?php echo $row['block']; ?> </td>
+                                                <td><?php echo $row['phoneNumber']; ?></td>
+                                                <td><?php echo $row['email']; ?></td>
                                           </tr>
                                     </tbody>
 
@@ -105,89 +132,57 @@ try {
                               style="width:calc(100%/3.1); margin: 5px;">Edit</button>
                         <button class="form-btn2 hide-btn" id="hide-btn" onclick="TableHide()"
                               style="width:calc(100%/3.1); margin: 5px;">Hide</button>
-                        <button onclick="editRow()" class="form-btn2 hide-btn" id="update-btn"
-                              style="width:calc(100%/3.1); margin: 5px;">Update</button>
                   </div>
 
-                  <div class="form-body">
-                        <form>
-                              <!-- <div class="update-container">
-                                <div class="bb1">
-                                      <p>Block: </p> <input type="text" name='block' id='block'>
-                                </div>
-                                <div class="bb1">
-                                      <p>Road: </p> <input type="text" name='Road' id='Road'>
-                                </div>
-                                <div class="bb1">
-                                      <p>Building: </p> <input type="text" name='Building' id='Building'>
-                                </div>
-                                <div class="bb1">
-                                      <p>Flat: </p> <input type="text" name='Flat' id='Flat'>
-                                </div>
-                                <div class="bb1">
-                                      <p>Mobile Phone: </p> <input type="text" name='Mobile' id='Mobile'>
-                                </div>
-                                <div class="bb1">
-                                      <p>Email: </p> <input type="text" name='Email' id='Email'>
-                                </div>
-                                <div class="bb1">
-                                      <p>Emergency Mobile #: </p> <input type="text" name='Emergency' id='Emergency'>
-                                </div>
-  
-  
-                                <div class="Edit-btn">
-  
-                                </div>
-  
-                          </div> -->
+                  <form method="POST">
+                        <div class="form-body">
                               <div class="div-body hide-btn" id="update-container">
                                     <div class="inner-inner-div" style="margin: 10px 0">
                                           <table class="table" id="">
                                                 <thead>
                                                       <tr>
-                                                            <th scope="col" style="width:7%;">Block</th>
-                                                            <th scope="col" style="width:7%;">Road</th>
-                                                            <th scope="col" style="width:7%;">Buliding</th>
-                                                            <th scope="col" style="width:7%;">Flat</th>
-                                                            <th scope="col" style="width:24%; white-space:nowrap;">
-                                                                  Mobile
-                                                                  Number
+                                                            <th scope="col" style="width:15%;">Flat</th>
+                                                            <th scope="col" style="width:15%;">Buliding</th>
+                                                            <th scope="col" style="width:15%;">Road</th>
+                                                            <th scope="col" style="width:15%;">Block</th>
+                                                            <th scope="col" style="width:40%; white-space:nowrap;">
+                                                                  Mobile Number
                                                             </th>
-                                                            <th scope="col" style="width:24%; white-space:nowrap;">
-                                                                  Emergency Mobile
-                                                                  number</th>
-                                                            <th scope="col" style="width:24%;">Email</th>
                                                       </tr>
 
                                                 </thead>
                                                 <tbody>
                                                       <tr>
-                                                            <td><input type="text" name="" class="table-input"></td>
-                                                            <td><input type="text" name="" class="table-input"></td>
-                                                            <td><input type="text" name="" class="table-input"></td>
-                                                            <td><input type="text" name="" class="table-input">
-                                                            </td> </br>
-                                                            <td><input type="text" name="" class="table-input">
+                                                            <td><input type="text" name="flat" class="table-input"></td>
+                                                            <td><input type="text" name="building" class="table-input">
                                                             </td>
-                                                            <td><input type="text" name="" class="table-input">
+                                                            <td><input type="text" name="road" class="table-input"></td>
+                                                            <td><input type="text" name="block" class="table-input">
                                                             </td>
-                                                            <td><input type="text" name="" class="table-input">
-                                                            </td>
+                                                            <td><input type="text" name="mobile-number"
+                                                                        class="table-input"></td>
 
                                                       </tr>
                                                 </tbody>
                                           </table>
                                     </div>
+                                    <button class="form-btn2 hide-btn" id="update-btn" name="update"
+                                          style="width:calc(100%/3.1); margin: 5px;" type="submit">Update</button>
                               </div>
 
 
-                        </form>
-                  </div>
-
+                  </form>
             </div>
+
       </div>
+</div>
 
 </div>
+<script>
+if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+}
+</script>
 
 
 
@@ -203,5 +198,4 @@ try {
 <?php
 
   require 'includes/footer.php';
-
 ?>
