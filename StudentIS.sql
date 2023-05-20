@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 17, 2023 at 05:43 PM
+-- Generation Time: May 20, 2023 at 08:36 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -66,7 +66,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`adminID`, `fullName`, `picture`, `email`, `password`, `CPR`, `gender`, `phoneNumber`, `officeNumber`) VALUES
-(1, 'Ahmed Yusuf Ahmed', '', 'ayousifadmin@uob.edu.bh', 'Ahmedahmed1', '021111111', 'male', 36111111, NULL);
+(1, 'Ahmed Yusuf Ahmed', '', 'aadmin@uob.edu.bh', '$2y$10$uAQY6kbYmrPypkY/q8csbunRbvy662R.Eoy0h4OmjcSOWVRrEML0e', '021111111', 'male', 36111111, NULL);
 
 -- --------------------------------------------------------
 
@@ -77,7 +77,8 @@ INSERT INTO `admin` (`adminID`, `fullName`, `picture`, `email`, `password`, `CPR
 CREATE TABLE `classroom` (
   `classroomID` int(9) NOT NULL,
   `campus` enum('Sakheer','Isa Town','Manama') NOT NULL,
-  `section` varchar(10) NOT NULL,
+  `collegeID` int(11) NOT NULL,
+  `room` varchar(10) NOT NULL,
   `capacity` int(3) NOT NULL,
   `type` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -86,9 +87,28 @@ CREATE TABLE `classroom` (
 -- Dumping data for table `classroom`
 --
 
-INSERT INTO `classroom` (`classroomID`, `campus`, `section`, `capacity`, `type`) VALUES
-(1, 'Sakheer', 'S40-2046', 40, 'Study classroom'),
-(2, 'Sakheer', 'S40-2050', 45, 'Study classroom');
+INSERT INTO `classroom` (`classroomID`, `campus`, `collegeID`, `room`, `capacity`, `type`) VALUES
+(1, 'Sakheer', 1, 'S40-2046', 40, 'Study classroom'),
+(2, 'Sakheer', 1, 'S40-2050', 45, 'Study classroom');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `college`
+--
+
+CREATE TABLE `college` (
+  `collegeID` int(11) NOT NULL,
+  `collegeName` varchar(255) NOT NULL,
+  `place` enum('Sakheer','Isa Town','Manama') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `college`
+--
+
+INSERT INTO `college` (`collegeID`, `collegeName`, `place`) VALUES
+(1, 'College of Information Technology', 'Sakheer');
 
 -- --------------------------------------------------------
 
@@ -98,6 +118,7 @@ INSERT INTO `classroom` (`classroomID`, `campus`, `section`, `capacity`, `type`)
 
 CREATE TABLE `course` (
   `courseID` varchar(9) NOT NULL,
+  `collegeID` int(11) NOT NULL,
   `courseName` varchar(255) NOT NULL,
   `courseDescription` varchar(255) NOT NULL,
   `credits` int(3) NOT NULL,
@@ -108,9 +129,9 @@ CREATE TABLE `course` (
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`courseID`, `courseName`, `courseDescription`, `credits`, `pre-requisite`) VALUES
-('ITCS255', 'Discrete Mathematics II', 'Discrete Mathematics II', 3, 'ITCS254'),
-('ITCS489', 'Software Engineering II', 'Software Engineering II', 3, 'ITCS389');
+INSERT INTO `course` (`courseID`, `collegeID`, `courseName`, `courseDescription`, `credits`, `pre-requisite`) VALUES
+('ITCS255', 1, 'Discrete Mathematics II', 'Discrete Mathematics II', 3, 'ITCS254'),
+('ITCS489', 1, 'Software Engineering II', 'Software Engineering II', 3, 'ITCS389');
 
 -- --------------------------------------------------------
 
@@ -185,6 +206,25 @@ CREATE TABLE `grade` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `major`
+--
+
+CREATE TABLE `major` (
+  `majorID` int(11) NOT NULL,
+  `majorName` varchar(255) NOT NULL,
+  `collegeID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `major`
+--
+
+INSERT INTO `major` (`majorID`, `majorName`, `collegeID`) VALUES
+(1, 'B.Sc. in Computer Science', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `staff`
 --
 
@@ -206,8 +246,8 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`staffID`, `fullName`, `picture`, `email`, `password`, `CPR`, `gender`, `phoneNumber`, `jobTitle`, `officeNumber`) VALUES
-(1, 'DR. Ali Hassan AlSaffar', '', 'aalsaffar@uob.edu.bh', 'Aalsaffar1', '011111111', 'male', 34111111, 'Assistant Proffesor', 'S40-2060'),
-(2, 'Dr. Taher Saleh Khaid Homeed', '', 'tskhomeed@uob.edu.bh', 'Tskhomeed1', '022222222', 'male', 34222222, 'Assistant Professor', 'S40-2061');
+(1, 'DR. Ali Hassan AlSaffar', '', 'aalsaffar@uob.edu.bh', '$2y$10$ZNGd4FmE.fsWb/28QPyGuuKbZFANRYGt9F3X2ohvGZpZ8YR0DevkC', '011111111', 'male', 34111111, 'Proffesor', 'S40-2060'),
+(2, 'Dr. Taher Saleh Khaid Homeed', '', 'tskhomeed@uob.edu.bh', '$2y$10$Y298qHpLTgH/YdxBiqhQ5uJxElJFPouJHOjCoPFRx1UHUBKynuNfq', '022222222', 'male', 34222222, 'Professor', 'S40-2061');
 
 -- --------------------------------------------------------
 
@@ -248,11 +288,10 @@ CREATE TABLE `studentInfo` (
   `email` varchar(255) NOT NULL,
   `password` varchar(64) NOT NULL,
   `phoneNumber` int(20) NOT NULL,
+  `collegeID` int(11) NOT NULL,
   `gender` enum('male','female') NOT NULL,
+  `majorID` int(11) NOT NULL,
   `addressID` int(9) DEFAULT NULL,
-  `college` varchar(255) NOT NULL,
-  `major` varchar(255) NOT NULL,
-  `minor` varchar(255) DEFAULT NULL,
   `CGPA` decimal(3,2) NOT NULL,
   `MCGPA` decimal(3,2) NOT NULL,
   `passedCH` int(3) NOT NULL,
@@ -266,8 +305,8 @@ CREATE TABLE `studentInfo` (
 -- Dumping data for table `studentInfo`
 --
 
-INSERT INTO `studentInfo` (`studentID`, `fullName`, `picture`, `CPR`, `email`, `password`, `phoneNumber`, `gender`, `addressID`, `college`, `major`, `minor`, `CGPA`, `MCGPA`, `passedCH`, `academicStatus`, `enrollmentStatus`, `advisorID`, `yearOfJoin`) VALUES
-(202003838, 'Ahmed Yusuf Ahmed Saleh', '', '021201111', '202003838@stu.uob.edu.bh', '$2y$10$nx6dgnkuZ6n9u4.tW7tBkOHDKQLoVj4rf8McFue6mJMXncnvUR04C', 36728829, 'male', 1, 'College of Information Technology', 'B.Sc. in Computer Science', NULL, '4.00', '4.00', 75, 'Excellence', 'Enrolled', 1, 2020);
+INSERT INTO `studentInfo` (`studentID`, `fullName`, `picture`, `CPR`, `email`, `password`, `phoneNumber`, `collegeID`, `gender`, `majorID`, `addressID`, `CGPA`, `MCGPA`, `passedCH`, `academicStatus`, `enrollmentStatus`, `advisorID`, `yearOfJoin`) VALUES
+(202003838, 'Ahmed Yusuf Ahmed Saleh', '', '021201111', '202003838@stu.uob.edu.bh', '$2y$10$nx6dgnkuZ6n9u4.tW7tBkOHDKQLoVj4rf8McFue6mJMXncnvUR04C', 36728829, 1, 'male', 1, 1, '4.00', '4.00', 75, 'Excellence', 'Enrolled', 1, 2020);
 
 --
 -- Indexes for dumped tables
@@ -292,13 +331,21 @@ ALTER TABLE `admin`
 -- Indexes for table `classroom`
 --
 ALTER TABLE `classroom`
-  ADD PRIMARY KEY (`classroomID`);
+  ADD PRIMARY KEY (`classroomID`),
+  ADD KEY `collegeID` (`collegeID`);
+
+--
+-- Indexes for table `college`
+--
+ALTER TABLE `college`
+  ADD PRIMARY KEY (`collegeID`);
 
 --
 -- Indexes for table `course`
 --
 ALTER TABLE `course`
-  ADD PRIMARY KEY (`courseID`);
+  ADD PRIMARY KEY (`courseID`),
+  ADD KEY `collegeID` (`collegeID`);
 
 --
 -- Indexes for table `courseAttendance`
@@ -323,8 +370,16 @@ ALTER TABLE `courseTiming`
 -- Indexes for table `grade`
 --
 ALTER TABLE `grade`
-  ADD KEY `studentID` (`studentID`),
-  ADD KEY `courseID` (`courseID`);
+  ADD KEY `grade_ibfk_1` (`studentID`),
+  ADD KEY `grade_ibfk_2` (`courseID`),
+  ADD KEY `instructorID` (`instructorID`);
+
+--
+-- Indexes for table `major`
+--
+ALTER TABLE `major`
+  ADD PRIMARY KEY (`majorID`),
+  ADD KEY `collegeID` (`collegeID`);
 
 --
 -- Indexes for table `staff`
@@ -354,7 +409,9 @@ ALTER TABLE `studentInfo`
   ADD UNIQUE KEY `sID` (`studentID`) USING BTREE,
   ADD UNIQUE KEY `CPR` (`CPR`),
   ADD KEY `addressID` (`addressID`),
-  ADD KEY `advisorID` (`advisorID`);
+  ADD KEY `advisorID` (`advisorID`),
+  ADD KEY `collegeID` (`collegeID`),
+  ADD KEY `majorID` (`majorID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -367,10 +424,22 @@ ALTER TABLE `admin`
   MODIFY `adminID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `college`
+--
+ALTER TABLE `college`
+  MODIFY `collegeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `courseAttendance`
 --
 ALTER TABLE `courseAttendance`
   MODIFY `attendanceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `major`
+--
+ALTER TABLE `major`
+  MODIFY `majorID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `staff`
@@ -387,6 +456,18 @@ ALTER TABLE `studentClassroom`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `classroom`
+--
+ALTER TABLE `classroom`
+  ADD CONSTRAINT `classroom_ibfk_1` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`);
+
+--
+-- Constraints for table `course`
+--
+ALTER TABLE `course`
+  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`);
 
 --
 -- Constraints for table `courseAttendance`
@@ -409,8 +490,15 @@ ALTER TABLE `courseTiming`
 -- Constraints for table `grade`
 --
 ALTER TABLE `grade`
-  ADD CONSTRAINT `grade_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `studentInfo` (`studentID`),
-  ADD CONSTRAINT `grade_ibfk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`);
+  ADD CONSTRAINT `grade_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `studentClassroom` (`studentID`),
+  ADD CONSTRAINT `grade_ibfk_2` FOREIGN KEY (`courseID`) REFERENCES `studentClassroom` (`courseID`),
+  ADD CONSTRAINT `grade_ibfk_3` FOREIGN KEY (`instructorID`) REFERENCES `studentClassroom` (`instructorID`);
+
+--
+-- Constraints for table `major`
+--
+ALTER TABLE `major`
+  ADD CONSTRAINT `major_ibfk_1` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`);
 
 --
 -- Constraints for table `studentClassroom`
@@ -426,7 +514,9 @@ ALTER TABLE `studentClassroom`
 --
 ALTER TABLE `studentInfo`
   ADD CONSTRAINT `studentinfo_ibfk_2` FOREIGN KEY (`addressID`) REFERENCES `address` (`addressID`),
-  ADD CONSTRAINT `studentinfo_ibfk_3` FOREIGN KEY (`advisorID`) REFERENCES `staff` (`staffID`);
+  ADD CONSTRAINT `studentinfo_ibfk_3` FOREIGN KEY (`advisorID`) REFERENCES `staff` (`staffID`),
+  ADD CONSTRAINT `studentinfo_ibfk_4` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`),
+  ADD CONSTRAINT `studentinfo_ibfk_5` FOREIGN KEY (`majorID`) REFERENCES `major` (`majorID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
