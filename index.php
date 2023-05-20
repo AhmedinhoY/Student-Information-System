@@ -121,7 +121,7 @@ try {
             <div class="dashboard-container " style="width:68%; height: 30vh; margin-right:10px;">
                   <h2>Today's TimeTable</h2>
                   <div class="inner-div"
-                        style="overflow-y: auto; height: 85%; padding-right:5px; color:var(--blue); text-align:center;">
+                        style="overflow-y: auto; height: 85%; padding-right:5px; color:var(--blue); text-align:center; text-transform: uppercase;">
                         <h1>
                               </br> Under Construction
                               <i class="fa fa-wrench" aria-hidden="true"></i>

@@ -27,8 +27,8 @@
                                     <span class="link_name" id="#viewing">Viewing</span>
                               </a>
                         </li>
-                        <li><a href="#">Academic Plan</a></li>
-                        <li><a href="contactDetails.php">Contact Details</a></li>
+                        <li><a href="academic-plan.php">Academic Plan</a></li>
+                        <li><a href="contact-details.php">Contact Details</a></li>
                   </ul>
             </li>
             <li class=" " id="submenu-2">
@@ -84,7 +84,7 @@
                               </a>
                         </li>
                         <li><a href="course-withdrawal.php">Course Withdrawal</a></li>
-                        <li><a href="#">Official Withdrawal</a></li>
+                        <li><a href="official-withdrawal.php">Official Withdrawal</a></li>
                   </ul>
             </li>
             <li class=" " id="submenu-5">
