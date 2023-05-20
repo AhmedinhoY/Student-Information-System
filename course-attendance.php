@@ -25,7 +25,7 @@ try {
             LEFT JOIN `courseTiming` ON `courseTiming`.`courseID` = `course`.`courseID`
       WHERE studentClassroom.studentID = '$student_id' AND courseTiming.lecturesDay= 'uth' AND studentClassroom.year = 2023 AND studentClassroom.semester = 2";
 
-      $student_attendence_uth_rs= $db->query("$student_attendance_query_uth");
+      $student_attendence_uth_rs= $db->query($student_attendance_query_uth);
 
       $student_attendance_query_mw= "select studentClassroom.courseID, course.courseName,
       SUM(CASE STATUS WHEN 'absent' THEN 1 ELSE 0 END) 'absent_times' , 
@@ -38,7 +38,7 @@ try {
             LEFT JOIN `courseTiming` ON `courseTiming`.`courseID` = `course`.`courseID`
       WHERE studentClassroom.studentID = '$student_id' AND courseTiming.lecturesDay= 'mw' AND studentClassroom.year = 2023 AND studentClassroom.semester = 2";
 
-      $student_attendence_mw_rs= $db->query("$student_attendance_query_mw");
+      $student_attendence_mw_rs= $db->query($student_attendance_query_mw);
 
 }catch (PDOException $e){
       die("error: " . $e->getMessage());

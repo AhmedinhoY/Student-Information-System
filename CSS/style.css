@@ -557,7 +557,7 @@ select {
   width: 120px;
   border-radius: 50%;
   margin: 10px;
-  background: conic-gradient(var(--blue), calc(360deg * 0.975), #ededed 0deg);
+  /* background: conic-gradient(var(--blue), calc(360deg * 0.975), #ededed 0deg); */
   /* progress degree = percentage * 3.6
      ex. progress degree = 75 * 3.6 = 270 */
   display: flex;
