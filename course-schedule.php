@@ -24,7 +24,7 @@ try {
             LEFT JOIN `course` ON `courseTiming`.`courseID` = `course`.`courseID`
       WHERE studentClassroom.studentID= '$student_id' AND studentClassroom.year= 2023. AND studentClassroom.semester=2;";
 
-      $schedule_rs= $db->query("$schedule_query");
+      $schedule_rs= $db->query($schedule_query);
 
       // query to find registered CH
       $registeredCH_sql_query="select SUM(`course`.`credits`)

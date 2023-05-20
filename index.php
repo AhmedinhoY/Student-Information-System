@@ -44,6 +44,15 @@ try {
 
       $student_attendence_mw_rs= $db->query($student_attendance_query_mw);
 
+      //query to find upcoming events
+      $upcoming_events_query="select `studentClassroom`.`courseID`, `courseTiming`.`examDate`, `courseTiming`.`examTime`, `courseTiming`.`examPlace` 
+      FROM `studentClassroom` 
+      LEFT JOIN `courseTiming` ON courseTiming.section = studentClassroom.section 
+      LEFT JOIN `course` ON `courseTiming`.`courseID` = `course`.`courseID` 
+      WHERE studentClassroom.studentID= '$student_id' AND studentClassroom.year= 2023 AND studentClassroom.semester=2 
+      ORDER BY `courseTiming`.`examDate` ASC";
+      $upcoming_events_rs=$db->query($upcoming_events_query);
+
 
 
 
@@ -111,10 +120,32 @@ try {
 
             <div class="dashboard-container " style="width:68%; height: 30vh; margin-right:10px;">
                   <h2>Today's TimeTable</h2>
+                  <div class="inner-div"
+                        style="overflow-y: auto; height: 85%; padding-right:5px; color:var(--blue); text-align:center;">
+                        <h1>
+                              </br> Under Construction
+                              <i class="fa fa-wrench" aria-hidden="true"></i>
+                              <i class="fa fa-hourglass-half" aria-hidden="true"></i>
+                        </h1>
+                  </div>
 
             </div>
             <div class="dashboard-container " style="width:30%; height: 30vh;">
-                  <h2>Upcoming Events</h2>
+                  <h2>Key Dates</h2>
+                  <div class="inner-div" style="overflow-y: auto; height: 85%; padding-right:5px">
+                        <?php foreach($upcoming_events_rs as $row_4) { ?>
+                        <div class="inner-inner-div" style="padding: 15px">
+                              <div class="div-header" style="color:var(--blue);">
+                                    <h3><?php echo $row_4[1] ?></h3>
+                              </div>
+                              <div class="div-body" style="padding:10px 0 0 30px;">
+                                    <?php echo $row_4[0] ?> Final Exam </br>
+                                    Exam Time: <?php echo $row_4[2] ?> </br>
+                                    Exam Place: <?php echo $row_4[3] ?>
+                              </div>
+                        </div>
+                        <?php } ?>
+                  </div>
 
             </div>
       </div>
