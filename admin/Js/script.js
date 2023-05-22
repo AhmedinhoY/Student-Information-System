@@ -81,7 +81,7 @@ function deleteRow(btn) {
   }
 }
 
-// AJAX for major
+// ====== AJAX for major selection ======
 function updateMajorSelection(selectedValue) {
   // Send an AJAX request to fetch the options for the second select tag
   var xhr = new XMLHttpRequest();
@@ -96,6 +96,7 @@ function updateMajorSelection(selectedValue) {
   xhr.send("selected=" + encodeURIComponent(selectedValue));
 }
 
+// ====== AJAX for advisor selection ======
 function updateAdvisorSelection(selectedValue) {
   // Send an AJAX request to fetch the options for the second select tag
   var xhr = new XMLHttpRequest();
@@ -110,6 +111,37 @@ function updateAdvisorSelection(selectedValue) {
   xhr.send("selected=" + encodeURIComponent(selectedValue));
 }
 
+// ====== AJAX for course selection ======
+function updateCourseSelection(selectedValue) {
+  // Send an AJAX request to fetch the options for the second select tag
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "course-select.php", true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Update the options in the third select tag
+      document.getElementById("course-select").innerHTML = xhr.responseText;
+    }
+  };
+  xhr.send("selected=" + encodeURIComponent(selectedValue));
+}
+
+// ====== AJAX for instructor selection ======
+function updateInstructorSelection(selectedValue) {
+  // Send an AJAX request to fetch the options for the second select tag
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "instructor-select.php", true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Update the options in the third select tag
+      document.getElementById("instructor-select").innerHTML = xhr.responseText;
+    }
+  };
+  xhr.send("selected=" + encodeURIComponent(selectedValue));
+}
+
+// ====== AJAX for auto generating staff's email ======
 function generateEmail(name) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "generate-email.php?q=" + name, true);
