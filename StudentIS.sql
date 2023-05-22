@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 20, 2023 at 08:36 PM
+-- Generation Time: May 23, 2023 at 01:07 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -20,28 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `StudentIS`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `address`
---
-
-CREATE TABLE `address` (
-  `addressID` int(9) NOT NULL,
-  `country` varchar(20) NOT NULL,
-  `city` varchar(20) NOT NULL,
-  `houseNumber` int(5) NOT NULL,
-  `road` int(5) NOT NULL,
-  `block` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `address`
---
-
-INSERT INTO `address` (`addressID`, `country`, `city`, `houseNumber`, `road`, `block`) VALUES
-(1, 'Bahrain', 'Sitra', 1111, 111, 111);
 
 -- --------------------------------------------------------
 
@@ -100,6 +78,7 @@ INSERT INTO `classroom` (`classroomID`, `campus`, `collegeID`, `room`, `capacity
 CREATE TABLE `college` (
   `collegeID` int(11) NOT NULL,
   `collegeName` varchar(255) NOT NULL,
+  `collegeNumber` varchar(4) NOT NULL,
   `place` enum('Sakheer','Isa Town','Manama') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -107,8 +86,8 @@ CREATE TABLE `college` (
 -- Dumping data for table `college`
 --
 
-INSERT INTO `college` (`collegeID`, `collegeName`, `place`) VALUES
-(1, 'College of Information Technology', 'Sakheer');
+INSERT INTO `college` (`collegeID`, `collegeName`, `collegeNumber`, `place`) VALUES
+(1, 'College of Information Technology', 'S40', 'Sakheer');
 
 -- --------------------------------------------------------
 
@@ -176,7 +155,7 @@ CREATE TABLE `courseTiming` (
   `lecturesTime` varchar(11) NOT NULL,
   `year` year(4) NOT NULL,
   `semester` enum('1','2','3') NOT NULL,
-  `examDate` varchar(10) NOT NULL,
+  `examDate` date NOT NULL,
   `examTime` varchar(11) NOT NULL,
   `examPlace` varchar(8) NOT NULL DEFAULT 'TBA'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -238,6 +217,7 @@ CREATE TABLE `staff` (
   `gender` enum('male','female') NOT NULL,
   `phoneNumber` int(20) NOT NULL,
   `jobTitle` varchar(255) NOT NULL,
+  `collegeID` int(11) NOT NULL,
   `officeNumber` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -245,9 +225,9 @@ CREATE TABLE `staff` (
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`staffID`, `fullName`, `picture`, `email`, `password`, `CPR`, `gender`, `phoneNumber`, `jobTitle`, `officeNumber`) VALUES
-(1, 'DR. Ali Hassan AlSaffar', '', 'aalsaffar@uob.edu.bh', '$2y$10$ZNGd4FmE.fsWb/28QPyGuuKbZFANRYGt9F3X2ohvGZpZ8YR0DevkC', '011111111', 'male', 34111111, 'Proffesor', 'S40-2060'),
-(2, 'Dr. Taher Saleh Khaid Homeed', '', 'tskhomeed@uob.edu.bh', '$2y$10$Y298qHpLTgH/YdxBiqhQ5uJxElJFPouJHOjCoPFRx1UHUBKynuNfq', '022222222', 'male', 34222222, 'Professor', 'S40-2061');
+INSERT INTO `staff` (`staffID`, `fullName`, `picture`, `email`, `password`, `CPR`, `gender`, `phoneNumber`, `jobTitle`, `collegeID`, `officeNumber`) VALUES
+(1, 'Dr. Ali Hassan AlSaffar', '', 'aalsaffar@uob.edu.bh', '$2y$10$ZNGd4FmE.fsWb/28QPyGuuKbZFANRYGt9F3X2ohvGZpZ8YR0DevkC', '011111111', 'male', 34111111, 'Proffesor', 1, 'S40-2060'),
+(2, 'Dr. Taher Saleh Khaid Homeed', '', 'tskhomeed@uob.edu.bh', '$2y$10$Y298qHpLTgH/YdxBiqhQ5uJxElJFPouJHOjCoPFRx1UHUBKynuNfq', '022222222', 'male', 34222222, 'Professor', 1, 'S40-2061');
 
 -- --------------------------------------------------------
 
@@ -291,32 +271,29 @@ CREATE TABLE `studentInfo` (
   `collegeID` int(11) NOT NULL,
   `gender` enum('male','female') NOT NULL,
   `majorID` int(11) NOT NULL,
-  `addressID` int(9) DEFAULT NULL,
   `CGPA` decimal(3,2) NOT NULL,
   `MCGPA` decimal(3,2) NOT NULL,
   `passedCH` int(3) NOT NULL,
   `academicStatus` varchar(20) NOT NULL,
   `enrollmentStatus` varchar(20) NOT NULL,
   `advisorID` int(9) NOT NULL,
-  `yearOfJoin` year(4) NOT NULL
+  `yearOfJoin` year(4) NOT NULL,
+  `flat` varchar(4) NOT NULL DEFAULT '',
+  `building` int(5) DEFAULT NULL,
+  `road` int(5) DEFAULT NULL,
+  `block` int(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `studentInfo`
 --
 
-INSERT INTO `studentInfo` (`studentID`, `fullName`, `picture`, `CPR`, `email`, `password`, `phoneNumber`, `collegeID`, `gender`, `majorID`, `addressID`, `CGPA`, `MCGPA`, `passedCH`, `academicStatus`, `enrollmentStatus`, `advisorID`, `yearOfJoin`) VALUES
-(202003838, 'Ahmed Yusuf Ahmed Saleh', '', '021201111', '202003838@stu.uob.edu.bh', '$2y$10$nx6dgnkuZ6n9u4.tW7tBkOHDKQLoVj4rf8McFue6mJMXncnvUR04C', 36728829, 1, 'male', 1, 1, '4.00', '4.00', 75, 'Excellence', 'Enrolled', 1, 2020);
+INSERT INTO `studentInfo` (`studentID`, `fullName`, `picture`, `CPR`, `email`, `password`, `phoneNumber`, `collegeID`, `gender`, `majorID`, `CGPA`, `MCGPA`, `passedCH`, `academicStatus`, `enrollmentStatus`, `advisorID`, `yearOfJoin`, `flat`, `building`, `road`, `block`) VALUES
+(202003838, 'Ahmed Yusuf Ahmed Saleh', '', '021201111', '202003838@stu.uob.edu.bh', '$2y$10$nx6dgnkuZ6n9u4.tW7tBkOHDKQLoVj4rf8McFue6mJMXncnvUR04C', 36728829, 1, 'male', 1, '4.00', '4.00', 75, 'Excellence', 'Enrolled', 1, 2020, '', 2013, 587, 605);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `address`
---
-ALTER TABLE `address`
-  ADD PRIMARY KEY (`addressID`);
 
 --
 -- Indexes for table `admin`
@@ -353,10 +330,10 @@ ALTER TABLE `course`
 ALTER TABLE `courseAttendance`
   ADD PRIMARY KEY (`attendanceID`),
   ADD UNIQUE KEY `attendanceID` (`attendanceID`,`studentID`,`courseID`,`instructorID`,`section`,`date`,`lecturesDay`,`status`,`year`,`semester`),
-  ADD KEY `courseattendance_ibfk_1` (`studentID`),
   ADD KEY `courseattendance_ibfk_2` (`courseID`),
   ADD KEY `instructorID` (`instructorID`),
-  ADD KEY `section` (`section`);
+  ADD KEY `section` (`section`),
+  ADD KEY `studentID` (`studentID`);
 
 --
 -- Indexes for table `courseTiming`
@@ -388,7 +365,8 @@ ALTER TABLE `staff`
   ADD PRIMARY KEY (`staffID`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `phoneNumber` (`phoneNumber`),
-  ADD UNIQUE KEY `CPR` (`CPR`);
+  ADD UNIQUE KEY `CPR` (`CPR`),
+  ADD KEY `collegeID` (`collegeID`);
 
 --
 -- Indexes for table `studentClassroom`
@@ -396,9 +374,9 @@ ALTER TABLE `staff`
 ALTER TABLE `studentClassroom`
   ADD PRIMARY KEY (`studentClassroomID`),
   ADD UNIQUE KEY `studentID` (`studentID`,`section`,`courseID`,`instructorID`,`classroomID`,`year`,`semester`,`studentClassroomID`) USING BTREE,
-  ADD KEY `classroomID` (`classroomID`),
-  ADD KEY `courseID` (`courseID`),
-  ADD KEY `instructorID` (`instructorID`);
+  ADD KEY `studentclassroom_ibfk_2` (`classroomID`),
+  ADD KEY `studentclassroom_ibfk_3` (`courseID`),
+  ADD KEY `studentclassroom_ibfk_4` (`instructorID`);
 
 --
 -- Indexes for table `studentInfo`
@@ -408,7 +386,6 @@ ALTER TABLE `studentInfo`
   ADD UNIQUE KEY `phoneNumber` (`phoneNumber`),
   ADD UNIQUE KEY `sID` (`studentID`) USING BTREE,
   ADD UNIQUE KEY `CPR` (`CPR`),
-  ADD KEY `addressID` (`addressID`),
   ADD KEY `advisorID` (`advisorID`),
   ADD KEY `collegeID` (`collegeID`),
   ADD KEY `majorID` (`majorID`);
@@ -473,10 +450,10 @@ ALTER TABLE `course`
 -- Constraints for table `courseAttendance`
 --
 ALTER TABLE `courseAttendance`
-  ADD CONSTRAINT `courseattendance_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `studentInfo` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `courseattendance_ibfk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `courseattendance_ibfk_3` FOREIGN KEY (`instructorID`) REFERENCES `staff` (`staffID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `courseattendance_ibfk_4` FOREIGN KEY (`section`) REFERENCES `studentClassroom` (`studentClassroomID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `courseattendance_ibfk_4` FOREIGN KEY (`section`) REFERENCES `studentClassroom` (`studentClassroomID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `courseattendance_ibfk_5` FOREIGN KEY (`studentID`) REFERENCES `studentInfo` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `courseTiming`
@@ -501,19 +478,24 @@ ALTER TABLE `major`
   ADD CONSTRAINT `major_ibfk_1` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`);
 
 --
+-- Constraints for table `staff`
+--
+ALTER TABLE `staff`
+  ADD CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`);
+
+--
 -- Constraints for table `studentClassroom`
 --
 ALTER TABLE `studentClassroom`
-  ADD CONSTRAINT `studentclassroom_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `studentInfo` (`studentID`),
-  ADD CONSTRAINT `studentclassroom_ibfk_2` FOREIGN KEY (`classroomID`) REFERENCES `classroom` (`classroomID`),
-  ADD CONSTRAINT `studentclassroom_ibfk_3` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`),
-  ADD CONSTRAINT `studentclassroom_ibfk_4` FOREIGN KEY (`instructorID`) REFERENCES `staff` (`staffID`);
+  ADD CONSTRAINT `studentclassroom_ibfk_2` FOREIGN KEY (`classroomID`) REFERENCES `classroom` (`classroomID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `studentclassroom_ibfk_3` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `studentclassroom_ibfk_4` FOREIGN KEY (`instructorID`) REFERENCES `staff` (`staffID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `studentclassroom_ibfk_5` FOREIGN KEY (`studentID`) REFERENCES `studentInfo` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `studentInfo`
 --
 ALTER TABLE `studentInfo`
-  ADD CONSTRAINT `studentinfo_ibfk_2` FOREIGN KEY (`addressID`) REFERENCES `address` (`addressID`),
   ADD CONSTRAINT `studentinfo_ibfk_3` FOREIGN KEY (`advisorID`) REFERENCES `staff` (`staffID`),
   ADD CONSTRAINT `studentinfo_ibfk_4` FOREIGN KEY (`collegeID`) REFERENCES `college` (`collegeID`),
   ADD CONSTRAINT `studentinfo_ibfk_5` FOREIGN KEY (`majorID`) REFERENCES `major` (`majorID`);
