@@ -428,6 +428,18 @@ select {
   text-transform: none;
   text-decoration: none;
 }
+.form .form-element .form-body form .fields {
+  display: flex;
+  flex-wrap: wrap;
+}
+.form .form-element .form-body form .fields div {
+  display: flex;
+}
+.form .form-element .form-body form .fields div .input-field {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 15px;
+}
 
 .button-container .form-btn:hover {
   /* background: #fff; */

@@ -80,3 +80,32 @@ function deleteRow(btn) {
     row.parentNode.removeChild(row);
   }
 }
+
+// AJAX for major
+function updateMajorSelection(selectedValue) {
+  // Send an AJAX request to fetch the options for the second select tag
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "major-select.php", true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Update the options in the second select tag
+      document.getElementById("major-select").innerHTML = xhr.responseText;
+    }
+  };
+  xhr.send("selected=" + encodeURIComponent(selectedValue));
+}
+
+function updateAdvisorSelection(selectedValue) {
+  // Send an AJAX request to fetch the options for the second select tag
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "advisor-select.php", true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Update the options in the third select tag
+      document.getElementById("advisor-select").innerHTML = xhr.responseText;
+    }
+  };
+  xhr.send("selected=" + encodeURIComponent(selectedValue));
+}
