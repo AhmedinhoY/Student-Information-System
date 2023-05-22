@@ -154,3 +154,31 @@ function generateEmail(name) {
   };
   xhr.send("selected=" + encodeURIComponent(name));
 }
+
+// ====== AJAX for campus input ======
+
+function updateCampusInput(selectedValue) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "campus-input.php", true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      document.getElementById("campus-input").innerHTML = xhr.responseText;
+    }
+  };
+  xhr.send("selected=" + encodeURIComponent(selectedValue));
+}
+
+// ====== AJAX for room input ======
+
+function updateRoomName(selectedValue) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "room-name.php", true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      document.getElementById("room-input").innerHTML = xhr.responseText;
+    }
+  };
+  xhr.send("selected=" + encodeURIComponent(selectedValue));
+}
