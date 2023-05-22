@@ -19,7 +19,7 @@ die("error: " . $e->getMessage());
       <div class="form">
             <div class="form-element">
                   <div class="form-header">
-                        <h2>Add Student</h2>
+                        <h2>Add Staff</h2>
                   </div>
                   <div class="form-body">
                         <form action="" method="POST">
