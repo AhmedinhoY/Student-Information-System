@@ -18,7 +18,7 @@ die("error: " . $e->getMessage());
 <select required id="select2">
       <option disabled selected>Major</option>
       <!-- <option>B.Sc. in Computer Science</option> -->
-<?php
+      <?php
 foreach ($query_rs as $option) { ?>
       <option value="<?php echo $option['majorID'] ?>">
             <?php echo $option['majorName'] ?>

@@ -109,3 +109,16 @@ function updateAdvisorSelection(selectedValue) {
   };
   xhr.send("selected=" + encodeURIComponent(selectedValue));
 }
+
+function generateEmail(name) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "generate-email.php?q=" + name, true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Update the options in the third select tag
+      document.getElementById("email").innerHTML = xhr.responseText;
+    }
+  };
+  xhr.send("selected=" + encodeURIComponent(name));
+}
