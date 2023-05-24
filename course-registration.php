@@ -13,8 +13,9 @@ try {
       $sections_query= "select courseTiming.courseID, staff.fullName, courseTiming.section, classroom.room,
       courseTiming.lecturesDay, courseTiming.lecturesTime, courseTiming.examDate, courseTiming.examTime
       FROM courseTiming 
-        LEFT JOIN staff ON courseTiming.instructorID = staff.staffID 
-        LEFT JOIN classroom ON courseTiming.classroomID = classroom.classroomID;";
+            LEFT JOIN staff ON courseTiming.instructorID = staff.staffID 
+            LEFT JOIN classroom ON courseTiming.classroomID = classroom.classroomID
+      WHERE courseTiming.courseID= 'ITCS489' AND courseTiming.year = 2023 AND courseTiming.semester= 2 ";
       $sections_rs= $db->query($sections_query);
 
 
@@ -36,13 +37,16 @@ try {
                   <div class="divs-wrapper" style="display: flex; margin:auto;">
                         <div class="inner-inner-div" style="width: 30%; overflow-y: auto; margin-right:15px">
 
-                              <form method="post" action="">
+                              <h2>Offered Courses</h2>
 
-                                    <h2>Offered Courses</h2>
-
-                                    <button class="form-btn2" onclick="showSections()"> ITCS489</button>
-                                    <button class="form-btn2" onclick="showSections()"> ITCS333</button>
-                                    <button class="form-btn2" onclick="showSections()"> ITCS321</button>
+                              <form action="">
+                                    <button type="button" class="form-btn2" value="ITCS489"
+                                          onclick="showSections(this.value)">
+                                          ITCS489</button>
+                                    <button type="button" class="form-btn2" value="ITCS255"
+                                          onclick="showSections(this.value)">
+                                          ITCS255</button>
+                              </form>
 
                         </div>
                         <div class="inner-inner-div" style="width: 40%; overflow-y: auto; margin-right:15px;">
@@ -50,82 +54,19 @@ try {
                               <form method="post" action="">
 
                                     <h2>Sections</h2>
-                                    <div class="sections" style="">
-                                          <?php foreach ($sections_rs as $row) { ?>
-                                          <button class="inner-inner-div"
-                                                style="display: flex; flex-direction:column; margin: 15px 0; background: #efefef; box-shadow:none; ">
-                                                <h2 style="margin-bottom:5px;">Section No. <?php echo $row[2]; ?></h2>
-                                                <!-- <h3>Course Code: <?php echo $row[0]; ?></h3> -->
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left">
-                                                      <span style="color:var(--blue);">Instructor: </span> </br>
-                                                      <?php echo $row[1]; ?>
-                                                </h3>
-                                                <!-- <h3>Room: <?php echo $row[3]; ?></h3> -->
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
-                                                      <span style="color:var(--blue);">Lectures
-                                                            Days: </span> </br>
-                                                      <?php echo $row[4]; ?>
-                                                </h3>
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
-                                                      <span style="color:var(--blue);">Lectures
-                                                            Time: </span> </br>
-                                                      <?php echo $row[5]; ?>
-                                                </h3>
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
-                                                      <span style="color:var(--blue);"> Exam Time: </br> </span>
-                                                      <?php echo $row[6].", ".$row[7]; ?>
-                                                </h3>
-                                          </button> <?php } ?>
+                                    <div class="sections" id="sections-list" style="">
+
 
                                     </div>
                         </div>
                         <div class="inner-inner-div" style="width: 30%; overflow-y: auto;">
 
-                              <form method="post" action="">
-
+                              <form action="">
                                     <h2>Section Details</h2>
-                                    <div class="sections" style="">
-                                          <button class="inner-inner-div"
-                                                style="display: flex; flex-direction:column; margin: 15px 0; background: #efefef; box-shadow:none; ">
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left">
-                                                      <span style="color:var(--blue);">Course Code: </span> </br>
-                                                      <?php echo $row[0]; ?>
-                                                </h3>
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left">
-                                                      <span style="color:var(--blue);">Section: </span> </br>
-                                                      <?php echo $row[2]; ?>
-                                                </h3>
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left">
-                                                      <span style="color:var(--blue);">Available Seats: </span> </br>
-                                                      40
-                                                </h3>
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left">
-                                                      <span style="color:var(--blue);">Instructor: </span> </br>
-                                                      <?php echo $row[1]; ?>
-                                                </h3>
-
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
-                                                      <span style="color:var(--blue);">Room: </span> </br>
-                                                      <?php echo $row[3]; ?>
-                                                </h3>
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
-                                                      <span style="color:var(--blue);">Lectures
-                                                            Days: </span> </br>
-                                                      <?php echo $row[4]; ?>
-                                                </h3>
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
-                                                      <span style="color:var(--blue);">Lectures
-                                                            Time: </span> </br>
-                                                      <?php echo $row[5]; ?>
-                                                </h3>
-                                                <h3 style="margin-bottom:3px; font-weight:400; text-align:left;">
-                                                      <span style="color:var(--blue);"> Exam Time: </br> </span>
-                                                      <?php echo $row[6].", ".$row[7]; ?>
-                                                </h3>
-                                                <button class="form-btn2">Add Seat</button>
-                                          </button>
+                                    <div class="sections" id="section-details" style="">
 
                                     </div>
+                              </form>
                         </div>
 
                   </div>
