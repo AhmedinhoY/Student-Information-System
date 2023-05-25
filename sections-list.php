@@ -1,4 +1,7 @@
 <?php
+session_start();
+require('includes/student-sessions.php');
+
 try {
       require('includes/connection.php');
       if (isset($_POST['selected'])) {
@@ -21,7 +24,8 @@ try {
 ?>
 
 <?php foreach ($sections_rs as $row) { ?>
-<button class="inner-inner-div" type="button" value="<?php echo $row[0]; ?>" onclick="sectionDetails(this.value, <?php echo $row[2];?>)"
+<button class="inner-inner-div" type="button" value="<?php echo $row[0]; ?>"
+      onclick="sectionDetails(this.value, <?php echo $row[2];?>)"
       style="display: flex; flex-direction:column; margin: 15px 0; background: #efefef; box-shadow:none; ">
       <h2 style="margin-bottom:5px;">Section No. <?php echo $row[2]; ?></h2>
       <!-- <h3>Course Code: <?php echo $row[0]; ?></h3> -->
