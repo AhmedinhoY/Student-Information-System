@@ -30,6 +30,7 @@
                         </li>
                         <li><a href="students-list.php">Students List</a></li>
                         <li><a href="staff-list.php">Staff List</a></li>
+                        <li><a href="colleges-list.php">Colleges List</a></li>
                         <li><a href="courses-list.php">Courses List</a></li>
                         <li><a href="classrooms-list.php">Classrooms List</a></li>
                         <li><a href="sections-list.php">Sections List</a></li>
@@ -51,6 +52,7 @@
                         </li>
                         <li><a href="add-student.php">Add Student</a></li>
                         <li><a href="add-staff.php">Add Staff</a></li>
+                        <li><a href="add-college.php">Add College</a></li>
                         <li><a href="add-course.php">Add Course</a></li>
                         <li><a href="add-classroom.php">Add Classroom</a></li>
                         <li><a href="add-section.php">Add Section</a></li>

@@ -89,7 +89,7 @@ die("error: " . $e->getMessage());
                               </div>
 
 
-                              <button type="submit" class="form-btn" name="add-course">Submit</button>
+                              <button type="submit" class="form-btn" name="add-course">Add Course</button>
                         </form>
                   </div>
             </div>
