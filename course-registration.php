@@ -88,4 +88,9 @@ try {
 </div>
 
 <!--end of container-->
-<?php require('includes/footer.php'); ?>
+
+<script>
+if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+}
+</script>
