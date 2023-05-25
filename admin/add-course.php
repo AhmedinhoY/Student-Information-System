@@ -9,6 +9,19 @@ try {
       $college_sql= "select collegeID, collegeName from college";
       $college_rs= $db->query($college_sql);
 
+      if (isset($_POST["add-course"])){
+            $course= $_POST["c-code"];
+            $course_name= $_POST["c-name"];
+            $college= $_POST["college"];
+            $course_description= $_POST["c-description"];
+            $pre_requisite= $_POST["pre-requisite"];
+            $credits= $_POST["credits"];
+
+            $insertion_query= "insert into course values('$course', $college , '$course_name' ,'$course_description', $credits ,'$pre_requisite')";
+            $result = $db->exec($insertion_query);
+
+      }
+
 
 
 } catch (PDOException $e){
@@ -29,16 +42,16 @@ die("error: " . $e->getMessage());
                                     <div style="width:100%">
                                           <div class="input-field" id="input-field">
                                                 <label>Course Code</label>
-                                                <input type="text" placeholder="Course Code">
+                                                <input type="text" placeholder="Course Code" name="c-code" required>
                                           </div>
                                           <div class="input-field" id="input-field" style="width:40%">
                                                 <label>Course Name</label>
                                                 <input type="text" style="width:100%" placeholder="Course Name"
-                                                      required>
+                                                      name="c-name" required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>College</label>
-                                                <select required id="college-select"
+                                                <select required id="college-select" name="college"
                                                       onchange="updateMajorSelection(this.value); updateAdvisorSelection(this.value)">
                                                       <option disabled selected>College</option>
                                                       <?php foreach ($college_rs as $row) { ?>
@@ -53,15 +66,16 @@ die("error: " . $e->getMessage());
                                           <div class="input-field" style="width:60%" id="input-field">
                                                 <label>Course Description</label>
                                                 <input type="text" style="width:100%" placeholder="Course Description"
-                                                      required>
+                                                      name="c-description" required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Pre-Requisite</label>
-                                                <input type="text" placeholder="Pre-Requisite" required>
+                                                <input type="text" name="pre-requisite" placeholder="Pre-Requisite"
+                                                      required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Credits</label>
-                                                <select>
+                                                <select name="credits">
                                                       <option selected disabled>Credits</option>
                                                       <option>1</option>
                                                       <option>2</option>
@@ -75,7 +89,7 @@ die("error: " . $e->getMessage());
                               </div>
 
 
-                              <button type="submit" class="form-btn">Submit</button>
+                              <button type="submit" class="form-btn" name="add-course">Submit</button>
                         </form>
                   </div>
             </div>

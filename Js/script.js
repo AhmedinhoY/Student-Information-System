@@ -136,3 +136,36 @@ function TableHide() {
   hideUpdate.classList.toggle("hide-btn");
   updateContainer.classList.add("hide-btn");
 }
+
+// ======= AJAX for sections list =======
+
+function showSections(selectedValue) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "sections-list.php", true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      document.getElementById("sections-list").innerHTML = xhr.responseText;
+    }
+  };
+  xhr.send("selected=" + encodeURIComponent(selectedValue));
+}
+
+// ======= AJAX for section details =======
+
+function sectionDetails(selectedValue, courseID) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "section-details.php", true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  var data =
+    "selected=" +
+    encodeURIComponent(selectedValue) +
+    "&courseID=" +
+    encodeURIComponent(courseID);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      document.getElementById("section-details").innerHTML = xhr.responseText;
+    }
+  };
+  xhr.send(data);
+}
