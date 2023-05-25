@@ -9,6 +9,28 @@ try {
       $college_sql= "select collegeID, collegeName from college";
       $college_rs= $db->query($college_sql);
 
+      if (isset($_POST["add-staff"])){
+            $prefix= $_POST["prefix"];
+            $full_name= $prefix." ".$_POST["full-name"];
+            $email= $_POST["email"];
+            $cpr= $_POST["CPR"];
+            $password= $_POST["CPR"];
+            $hashed_password= password_hash($password, PASSWORD_DEFAULT);
+            $mobile_number= $_POST["mobile-number"];
+            $college= $_POST["college"];
+            $gender= $_POST["gender"];
+            $job_title= $_POST["job-title"];
+
+
+            // echo $email ;
+            // echo $job_title ;            
+            $insertion_query= "insert into staff (fullName, CPR, email, password, collegeID,
+            gender, jobTitle, phoneNumber)
+            values('$full_name', '$cpr', '$email', '$hashed_password', '$college',
+            '$gender', '$job_title', '$mobile_number')";
+            $result = $db->exec($insertion_query);
+      }
+
 } catch (PDOException $e){
 die("error: " . $e->getMessage());
 }
@@ -29,7 +51,7 @@ die("error: " . $e->getMessage());
 
                                           <div class="input-field" id="input-field">
                                                 <label>Prefix</label>
-                                                <select required>
+                                                <select name="prefix" required>
                                                       <option disabled selected value="">Prefix</option>
                                                       <option value="Dr.">Dr.</option>
                                                       <option value="Mr.">Mr.</option>
@@ -41,19 +63,21 @@ die("error: " . $e->getMessage());
                                           <div class="input-field" id="input-field">
                                                 <label>Full Name</label>
                                                 <input type="text" onkeyup="generateEmail(this.value)"
-                                                      placeholder="Staff's full name" value="" required>
+                                                      placeholder="Staff's full name" value="" name="full-name"
+                                                      required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>CPR</label>
-                                                <input type="text" placeholder="Staff's CPR" required>
+                                                <input type="text" placeholder="Staff's CPR" name="CPR" required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Job Title</label>
-                                                <input type="text" placeholder="Staff's Job Title" required>
+                                                <input type="text" placeholder="Staff's Job Title" name="job-title"
+                                                      required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Gender</label>
-                                                <select required>
+                                                <select name="gender" required>
                                                       <option disabled selected>Gender</option>
                                                       <option>Male</option>
                                                       <option>Female</option>
@@ -65,12 +89,13 @@ die("error: " . $e->getMessage());
 
                                           <div class="input-field" id="email" style="">
                                                 <label>Email</label>
-                                                <input type="text" placeholder="Staff's Email" value="" disable
-                                                      readonly>
+                                                <input type="text" placeholder="Staff's Email" value="" name="email"
+                                                      disable readonly>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Mobile Number</label>
-                                                <input type="text" placeholder="Staff's Mobile Number" required>
+                                                <input type="text" placeholder="Staff's Mobile Number"
+                                                      name="mobile-number" required>
                                           </div>
 
                                     </div>
@@ -78,7 +103,7 @@ die("error: " . $e->getMessage());
 
                                           <div class="input-field" id="input-field">
                                                 <label>College</label>
-                                                <select required>
+                                                <select name="college" required>
                                                       <option disabled selected>College</option>
                                                       <?php foreach ($college_rs as $row) { ?>
                                                       <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?>
@@ -88,14 +113,14 @@ die("error: " . $e->getMessage());
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Office Number</label>
-                                                <input type="text" placeholder="Office Number" required>
+                                                <input type="text" placeholder="Office Number" name="office">
                                           </div>
                                     </div>
 
                               </div>
 
 
-                              <button type="submit" class="form-btn">Submit</button>
+                              <button type="submit" class="form-btn" name="add-staff">Add Staff</button>
                         </form>
                   </div>
             </div>
