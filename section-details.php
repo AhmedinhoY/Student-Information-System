@@ -22,36 +22,31 @@ try {
       $room= $row["classroomID"];
       }
 
+      if (isset($_POST["add-course"])) {  
+            // Prepare the statement
+            $stmt = $db->prepare("insert into studentClassroom values (null, :student_id, :selected_section, :selected_course, :instructor, :room, 2023, 2)");
+    
+            // Bind the parameters
+            $stmt->bindParam(':student_id', $student_id);
+            $stmt->bindParam(':selected_section', $selected_section);
+            $stmt->bindParam(':selected_course', $selected_course);
+            $stmt->bindParam(':instructor', $instructor);
+            $stmt->bindParam(':room', $room);
+    
+            // Execute the statement
+            $result = $stmt->execute();
+    
+            if ($result) {
+                echo "Seat added successfully.";
+            } else {
+                echo "Error adding seat.";
+            }
+        }
+
 } catch (PDOException $e) {
   die("error: " . $e->getMessage());
 }
 
-try {
-      require('includes/connection.php');
-  
-      if (isset($_POST["add-course"])) {  
-          // Prepare the statement
-          $stmt = $db->prepare("insert into studentClassroom values (null, :student_id, :selected_section, :selected_course, :instructor, :room, 2023, 2)");
-  
-          // Bind the parameters
-          $stmt->bindParam(':student_id', $student_id);
-          $stmt->bindParam(':selected_section', $selected_section);
-          $stmt->bindParam(':selected_course', $selected_course);
-          $stmt->bindParam(':instructor', $instructor);
-          $stmt->bindParam(':room', $room);
-  
-          // Execute the statement
-          $result = $stmt->execute();
-  
-          if ($result) {
-              echo "Seat added successfully.";
-          } else {
-              echo "Error adding seat.";
-          }
-      }
-  } catch (PDOException $e) {
-      die("Error: " . $e->getMessage());
-  }
 ?>
 <!-- Rest of your HTML code -->
 <form method="post" action="">

@@ -12,7 +12,7 @@ try {
 
       $student_query= "select studentClassroom.courseID, course.courseName, course.credits
       from studentClassroom inner join course on studentClassroom.courseID = course.courseID
-      where studentClassroom.studentID = '$student_id' and studentClassroom.year = 2023 and studentClassroom.semester = 2";
+      where studentClassroom.studentID = '$student_id' and studentClassroom.year = 2023 and studentClassroom.semester = 1";
       $student_rs= $db->query($student_query);
       // $student_row= $student_rs->fetch();
 

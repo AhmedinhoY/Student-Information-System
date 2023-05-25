@@ -402,20 +402,7 @@ select {
   display: flex;
   justify-content: space-around;
 }
-.form-element
-{
-  
-  display: flex;
-  flex-wrap: wrap;
-  margin: auto;
-  overflow: auto;
-}
-#gpa-sim-form{
-  overflow: auto;
-}
-button.form-btn[type="submit"] {
-  min-width: fit-content;
-}
+
 /* ======= login control ======= */
 
 .form .form-element .log-in-control .control-container {
@@ -451,7 +438,7 @@ button.form-btn[type="submit"] {
 
 .outer-div {
   min-height: 50vh;
-  width: 90%;
+  /* width: 35%; */
   margin: 25px;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
@@ -609,24 +596,6 @@ button.form-btn[type="submit"] {
   border-radius: 3px;
 }
 
-.inner-inner-div{
-  min-width: fit-content;
-  overflow: auto;
-}
-.inner-div
-{
-  overflow: auto;
-}
-
-.divs-wrapper{
-  display: flex;
-  margin: auto;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-
-
 /* ====== Media Queries ====== */
 
 @media (max-width: 767px) {
@@ -646,10 +615,6 @@ button.form-btn[type="submit"] {
     font-size: 1rem;
     padding: 0.5rem 0rem;
   }
- .form-element{
-   width: auto;
- }
-
 }
 
 @media (min-width: 768px) {
@@ -658,7 +623,6 @@ button.form-btn[type="submit"] {
     min-width: 75%;
     max-width: 90%;
   }
-  
 }
 
 @media (max-width: 768px) {
@@ -721,14 +685,7 @@ button.form-btn[type="submit"] {
 }
 @media (min-width: 1440px) {
   /*large laptop view*/
-  .inner-inner-div{
-    max-width: 25%;
-  }
-  .outer-div {
-    width: 1300px;
-  }
- 
- 
+
   .sidebar {
     width: 18%;
   }
@@ -767,4 +724,3 @@ button.form-btn[type="submit"] {
     width: 240px;
   }
 }
-
