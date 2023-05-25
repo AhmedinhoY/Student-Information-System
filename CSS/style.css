@@ -402,7 +402,20 @@ select {
   display: flex;
   justify-content: space-around;
 }
-
+.form-element
+{
+  
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  overflow: auto;
+}
+#gpa-sim-form{
+  overflow: auto;
+}
+button.form-btn[type="submit"] {
+  min-width: fit-content;
+}
 /* ======= login control ======= */
 
 .form .form-element .log-in-control .control-container {
@@ -438,7 +451,7 @@ select {
 
 .outer-div {
   min-height: 50vh;
-  /* width: 35%; */
+  width: 90%;
   margin: 25px;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
@@ -596,6 +609,24 @@ select {
   border-radius: 3px;
 }
 
+.inner-inner-div{
+  min-width: fit-content;
+  overflow: auto;
+}
+.inner-div
+{
+  overflow: auto;
+}
+
+.divs-wrapper{
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+
+
 /* ====== Media Queries ====== */
 
 @media (max-width: 767px) {
@@ -615,6 +646,10 @@ select {
     font-size: 1rem;
     padding: 0.5rem 0rem;
   }
+ .form-element{
+   width: auto;
+ }
+
 }
 
 @media (min-width: 768px) {
@@ -623,6 +658,7 @@ select {
     min-width: 75%;
     max-width: 90%;
   }
+  
 }
 
 @media (max-width: 768px) {
@@ -685,7 +721,14 @@ select {
 }
 @media (min-width: 1440px) {
   /*large laptop view*/
-
+  .inner-inner-div{
+    max-width: 25%;
+  }
+  .outer-div {
+    width: 1300px;
+  }
+ 
+ 
   .sidebar {
     width: 18%;
   }
@@ -724,3 +767,4 @@ select {
     width: 240px;
   }
 }
+
