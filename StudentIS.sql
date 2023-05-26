@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 23, 2023 at 01:07 AM
+-- Generation Time: May 26, 2023 at 10:47 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -109,7 +109,19 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`courseID`, `collegeID`, `courseName`, `courseDescription`, `credits`, `pre-requisite`) VALUES
+('ITCE314', 1, 'Computer Networks I', 'Computer Networks I', 3, 'ITCS114'),
+('ITCS113', 1, 'Computer Programming I', 'Computer Programming I', 3, '--'),
+('ITCS114', 1, 'Computer Programming II', 'Computer Programming II', 3, 'ITCS113'),
+('ITCS214', 1, 'Data Structures', 'Data Structures', 3, 'ITCS214'),
+('ITCS254', 1, 'Discrete Structures I', 'Discrete Structures I', 3, 'ITCS113'),
 ('ITCS255', 1, 'Discrete Mathematics II', 'Discrete Mathematics II', 3, 'ITCS254'),
+('ITCS285', 1, 'Database Management Systems', 'Database Management Systems', 3, 'ITCS214'),
+('ITCS316', 1, 'Human-Computer Interaction', 'Human-Computer Interaction', 3, 'ITCS214'),
+('ITCS317', 1, 'Formal Languages and Automata', 'Formal Languages and Automata', 3, 'ITCS214'),
+('ITCS321', 1, 'Computer Organization and Assembly Language', 'Computer Organization and Assembly Language', 3, 'ITCS114'),
+('ITCS333', 1, 'Internet Software Development', 'Internet Software Development', 3, 'ITCS285'),
+('ITCS347', 1, 'Algorithms Design and Analysis', 'Algorithms Design and Analysis', 3, 'ITCS255'),
+('ITCS389', 1, 'Software Engineering I', 'Software Engineering I', 3, 'ITCS285'),
 ('ITCS489', 1, 'Software Engineering II', 'Software Engineering II', 3, 'ITCS389');
 
 -- --------------------------------------------------------
@@ -136,9 +148,9 @@ CREATE TABLE `courseAttendance` (
 --
 
 INSERT INTO `courseAttendance` (`attendanceID`, `studentID`, `courseID`, `instructorID`, `section`, `date`, `lecturesDay`, `status`, `year`, `semester`) VALUES
-(1, 202003838, 'ITCS489', 2, 1, '2023-05-16', 'UTH', 'present', 2023, '2'),
-(2, 202003838, 'ITCS255', 1, 2, '2023-05-15', 'MW', 'absent with excuse', 2023, '2'),
-(3, 202003838, 'ITCS489', 2, 1, '2023-05-14', 'UTH', 'absent', 2023, '2');
+(1, 202003838, 'ITCS285', 2, 1, '2023-05-16', 'UTH', 'present', 2023, '1'),
+(2, 202003838, 'ITCS255', 1, 2, '2023-05-15', 'MW', 'absent with excuse', 2023, '1'),
+(3, 202003838, 'ITCS285', 2, 1, '2023-05-14', 'UTH', 'absent', 2023, '1');
 
 -- --------------------------------------------------------
 
@@ -165,9 +177,9 @@ CREATE TABLE `courseTiming` (
 --
 
 INSERT INTO `courseTiming` (`courseID`, `instructorID`, `section`, `classroomID`, `lecturesDay`, `lecturesTime`, `year`, `semester`, `examDate`, `examTime`, `examPlace`) VALUES
-('ITCS255', 1, 3, 2, 'MW', '9:30-10:45', 2023, '2', '2023-06-05', '8:30-10:30', 'TBA'),
-('ITCS489', 2, 1, 1, 'UTH', '11:00-11:50', 2023, '2', '2023-06-07', '13:30-15:30', 'TBA'),
-('ITCS489', 2, 2, 1, 'UTH', '12:00-12:50', 2023, '2', '2023-06-07', '13:30-15:30', 'TBA');
+('ITCS347', 3, 1, 2, 'MW', '9:30-10:45', 2023, '2', '2023-06-05', '8:30-10:30', 'TBA'),
+('ITCS389', 2, 1, 1, 'UTH', '11:00-11:50', 2023, '2', '2023-06-07', '13:30-15:30', 'TBA'),
+('ITCS389', 2, 2, 1, 'UTH', '12:00-12:50', 2023, '2', '2023-06-07', '13:30-15:30', 'TBA');
 
 -- --------------------------------------------------------
 
@@ -210,7 +222,7 @@ INSERT INTO `major` (`majorID`, `majorName`, `collegeID`) VALUES
 CREATE TABLE `staff` (
   `staffID` int(9) NOT NULL,
   `fullName` varchar(80) NOT NULL,
-  `picture` text NOT NULL,
+  `picture` text DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(128) NOT NULL,
   `CPR` varchar(9) NOT NULL,
@@ -226,8 +238,9 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`staffID`, `fullName`, `picture`, `email`, `password`, `CPR`, `gender`, `phoneNumber`, `jobTitle`, `collegeID`, `officeNumber`) VALUES
-(1, 'Dr. Ali Hassan AlSaffar', '', 'aalsaffar@uob.edu.bh', '$2y$10$ZNGd4FmE.fsWb/28QPyGuuKbZFANRYGt9F3X2ohvGZpZ8YR0DevkC', '011111111', 'male', 34111111, 'Proffesor', 1, 'S40-2060'),
-(2, 'Dr. Taher Saleh Khaid Homeed', '', 'tskhomeed@uob.edu.bh', '$2y$10$Y298qHpLTgH/YdxBiqhQ5uJxElJFPouJHOjCoPFRx1UHUBKynuNfq', '022222222', 'male', 34222222, 'Professor', 1, 'S40-2061');
+(1, 'Dr. Ali Hassan AlSaffar', NULL, 'aalsaffar@uob.edu.bh', '$2y$10$ZNGd4FmE.fsWb/28QPyGuuKbZFANRYGt9F3X2ohvGZpZ8YR0DevkC', '011111111', 'male', 34111111, 'Proffesor', 1, 'S40-2060'),
+(2, 'Dr. Taher Saleh Khaid Homeed', NULL, 'tskhomeed@uob.edu.bh', '$2y$10$Y298qHpLTgH/YdxBiqhQ5uJxElJFPouJHOjCoPFRx1UHUBKynuNfq', '022222222', 'male', 34222222, 'Professor', 1, 'S40-2061'),
+(3, 'Dr. Youssef Bin Mohammed Harrath', NULL, 'ybmharrath@uob.edu.bh', '$2y$10$VnyrhB47lPLAqiUEwn7xrOrAZgsonM5kS.c931U3SY8WnCux3x9yW', '03333333', 'male', 35111111, 'Proffesor', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -251,8 +264,12 @@ CREATE TABLE `studentClassroom` (
 --
 
 INSERT INTO `studentClassroom` (`studentClassroomID`, `studentID`, `section`, `courseID`, `instructorID`, `classroomID`, `year`, `semester`) VALUES
-(1, 202003838, 1, 'ITCS489', 2, 1, 2023, '2'),
-(2, 202003838, 3, 'ITCS255', 1, 2, 2023, '2');
+(3, 202003838, 1, 'ITCS113', 1, 1, 2021, '1'),
+(1, 202003838, 1, 'ITCS254', 1, 1, 2022, '1'),
+(6, 202003838, 1, 'ITCS285', 1, 2, 2023, '1'),
+(7, 202003838, 2, 'ITCS255', 1, 1, 2023, '1'),
+(4, 202003838, 3, 'ITCS114', 2, 2, 2021, '2'),
+(2, 202003838, 3, 'ITCS214', 1, 2, 2022, '1');
 
 -- --------------------------------------------------------
 
@@ -263,7 +280,7 @@ INSERT INTO `studentClassroom` (`studentClassroomID`, `studentID`, `section`, `c
 CREATE TABLE `studentInfo` (
   `studentID` int(9) NOT NULL,
   `fullName` varchar(100) NOT NULL,
-  `picture` text NOT NULL,
+  `picture` text DEFAULT NULL,
   `CPR` varchar(9) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(64) NOT NULL,
@@ -277,7 +294,7 @@ CREATE TABLE `studentInfo` (
   `academicStatus` varchar(20) NOT NULL,
   `enrollmentStatus` varchar(20) NOT NULL,
   `advisorID` int(9) NOT NULL,
-  `yearOfJoin` year(4) NOT NULL,
+  `yearOfJoin` varchar(15) NOT NULL,
   `flat` varchar(4) NOT NULL DEFAULT '',
   `building` int(5) DEFAULT NULL,
   `road` int(5) DEFAULT NULL,
@@ -289,7 +306,7 @@ CREATE TABLE `studentInfo` (
 --
 
 INSERT INTO `studentInfo` (`studentID`, `fullName`, `picture`, `CPR`, `email`, `password`, `phoneNumber`, `collegeID`, `gender`, `majorID`, `CGPA`, `MCGPA`, `passedCH`, `academicStatus`, `enrollmentStatus`, `advisorID`, `yearOfJoin`, `flat`, `building`, `road`, `block`) VALUES
-(202003838, 'Ahmed Yusuf Ahmed Saleh', '', '021201111', '202003838@stu.uob.edu.bh', '$2y$10$nx6dgnkuZ6n9u4.tW7tBkOHDKQLoVj4rf8McFue6mJMXncnvUR04C', 36728829, 1, 'male', 1, '4.00', '4.00', 75, 'Excellence', 'Enrolled', 1, 2020, '', 2013, 587, 605);
+(202003838, 'Ahmed Yusuf Ahmed Saleh', NULL, '021201111', '202003838@stu.uob.edu.bh', '$2y$10$nx6dgnkuZ6n9u4.tW7tBkOHDKQLoVj4rf8McFue6mJMXncnvUR04C', 36728829, 1, 'male', 1, '4.00', '4.00', 75, 'Excellence', 'Enrolled', 1, '2020', '', 2013, 587, 605);
 
 --
 -- Indexes for dumped tables
@@ -422,13 +439,13 @@ ALTER TABLE `major`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staffID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `staffID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `studentClassroom`
 --
 ALTER TABLE `studentClassroom`
-  MODIFY `studentClassroomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `studentClassroomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
