@@ -4,8 +4,6 @@ require('includes/student-sessions.php'); ?>
 
 <?php
 
-require('includes/student-sessions.php');
-
 try {
       require('includes/connection.php');
       $sql_query= " select * from studentInfo where studentID = '$student_id' ";
@@ -20,7 +18,7 @@ try {
           FROM studentClassroom
           WHERE studentClassroom.courseID = course.courseID
           AND studentClassroom.studentID = '$student_id'
-      )";
+          )";
       $offerd_courses_rs= $db->query($offerd_courses_query);
 
       $sections_query= "select courseTiming.courseID, staff.fullName, courseTiming.section, classroom.room,
@@ -29,10 +27,36 @@ try {
             LEFT JOIN staff ON courseTiming.instructorID = staff.staffID 
             LEFT JOIN classroom ON courseTiming.classroomID = classroom.classroomID
       WHERE courseTiming.courseID= 'ITCS489' AND courseTiming.year = 2023 AND courseTiming.semester= 2 ";
+
       $sections_rs= $db->query($sections_query);
+     
 
-
-
+            
+  if (isset($_POST["add-seat"])) {
+      $selected_section= $_SESSION['selected_section_data']['selected_section'];
+      $selected_course= $_SESSION['selected_section_data']['selected_course'];
+      $instructor= $_SESSION['selected_section_data']['instructor_id'];
+      $room= $_SESSION['selected_section_data']['room_id'];
+      // Prepare the statement
+      $stmt = $db->prepare("INSERT INTO studentClassroom (studentID, section, courseID, instructorID, classroomID, year, semester) VALUES (:student_id, :selected_section, :selected_course, :instructor, :room, '2023', '2')");
+  
+      // Bind the parameters
+      $stmt->bindParam(':student_id', $student_id);
+      $stmt->bindParam(':selected_section', $selected_section);
+      $stmt->bindParam(':selected_course', $selected_course);
+      $stmt->bindParam(':instructor', $instructor);
+      $stmt->bindParam(':room', $room);
+  
+      // Execute the statement
+      $result = $stmt->execute();
+  
+      if ($result) {
+        echo "Seat added successfully.";
+      } else {
+        echo "Error adding seat.";
+      }
+    }
+  
 } catch (PDOException $e) {
   die("error: " . $e->getMessage());
 }
@@ -75,9 +99,11 @@ try {
                         <div class="inner-inner-div" style="width: 30%; overflow-y: auto;">
 
                               <h2>Section Details</h2>
-                              <div class="sections" id="section-details" style="">
+                              <form method="POST" action="">
+                                    <div class="sections" id="section-details" style="">
 
-                              </div>
+                                    </div>
+                              </form>
                         </div>
 
                   </div>
@@ -89,8 +115,4 @@ try {
 
 <!--end of container-->
 
-<script>
-if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
-}
-</script>
+<?php require("includes/footer.php"); ?>

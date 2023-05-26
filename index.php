@@ -47,10 +47,10 @@ try {
       //query to find upcoming events
       $upcoming_events_query="select `studentClassroom`.`courseID`, `courseTiming`.`examDate`, `courseTiming`.`examTime`, `courseTiming`.`examPlace` 
       FROM `studentClassroom` 
-      LEFT JOIN `courseTiming` ON courseTiming.section = studentClassroom.section 
+      LEFT JOIN `courseTiming` ON `courseTiming`.`courseID` = `studentClassroom`.`courseID` AND `courseTiming`.`section` = `studentClassroom`.`section`
       LEFT JOIN `course` ON `courseTiming`.`courseID` = `course`.`courseID` 
-      WHERE studentClassroom.studentID= '$student_id' AND studentClassroom.year= 2023 AND studentClassroom.semester=2 
-      ORDER BY `courseTiming`.`examDate` ASC";
+      WHERE `studentClassroom`.`studentID` = 202003838 AND `studentClassroom`.`year` = 2023 AND `studentClassroom`.`semester` = 2 
+      ORDER BY `courseTiming`.`examDate` ASC;";
       $upcoming_events_rs=$db->query($upcoming_events_query);
 
 
@@ -159,7 +159,7 @@ try {
                         <?php foreach ($student_attendence_uth_rs as $row_2) { ?>
                         <div class="cirule-container">
                               <div class="circular-progress"
-                                    style="  background: conic-gradient(var(--blue), calc(360deg * 0.<?php echo round($row_2[1]) ?>), #ededed 0deg);">
+                                    style="  background: conic-gradient(var(--blue), calc(360deg * <?php echo round($row_2[1]) ?>/100), #ededed 0deg);">
                                     <span class="progress-value"><?php echo round($row_2[1],1) ?>%</span>
                               </div>
                               <span class="circule-text">
@@ -170,7 +170,7 @@ try {
                         <?php foreach ($student_attendence_mw_rs as $row_3) { ?>
                         <div class="cirule-container">
                               <div class="circular-progress"
-                                    style="  background: conic-gradient(var(--blue), calc(360deg * 0.<?php echo round($row_3[1]) ?>), #ededed 0deg);">
+                                    style="  background: conic-gradient(var(--blue), calc(360deg * <?php echo round($row_3[1]) ?>/100), #ededed 0deg);">
                                     >
                                     <span class="progress-value"><?php echo round($row_3[1],1) ?>%</span>
                               </div>

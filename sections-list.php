@@ -5,7 +5,7 @@ require('includes/student-sessions.php');
 try {
       require('includes/connection.php');
       if (isset($_POST['selected'])) {
-
+            
       $selected_course= $_POST['selected'];
       $sections_query= "select courseTiming.courseID, staff.fullName, courseTiming.section, classroom.room,
       courseTiming.lecturesDay, courseTiming.lecturesTime, courseTiming.examDate, courseTiming.examTime
