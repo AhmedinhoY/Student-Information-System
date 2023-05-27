@@ -9,6 +9,10 @@ try {
       $college_sql= "select collegeID, collegeName from college";
       $college_rs= $db->query($college_sql);
 
+      //room selection
+      $room_sql= "select classroomID,room from classroom";
+      $room_rs= $db->query($room_sql);
+
       //course selection
       $course_sql= "select courseID from course";
       $course_rs= $db->query($course_sql);
@@ -34,7 +38,7 @@ die("error: " . $e->getMessage());
                                           <div class="input-field" id="input-field">
                                                 <label>College</label>
                                                 <select required id="college-select"
-                                                      onchange="updateCourseSelection(this.value); updateInstructorSelection(this.value)">
+                                                      onchange="updateCourseSelection(this.value); updateInstructorSelection(this.value);">
                                                       <option disabled selected>College</option>
                                                       <?php foreach ($college_rs as $row) { ?>
                                                       <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?>
@@ -44,7 +48,8 @@ die("error: " . $e->getMessage());
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Course Code</label>
-                                                <select required id="course-select">
+                                                <select required id="course-select"
+                                                      onchange="updateSectionSelection(this.value);">
                                                       <option disabled selected>Course Code</option>
 
                                                 </select>
@@ -61,13 +66,19 @@ die("error: " . $e->getMessage());
                                           </div>
                                     </div>
                                     <div style="width:100%">
-                                          <div class="input-field" id="input-field">
+                                          <div class="input-field" id="section-select">
                                                 <label>Section</label>
                                                 <input type="number" placeholder="Section Number" required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Room</label>
-                                                <input type="" placeholder="Room" required>
+                                                <select name="" id="" required>
+                                                      <option selected disabled>Room</option>
+                                                      <?php foreach ($room_rs as $row) { ?>
+                                                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?>
+                                                      </option>
+                                                      <?php } ?>
+                                                </select>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Lectures Days</label>
@@ -144,6 +155,19 @@ window.addEventListener('DOMContentLoaded', function() {
             inputField.style.width = (inputField.placeholder.length + 5) + 'ch';
       });
 });
+
+// ====== AJAX for section number =======
+function updateSectionSelection(selectedValue) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "section-input.php", true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                  document.getElementById("section-select").innerHTML = xhr.responseText;
+            }
+      };
+      xhr.send("selected=" + encodeURIComponent(selectedValue));
+}
 </script>
 
 <?php require('../includes/footer.php'); ?>
