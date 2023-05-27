@@ -8,6 +8,7 @@ try {
       // Retrieve options from the database based on the selected value
       $college_sql= "select place from college where collegeID = $selectedValue ";
       $college_rs= $db->query($college_sql);
+      $row = $college_rs->fetch();
       }
 
 
@@ -16,7 +17,6 @@ die("error: " . $e->getMessage());
 }
 ?>
 <label>Campus</label>
-<?php foreach($college_rs as $row){ ?>
-<input type="name" value="<?php echo $row[0]; ?>" required disabled> </input>
-<?php
-} ?>
+<select>
+      <option name="campus" disabled selected value="<?php echo $row[0]; ?>"><?php echo $row[0]; ?></option>
+</select>

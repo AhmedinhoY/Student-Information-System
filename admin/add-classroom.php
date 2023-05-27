@@ -9,6 +9,18 @@ try {
       $college_sql= "select collegeID, collegeName from college";
       $college_rs= $db->query($college_sql);
 
+      if (isset($_POST["add-classroom"])) {
+            $campus=$_POST["campus"];
+            $college= $_POST["college"];
+            $capacity=$_POST["capacity"];
+            $room=$_POST["room"];
+            $type=$_POST["type"];
+            
+            $insertion_query= "insert into classroom (classroomID, campus, collegeID, room, capacity, type)
+            values(null, '$campus', '$college', '$room', '$capacity', '$type')";
+            $result = $db->exec($insertion_query);
+      }
+
 } catch (PDOException $e){
 die("error: " . $e->getMessage());
 }
@@ -27,7 +39,7 @@ die("error: " . $e->getMessage());
                                     <div style="width:100%">
                                           <div class="input-field" id="input-field">
                                                 <label>College</label>
-                                                <select required id="college-select"
+                                                <select required id="college-select" name="college"
                                                       onchange="updateCampusInput(this.value); updateRoomName(this.value)">
                                                       <option disabled selected>College</option>
                                                       <?php foreach ($college_rs as $row) { ?>
@@ -38,25 +50,25 @@ die("error: " . $e->getMessage());
                                           </div>
                                           <div class="input-field" id="campus-input">
                                                 <label>Campus</label>
-                                                <input type="name" placeholder="Campus" value="" required disabled
-                                                      id="campus-select">
+                                                <select id="campus-select">
+                                                      <option disabled selected>Campus</option>
 
-                                                </input>
+                                                </select>
                                           </div>
                                     </div>
                                     <div style="width:100%">
                                           <div class="input-field" id="room-input">
                                                 <label>Room</label>
-                                                <input type="text" placeholder="Room" required>
+                                                <input type="text" name="room" placeholder="Room" required>
                                           </div>
 
                                           <div class="input-field" id="input-field">
                                                 <label>Capacity</label>
-                                                <input type="number" placeholder="Capacity" required>
+                                                <input type="number" name="capacity" placeholder="Capacity" required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Type</label>
-                                                <select>
+                                                <select name="type">
                                                       <option selected disabled>Room Type</option>
                                                       <option>Study classroom</option>
                                                 </select>
@@ -64,7 +76,7 @@ die("error: " . $e->getMessage());
                                     </div>
                               </div>
 
-                              <button type="submit" class="form-btn">Submit</button>
+                              <button type="submit" class="form-btn" name="add-classroom">Add Classroom</button>
                         </form>
                   </div>
             </div>
@@ -84,6 +96,10 @@ window.addEventListener('DOMContentLoaded', function() {
             inputField.style.width = (inputField.placeholder.length + 5) + 'ch';
       });
 });
+
+if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+}
 </script>
 
 <?php require('../includes/footer.php'); ?>

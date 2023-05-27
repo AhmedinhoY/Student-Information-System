@@ -15,8 +15,8 @@ try {
 die("error: " . $e->getMessage());
 }
 ?>
-<label>Campus</label>
+<label>Room</label>
 <?php foreach($college_rs as $row){ ?>
-<input type="name" value="<?php echo $row[0]; ?>-" required> </input>
+<input type="name" name="room" value="<?php echo $row[0]; ?>-" required> </input>
 <?php
 } ?>

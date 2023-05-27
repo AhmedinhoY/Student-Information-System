@@ -163,7 +163,7 @@ function updateCampusInput(selectedValue) {
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      document.getElementById("campus-input").innerHTML = xhr.responseText;
+      document.getElementById("campus-select").innerHTML = xhr.responseText;
     }
   };
   xhr.send("selected=" + encodeURIComponent(selectedValue));
