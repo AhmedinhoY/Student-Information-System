@@ -119,7 +119,10 @@ die("error: " . $e->getMessage());
             <div class="form-element">
                   <div class="form-header">
                         <h2>Add Course</h2>
+                        <div class="one">
                         <h3><?php echo"<br>". $err;?></h3>
+                        </div>
+                       
                   </div>
                   <div class="form-body">
                         <form action="" method="POST">

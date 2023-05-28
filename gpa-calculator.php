@@ -1,73 +1,99 @@
+<script>//alert('hi');</script>
+
 <?php require('includes/student-header.php'); ?>
 <?php require('includes/sidebar.php'); ?>
 <?php require('includes/student-sessions.php'); ?>
 <?php require('includes/functions.php'); ?>
 <?php
 $ERRmsg="";
+$c =0;
+$cgpa =0;
+$gpa =0;
+$totalPassedHrs=0;
+
 
 if (isset($_POST['calc'])) {
-      $grades = $_POST["grade"]; //array //done --problem here, leave it empty and you'll see:) 
-      $creditHours = $_POST["cHours"]; //array //done
+    
+      if(!empty($_POST["grade"])){
+            $grades = $_POST["grade"]; //array //done --problem here, leave it empty and you'll see:)
+      }
+      
+      
+      if(!empty($_POST["cHours"])){
+            $creditHours = $_POST["cHours"]; //array //done
+
+      }
+
       $pastGPA= test_input($_POST["CGPA"]); //done
       $passedHrs= test_input($_POST["chPassed"]);//BUG!
 
-      if(empty($grades)||empty($creditHours)||empty($pastGPA)||empty( $passedHrs)){
-            die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+      if(empty($grades)||empty($creditHours)||empty($pastGPA)||empty($passedHrs)){
+            $ERRmsg= '<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
+            $c++;
       }
 
       //credit hours validation
       //enter a number from 1 -9 only
-      $pattCredit="/^[1-9]{1}$/";
+      $pattCredit="/^[1-4]{1}$/";
       for($i=0;$i<count($creditHours);$i++){
             $creditHours[$i] = test_input($creditHours[$i]); 
-            if(empty($creditHours[$i])){
-                  $ERRmsg='<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
-            }
             if(preg_match($pattCredit,$creditHours[$i])!= 1){
-                  $ERRmsg='<h1 style="text-align:center;">Error: enter numbers from 1-9 only for Credits </h1>';
+                  $ERRmsg='<h1 style="text-align:center;">Error: enter numbers from 1-4 only for Credits </h1>';
+                  $c++;
                   
             }      
       } // end of the for loop for credit hrs
 
       //validation for grades
-      for($i=0;$i<count($grades);$i++){
-            if(empty($grades[$i])){
-                  $ERRmsg='<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
-            }
-      }//end of for loop for grades
+      if(!empty($grades)){
+            for($i=0;$i<count($grades);$i++){
+                  if(empty($grades[$i])||!isset($grades[$i])){
+                        $ERRmsg='<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
+                        $c++;
+                  }
+            }//end of for loop for grades
+      }
+
 
       //pastGPA
       //gpa between 1.00 ~ 3.99 or 4.00 will work here, otherwise error.
       $pattGPA = "/^[1-3]{1}([\.]?([0-9]{1,2})?)|(4(\.00)?)$/";
       if(preg_match($pattGPA,$pastGPA)!= 1){
             $ERRmsg='<h1 style="text-align:center;">Error: please enter your past GPA correctly</h1>';
+            $c++;
 
       }
 
       //BUG HERE: STILL ACCEPTS -1! but no chars!
       //passedHrs
       //gpa between 1.00 ~ 3.99 or 4.00 will work here, otherwise error.
-      $pattHrs = "/^[^\-][0-1]([0-9]{1,3})?|[0-9]{1,2}$/";
+      $pattHrs = "/^[^\-][0-1]([0-9]{1,3})?$|^[0-9]{1,2}$/";
       if(preg_match($pattHrs,$passedHrs)!= 1){
             $ERRmsg='<h1 style="text-align:center;">Error: please enter your passed hrs  correctly</h1>';
-
+            $c++;
       }
 
+     
+
+
+
+
+
+            if($c == 0){
+                  $gpa = calculateGPA($grades, $creditHours);
+                  $cgpa= calculateCGPA($grades, $creditHours,$pastGPA ,$passedHrs );
+                  $totalPassedHrs= array_sum($creditHours) + $_POST["chPassed"];
+            }
+
+            if($c >0){
+                  echo $ERRmsg;
+            }
 
 
 
 
 
 
-
-
-
-
-
-
-      $gpa = calculateGPA($grades, $creditHours);
-      $cgpa= calculateCGPA($grades, $creditHours,$pastGPA ,$passedHrs );
-      $totalPassedHrs= array_sum($creditHours) + $_POST["chPassed"];
 
 }
 
@@ -87,7 +113,7 @@ if (isset($_POST['calc'])) {
                   <div class="form-body">
                         <form id="gpa-sim" method="POST">
                               <!-- <span style="color:red">
-                                    <?php echo $ERRmsg; ?>
+                                    <?php echo "<br>".$ERRmsg; ?>
                               </span> <br /> -->
                               <table class="table" id="GPA-calculator">
                                     <thead>
@@ -117,7 +143,7 @@ if (isset($_POST['calc'])) {
                                                             placeholder="Credits" min="1" max="4" required></td>
                                                 <td style="width:30%;">
                                                       <select name="grade[]" required>
-                                                            <option selected>Select a grade</option>
+                                                            <option disabled selected>Select a grade</option>
                                                             <option value="A">A (90-100)</option>
                                                             <option value="A-">A- (87-89)</option>
                                                             <option value="B+">B+ (84-86)</option>
@@ -144,7 +170,7 @@ if (isset($_POST['calc'])) {
                                                             max="4" required></td>
                                                 <td style="width:30%">
                                                       <select name="grade[]" required>
-                                                            <option selected>Select a grade</option>
+                                                            <option disabled selected>Select a grade</option>
                                                             <option value="A">A (90-100)</option>
                                                             <option value="A-">A- (87-89)</option>
                                                             <option value="B+">B+ (84-86)</option>
@@ -172,7 +198,7 @@ if (isset($_POST['calc'])) {
                                                             max="4" required></td>
                                                 <td style="width:30%">
                                                       <select name="grade[]" required>
-                                                            <option selected>Select a grade</option>
+                                                            <option disabled selected>Select a grade</option>
                                                             <option value="A">A (90-100)</option>
                                                             <option value="A-">A- (87-89)</option>
                                                             <option value="B+">B+ (84-86)</option>
