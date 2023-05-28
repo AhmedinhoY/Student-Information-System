@@ -3,11 +3,67 @@
 <?php require('includes/student-sessions.php'); ?>
 <?php require('includes/functions.php'); ?>
 <?php
+
 if (isset($_POST['calc'])) {
-      $grades = $_POST["grade"];
-      $creditHours = $_POST["cHours"];
-      $pastGPA= $_POST["CGPA"];
-      $passedHrs= $_POST["chPassed"];
+      $grades = $_POST["grade"]; //array //done --problem here, leave it empty and you'll see:) 
+      $creditHours = $_POST["cHours"]; //array //done
+      $pastGPA= test_input($_POST["CGPA"]); //done
+      $passedHrs= test_input($_POST["chPassed"]);//BUG!
+
+      if(empty($grades)||empty($creditHours)||empty($pastGPA)||empty( $passedHrs)){
+            die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+      }
+
+      //credit hours validation
+      //enter a number from 1 -9 only
+      $pattCredit="/^[1-9]{1}$/";
+      for($i=0;$i<count($creditHours);$i++){
+            $creditHours[$i] = test_input($creditHours[$i]); 
+            if(empty($creditHours[$i])){
+                  die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+            }
+            if(preg_match($pattCredit,$creditHours[$i])!= 1){
+                  die('<h1 style="text-align:center;">Error: enter numbers from 1-9 only for Credits </h1>');
+                  
+            }      
+      } // end of the for loop for credit hrs
+
+      //validation for grades
+      for($i=0;$i<count($grades);$i++){
+            if(empty($grades[$i])){
+                  die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+            }
+      }//end of for loop for grades
+
+      //pastGPA
+      //gpa between 1.00 ~ 3.99 or 4.00 will work here, otherwise error.
+      $pattGPA = "/^[1-3]{1}([\.]?([0-9]{1,2})?)|(4(\.00)?)$/";
+      if(preg_match($pattGPA,$pastGPA)!= 1){
+            die('<h1 style="text-align:center;">Error: please enter your past GPA correctly</h1>');
+
+      }
+
+      //BUG HERE: STILL ACCEPTS -1! but no chars!
+      //passedHrs
+      //gpa between 1.00 ~ 3.99 or 4.00 will work here, otherwise error.
+      $pattHrs = "/^[^\-][0-1]([0-9]{1,3})?|[0-9]{1,2}$/";
+      if(preg_match($pattHrs,$passedHrs)!= 1){
+            die('<h1 style="text-align:center;">Error: please enter your passed hrs  correctly</h1>');
+
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
       $gpa = calculateGPA($grades, $creditHours);
       $cgpa= calculateCGPA($grades, $creditHours,$pastGPA ,$passedHrs );
       $totalPassedHrs= array_sum($creditHours) + $_POST["chPassed"];
@@ -18,6 +74,7 @@ if (isset($_POST['calc'])) {
 
 
 <div class="container">
+      <!--conduct the tests here-->
       <div class="form" id="form">
             <!-- ----= Done by: Ahmed Yusuf =---- -->
             <div class="form-element" id="gpa-sim-form">
