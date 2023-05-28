@@ -16,7 +16,7 @@ try {
       if (isset($_POST["add-classroom"])) {
 
             // test_input
-            $campus= $_POST["campus"];//selection
+
             $college= test_input($_POST["college"]);//selection
             $capacity=test_input($_POST["capacity"]);//do 
             $room=test_input($_POST["room"]);//do
@@ -25,7 +25,7 @@ try {
 
       
             //empty
-            if(empty($campus)||empty($college)||empty($capacity)||empty($room)||empty($type)){
+            if(empty($college)||empty($capacity)||empty($room)||empty($type)){
                   $err = "please do not leave any input empty!"; //already validate using html
                 
             }
@@ -41,8 +41,8 @@ try {
 
 
             
-            $insertion_query= "insert into classroom (classroomID, campus, collegeID, room, capacity, type)
-            values(null, '$campus', '$college', '$room', '$capacity', '$type')";
+            $insertion_query= "insert into classroom (classroomID, collegeID, room, capacity, type)
+            values(null, '$college', '$room', '$capacity', '$type')";
             $result = $db->exec($insertion_query);
       }
 
