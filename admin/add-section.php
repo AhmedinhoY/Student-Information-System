@@ -18,7 +18,6 @@ try {
       $course_rs= $db->query($course_sql);
 
       if (isset($_POST["add-section"])) {
-            $college= $_POST["college"];
             $course= $_POST["course"];
             $instructor= $_POST["instructor"];
             $section= $_POST["section"];
@@ -32,7 +31,7 @@ try {
             $ex_place= $_POST["ex-place"];
 
 
-            $insertion_query= 
+            $insertion_query= "insert into courseTiming values('$course','$instrutor)";
 
       }
 
