@@ -10,14 +10,13 @@ try {
       $college_rs= $db->query($college_sql);
 
       if (isset($_POST["add-classroom"])) {
-            $campus=$_POST["campus"];
             $college= $_POST["college"];
             $capacity=$_POST["capacity"];
             $room=$_POST["room"];
             $type=$_POST["type"];
             
-            $insertion_query= "insert into classroom (classroomID, campus, collegeID, room, capacity, type)
-            values(null, '$campus', '$college', '$room', '$capacity', '$type')";
+            $insertion_query= "insert into classroom (classroomID, collegeID, room, capacity, type)
+            values(null, '$college', '$room', '$capacity', '$type')";
             $result = $db->exec($insertion_query);
       }
 

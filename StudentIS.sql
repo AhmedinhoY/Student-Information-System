@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 26, 2023 at 10:47 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: May 28, 2023 at 11:37 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,7 +37,7 @@ CREATE TABLE `admin` (
   `gender` enum('male','female') NOT NULL,
   `phoneNumber` int(20) NOT NULL,
   `officeNumber` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin`
@@ -54,20 +54,21 @@ INSERT INTO `admin` (`adminID`, `fullName`, `picture`, `email`, `password`, `CPR
 
 CREATE TABLE `classroom` (
   `classroomID` int(9) NOT NULL,
-  `campus` enum('Sakheer','Isa Town','Manama') NOT NULL,
   `collegeID` int(11) NOT NULL,
   `room` varchar(10) NOT NULL,
   `capacity` int(3) NOT NULL,
   `type` varchar(80) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `classroom`
 --
 
-INSERT INTO `classroom` (`classroomID`, `campus`, `collegeID`, `room`, `capacity`, `type`) VALUES
-(1, 'Sakheer', 1, 'S40-2046', 40, 'Study classroom'),
-(2, 'Sakheer', 1, 'S40-2050', 45, 'Study classroom');
+INSERT INTO `classroom` (`classroomID`, `collegeID`, `room`, `capacity`, `type`) VALUES
+(1, 1, 'S40-2046', 40, 'Study classroom'),
+(2, 1, 'S40-2050', 45, 'Study classroom'),
+(5, 1, 'S40-2047', 35, 'Study classroom'),
+(11, 1, 'S40-2049', 50, 'Study classroom');
 
 -- --------------------------------------------------------
 
@@ -80,7 +81,7 @@ CREATE TABLE `college` (
   `collegeName` varchar(255) NOT NULL,
   `collegeNumber` varchar(4) NOT NULL,
   `place` enum('Sakheer','Isa Town','Manama') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `college`
@@ -102,7 +103,7 @@ CREATE TABLE `course` (
   `courseDescription` varchar(255) NOT NULL,
   `credits` int(3) NOT NULL,
   `pre-requisite` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `course`
@@ -141,16 +142,16 @@ CREATE TABLE `courseAttendance` (
   `status` enum('present','absent','absent with excuse') NOT NULL,
   `year` year(4) NOT NULL,
   `semester` enum('1','2','3') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `courseAttendance`
 --
 
 INSERT INTO `courseAttendance` (`attendanceID`, `studentID`, `courseID`, `instructorID`, `section`, `date`, `lecturesDay`, `status`, `year`, `semester`) VALUES
-(1, 202003838, 'ITCS285', 2, 1, '2023-05-16', 'UTH', 'present', 2023, '1'),
-(2, 202003838, 'ITCS255', 1, 2, '2023-05-15', 'MW', 'absent with excuse', 2023, '1'),
-(3, 202003838, 'ITCS285', 2, 1, '2023-05-14', 'UTH', 'absent', 2023, '1');
+(1, 202003838, 'ITCS285', 2, 1, '2023-05-16', 'UTH', 'present', '2023', '1'),
+(2, 202003838, 'ITCS255', 1, 2, '2023-05-15', 'MW', 'absent with excuse', '2023', '1'),
+(3, 202003838, 'ITCS285', 2, 1, '2023-05-14', 'UTH', 'absent', '2023', '1');
 
 -- --------------------------------------------------------
 
@@ -167,19 +168,19 @@ CREATE TABLE `courseTiming` (
   `lecturesTime` varchar(11) NOT NULL,
   `year` year(4) NOT NULL,
   `semester` enum('1','2','3') NOT NULL,
-  `examDate` date NOT NULL,
+  `examDate` varchar(10) NOT NULL,
   `examTime` varchar(11) NOT NULL,
   `examPlace` varchar(8) NOT NULL DEFAULT 'TBA'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `courseTiming`
 --
 
 INSERT INTO `courseTiming` (`courseID`, `instructorID`, `section`, `classroomID`, `lecturesDay`, `lecturesTime`, `year`, `semester`, `examDate`, `examTime`, `examPlace`) VALUES
-('ITCS347', 3, 1, 2, 'MW', '9:30-10:45', 2023, '2', '2023-06-05', '8:30-10:30', 'TBA'),
-('ITCS389', 2, 1, 1, 'UTH', '11:00-11:50', 2023, '2', '2023-06-07', '13:30-15:30', 'TBA'),
-('ITCS389', 2, 2, 1, 'UTH', '12:00-12:50', 2023, '2', '2023-06-07', '13:30-15:30', 'TBA');
+('ITCS347', 3, 1, 2, 'MW', '9:30-10:45', '2023', '2', '2023-06-05', '8:30-10:30', 'TBA'),
+('ITCS389', 2, 1, 1, 'UTH', '11:00-11:50', '2023', '2', '2023-06-07', '13:30-15:30', 'TBA'),
+('ITCS389', 2, 2, 1, 'UTH', '12:00-12:50', '2023', '2', '2023-06-07', '13:30-15:30', 'TBA');
 
 -- --------------------------------------------------------
 
@@ -192,7 +193,7 @@ CREATE TABLE `grade` (
   `courseID` varchar(9) NOT NULL,
   `instructorID` int(9) NOT NULL,
   `grade` enum('A','A-','B+','B','B-','C+','C','C-','D+','D','F') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -204,7 +205,7 @@ CREATE TABLE `major` (
   `majorID` int(11) NOT NULL,
   `majorName` varchar(255) NOT NULL,
   `collegeID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `major`
@@ -231,7 +232,7 @@ CREATE TABLE `staff` (
   `jobTitle` varchar(255) NOT NULL,
   `collegeID` int(11) NOT NULL,
   `officeNumber` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staff`
@@ -257,19 +258,21 @@ CREATE TABLE `studentClassroom` (
   `classroomID` int(9) NOT NULL,
   `year` year(4) NOT NULL,
   `semester` enum('1','2','3') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `studentClassroom`
 --
 
 INSERT INTO `studentClassroom` (`studentClassroomID`, `studentID`, `section`, `courseID`, `instructorID`, `classroomID`, `year`, `semester`) VALUES
-(3, 202003838, 1, 'ITCS113', 1, 1, 2021, '1'),
-(1, 202003838, 1, 'ITCS254', 1, 1, 2022, '1'),
-(6, 202003838, 1, 'ITCS285', 1, 2, 2023, '1'),
-(7, 202003838, 2, 'ITCS255', 1, 1, 2023, '1'),
-(4, 202003838, 3, 'ITCS114', 2, 2, 2021, '2'),
-(2, 202003838, 3, 'ITCS214', 1, 2, 2022, '1');
+(3, 202003838, 1, 'ITCS113', 1, 1, '2021', '1'),
+(1, 202003838, 1, 'ITCS254', 1, 1, '2022', '1'),
+(6, 202003838, 1, 'ITCS285', 1, 2, '2023', '1'),
+(13, 202003838, 1, 'ITCS347', 3, 2, '2023', '2'),
+(7, 202003838, 2, 'ITCS255', 1, 1, '2023', '1'),
+(11, 202003838, 2, 'ITCS389', 2, 1, '2023', '2'),
+(4, 202003838, 3, 'ITCS114', 2, 2, '2021', '2'),
+(2, 202003838, 3, 'ITCS214', 1, 2, '2022', '1');
 
 -- --------------------------------------------------------
 
@@ -299,14 +302,14 @@ CREATE TABLE `studentInfo` (
   `building` int(5) DEFAULT NULL,
   `road` int(5) DEFAULT NULL,
   `block` int(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `studentInfo`
 --
 
 INSERT INTO `studentInfo` (`studentID`, `fullName`, `picture`, `CPR`, `email`, `password`, `phoneNumber`, `collegeID`, `gender`, `majorID`, `CGPA`, `MCGPA`, `passedCH`, `academicStatus`, `enrollmentStatus`, `advisorID`, `yearOfJoin`, `flat`, `building`, `road`, `block`) VALUES
-(202003838, 'Ahmed Yusuf Ahmed Saleh', NULL, '021201111', '202003838@stu.uob.edu.bh', '$2y$10$nx6dgnkuZ6n9u4.tW7tBkOHDKQLoVj4rf8McFue6mJMXncnvUR04C', 36728829, 1, 'male', 1, '4.00', '4.00', 75, 'Excellence', 'Enrolled', 1, '2020', '', 2013, 587, 605);
+(202003838, 'Ahmed Yusuf Ahmed Saleh', NULL, '021201111', '202003838@stu.uob.edu.bh', '$2y$10$nx6dgnkuZ6n9u4.tW7tBkOHDKQLoVj4rf8McFue6mJMXncnvUR04C', 36728829, 1, 'male', 1, 4.00, 4.00, 75, 'Excellence', 'Enrolled', 1, '2020', '', 2013, 587, 605);
 
 --
 -- Indexes for dumped tables
@@ -418,6 +421,12 @@ ALTER TABLE `admin`
   MODIFY `adminID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `classroom`
+--
+ALTER TABLE `classroom`
+  MODIFY `classroomID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `college`
 --
 ALTER TABLE `college`
@@ -445,7 +454,7 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `studentClassroom`
 --
 ALTER TABLE `studentClassroom`
-  MODIFY `studentClassroomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `studentClassroomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
@@ -476,9 +485,9 @@ ALTER TABLE `courseAttendance`
 -- Constraints for table `courseTiming`
 --
 ALTER TABLE `courseTiming`
-  ADD CONSTRAINT `coursetiming_ibfk_1` FOREIGN KEY (`classroomID`) REFERENCES `classroom` (`classroomID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `coursetiming_ibfk_2` FOREIGN KEY (`instructorID`) REFERENCES `staff` (`staffID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `coursetiming_ibfk_3` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `coursetiming_ibfk_3` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `coursetiming_ibfk_4` FOREIGN KEY (`classroomID`) REFERENCES `classroom` (`classroomID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `grade`
@@ -504,10 +513,10 @@ ALTER TABLE `staff`
 -- Constraints for table `studentClassroom`
 --
 ALTER TABLE `studentClassroom`
-  ADD CONSTRAINT `studentclassroom_ibfk_2` FOREIGN KEY (`classroomID`) REFERENCES `classroom` (`classroomID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `studentclassroom_ibfk_3` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `studentclassroom_ibfk_4` FOREIGN KEY (`instructorID`) REFERENCES `staff` (`staffID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `studentclassroom_ibfk_5` FOREIGN KEY (`studentID`) REFERENCES `studentInfo` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `studentclassroom_ibfk_5` FOREIGN KEY (`studentID`) REFERENCES `studentInfo` (`studentID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `studentclassroom_ibfk_6` FOREIGN KEY (`classroomID`) REFERENCES `classroom` (`classroomID`);
 
 --
 -- Constraints for table `studentInfo`
