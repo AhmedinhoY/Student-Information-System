@@ -9,21 +9,34 @@ try {
       //college selection
       $college_sql= "select collegeID, collegeName from college";
       $college_rs= $db->query($college_sql);
+      $err="";
 
       if (isset($_POST["add-course"])){
+            //counter
+            $c=0;
+
             //validation of inputs
             $course= test_input($_POST["c-code"]);
             $course_name= test_input($_POST["c-name"]);
-            $college= test_input($_POST["college"]);
+
+            if(!empty($_POST["college"])){
+                  $college= test_input($_POST["college"]); //selection
+            }
+         
             $course_description= test_input($_POST["c-description"]);
             $pre_requisite= test_input($_POST["pre-requisite"]);
-            $credits= test_input($_POST["credits"]);
+
+            if(!empty($_POST["credits"])){
+                  $credits= test_input($_POST["credits"]);//selection
+            }
+       
 
             //empty? 
             if(empty($course)||empty($course_name)||empty($college)||empty($course_description)||
             empty($pre_requisite)||empty($credits)){
 
-                  die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+                  $err='<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
+                  $c++;
 
 
             }
@@ -35,8 +48,20 @@ try {
                   $pattCode = "/^[A-Z]{3,6}\s?\d{3,6}$/";
                   if(preg_match($pattCode,$course)!= 1){
 
-                  die('<h1 style="text-align:center;"> Error: please enter a correct course code </h1>');
+                        $err= '<h1 style="text-align:center;"> Error: please enter a correct course code </h1>';
+                        $c++;
 
+                  }
+
+                  $sql11="select * from course";
+                  $s=$db->prepare($sql11);
+                  $s->execute();
+                  $rows = $s->fetchAll(PDO::FETCH_NUM);
+                  foreach($rows as $row){
+                        if($row[0]==$course){
+                              $err="Error:course already exits";
+                              $c++;
+                        }
                   }
 
                   //course name 
@@ -44,7 +69,9 @@ try {
                   $pattName = "/^[a-zA-Z\s]{3,80}$/";
                   if(preg_match($pattName,$course_name)!= 1){
 
-                  die('<h1 style="text-align:center;"> Error: please enter a correct Course Name </h1>');
+                        $err='<h1 style="text-align:center;"> Error: please enter a correct Course Name </h1>';
+                        $c++;
+
 
                         
                   }
@@ -54,7 +81,9 @@ try {
                   $pattDescription = "/^[a-zA-Z\s\.\,\:]+$/";
                   if(preg_match($pattDescription,$course_description)!= 1){
 
-                  die('<h1 style="text-align:center;"> Error: please enter a correct Course description </h1>');
+                        $err='<h1 style="text-align:center;"> Error: please enter a correct Course description </h1>';
+                        $c++;
+
 
                   }
 
@@ -63,13 +92,18 @@ try {
                   $pattPreReq = "/^[A-Z]{3,6}\s?\d{3,6}$/";
                   if(preg_match($pattPreReq,$pre_requisite)!= 1){
 
-                  die('<h1 style="text-align:center;"> Error: please enter a correct pre_requisite </h1>');
+                        $err='<h1 style="text-align:center;"> Error: please enter a correct pre_requisite </h1>';
+                        $c++;
+
 
                   }
 
+                  if($c==0){
+                        
+                        $insertion_query= "insert into course values('$course', $college , '$course_name' ,'$course_description', $credits ,'$pre_requisite')";
+                        $result = $db->exec($insertion_query);
+                  }
 
-            $insertion_query= "insert into course values('$course', $college , '$course_name' ,'$course_description', $credits ,'$pre_requisite')";
-            $result = $db->exec($insertion_query);
 
       }
 
@@ -85,6 +119,7 @@ die("error: " . $e->getMessage());
             <div class="form-element">
                   <div class="form-header">
                         <h2>Add Course</h2>
+                        <h3><?php echo"<br>". $err;?></h3>
                   </div>
                   <div class="form-body">
                         <form action="" method="POST">
