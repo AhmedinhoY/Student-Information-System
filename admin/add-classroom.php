@@ -17,33 +17,55 @@ try {
 
             // test_input
 
-            $college= test_input($_POST["college"]);//selection
+            if(!empty($_POST["college"])){
+                  $college= test_input($_POST["college"]);
+            }
+            
             $capacity=test_input($_POST["capacity"]);//do 
             $room=test_input($_POST["room"]);//do
-            $type=test_input($_POST["type"]);//selection
+            if(!empty($_POST["type"])){
+                  $type=test_input($_POST["type"]);//selection
+            }
+            
+            $c=0;
             //echo
 
       
             //empty
             if(empty($college)||empty($capacity)||empty($room)||empty($type)){
                   $err = "please do not leave any input empty!"; //already validate using html
+                  $c++;
                 
             }
 
             //capacity regex
-            $pattCapacity ="/^[1-9]{1}$/";
-            if(preg_match($pattCapacity,$capacity)){
+            $pattCapacity ="/^[1-9]{1}[0-9]?$|^[1-5]{1}[0-4]?[0-9]?$|^150$/";
+            if(preg_match($pattCapacity,$capacity)!=1){
+
                   $err = "please enter a number from 1 to 150 for capacity!";
+                  $c++;
+
+            }
+
+            
+            $pattRoom ="/^S[0-9][0-9]\-([\d]{2,4})$/";
+            if(preg_match($pattRoom,$room)!=1){
+                  $err = "please refer to the example:  S40-3030 /S20-101 !";
+                  $c++;
             }
 
 
 
 
 
-            
+
+
+
+            if($c==0){
             $insertion_query= "insert into classroom (classroomID, collegeID, room, capacity, type)
             values(null, '$college', '$room', '$capacity', '$type')";
             $result = $db->exec($insertion_query);
+            }
       }
 
 } catch (PDOException $e){
@@ -89,11 +111,11 @@ die("error: " . $e->getMessage());
 
                                           <div class="input-field" id="input-field">
                                                 <label>Capacity</label>
-                                                <input type="number" name="capacity" placeholder="Capacity" required>
+                                                <input type="number" name="capacity" placeholder="Capacity" min="1" max="150"required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Type</label>
-                                                <select name="type">
+                                                <select required name="type">
                                                       <option selected disabled>Room Type</option>
                                                       <option>Study classroom</option>
                                                 </select>
