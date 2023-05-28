@@ -37,14 +37,17 @@ try {
 
             if(empty($password)){
 
-                  die('Error: no input should be left empty!');
+                 
+            die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+
             }
 
             //password
             //min pass word is 3 chars, max 15 chars
             $pattPass = "/^[a-zA-Z0-9\@\#]{3,15}$/";
             if(preg_match($pattPass,$password)!= 1){
-                  die('Error: please enter your password correctly ');
+            die('<h1 style="text-align:center;">Error: please enter your password correctly</h1>');
+
             }
 
             $hashed_password= password_hash($password, PASSWORD_DEFAULT);
@@ -59,7 +62,10 @@ try {
             //is empty
             if(empty($student_id)||empty($full_name)||empty($cpr)||empty($email)||empty($mobile_number)||empty($college)||empty($gender)
             ||empty($major)||empty($advisor)){
-                  die('Error: no input should be left empty!');
+                  
+                  die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+
+
             }
 
 
@@ -69,21 +75,26 @@ try {
             //it must start with 20 , followed by 1 or 2 then any num 0-9, then 5 random digits, example: 20197180 , 202003838,etc..
             $pattStu = "/^(20){1}([1-2]{1}[0-9]{1})\d{4,5}$/";
             if(preg_match($pattStu,$student_id)!= 1){
-                  die('Error: please check your student id');
+
+            die('<h1 style="text-align:center;">Error: please check your student id</h1>');
+
             }
 
             //full_name
             //and capital or small letters will be accepted, maximum 80 chars
             $pattFull = "/^[a-zA-Z\s]{3,80}$/";
             if(preg_match($pattFull,$full_name)!= 1){
-                  die('Error: please enter your Full name correctly');
+            die('<h1 style="text-align:center;">Error: please enter your Full name correctly</h1>');
+
+                  
             }
 
             //CPR
             //enter 9 digits, starts only from the 80's, any bahraini cpr will work: 010512345
             $pattCpr = "/^([8-9][0-9]|0{1}[0-9]|1{1}[0-9]|[2][0-3])([0][1-9]|[1][0-2])\d{5}$/";
             if(preg_match($pattCpr,$cpr)!= 1){
-                  die('Error: please enter your Cpr correctly');
+            die('<h1 style="text-align:center;">Error: please enter your Cpr correctly</h1>');
+
             }
 
 
@@ -91,7 +102,7 @@ try {
             //any email will work: alis3348s@gmail.com, 20197180@stu.uob.edu.bh
             $pattEmail = "/^[a-zA-Z0-9_-]+@[a-zA-Z0-9.]+$/";
             if(preg_match($pattEmail,$email)!= 1){
-                  die('Error: please enter your email correctly');
+                  die('<h1 style="text-align:center;">Error: please enter your email correctly</h1>');
             }
 
 
@@ -101,7 +112,9 @@ try {
             //ex: 00973 33992900, 33992900 both accepted, must be 8 numbers to be exact
             $pattMob = "/^((\+[0-9]{3}|00[0-9]{3})?)[0-9]{8}$/";
             if(preg_match($pattMob,$mobile_number)!= 1){
-                  die('Error: please enter your mobile number correctly ');
+
+                  die('<h1 style="text-align:center;">Error: please enter your mobile number correctly</h1>');
+
             }
 
 

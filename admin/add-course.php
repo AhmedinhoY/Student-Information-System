@@ -23,7 +23,8 @@ try {
             if(empty($course)||empty($course_name)||empty($college)||empty($course_description)||
             empty($pre_requisite)||empty($credits)){
 
-                  die('Error: no input should be left empty!');
+                  die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+
 
             }
 
@@ -33,28 +34,37 @@ try {
                   //examples that work: ITCS333, ITCS 333, MKT121
                   $pattCode = "/^[A-Z]{3,6}\s?\d{3,6}$/";
                   if(preg_match($pattCode,$course)!= 1){
-                        die('Error: please enter a correct course code');
+
+                  die('<h1 style="text-align:center;"> Error: please enter a correct course code </h1>');
+
                   }
 
                   //course name 
                   // any course name will work , max limit is 80 characters
                   $pattName = "/^[a-zA-Z\s]{3,80}$/";
                   if(preg_match($pattName,$course_name)!= 1){
-                        die('Error: please enter a correct Course Name');
+
+                  die('<h1 style="text-align:center;"> Error: please enter a correct Course Name </h1>');
+
+                        
                   }
 
                   //course description 
                   //describe the material of the course, it will work... 
                   $pattDescription = "/^[a-zA-Z\s\.\,\:]+$/";
                   if(preg_match($pattDescription,$course_description)!= 1){
-                        die('Error: please enter a correct Course description');
+
+                  die('<h1 style="text-align:center;"> Error: please enter a correct Course description </h1>');
+
                   }
 
                   //pre-requisite
                   //examples that work: ITCS333, ITCS 333, MKT121
                   $pattPreReq = "/^[A-Z]{3,6}\s?\d{3,6}$/";
                   if(preg_match($pattPreReq,$pre_requisite)!= 1){
-                        die('Error: please enter a correct pre_requisite');
+
+                  die('<h1 style="text-align:center;"> Error: please enter a correct pre_requisite </h1>');
+
                   }
 
 
