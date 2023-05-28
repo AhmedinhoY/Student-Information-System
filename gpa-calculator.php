@@ -3,6 +3,7 @@
 <?php require('includes/student-sessions.php'); ?>
 <?php require('includes/functions.php'); ?>
 <?php
+$ERRmsg="";
 
 if (isset($_POST['calc'])) {
       $grades = $_POST["grade"]; //array //done --problem here, leave it empty and you'll see:) 
@@ -20,10 +21,10 @@ if (isset($_POST['calc'])) {
       for($i=0;$i<count($creditHours);$i++){
             $creditHours[$i] = test_input($creditHours[$i]); 
             if(empty($creditHours[$i])){
-                  die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+                  $ERRmsg='<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
             }
             if(preg_match($pattCredit,$creditHours[$i])!= 1){
-                  die('<h1 style="text-align:center;">Error: enter numbers from 1-9 only for Credits </h1>');
+                  $ERRmsg='<h1 style="text-align:center;">Error: enter numbers from 1-9 only for Credits </h1>';
                   
             }      
       } // end of the for loop for credit hrs
@@ -31,7 +32,7 @@ if (isset($_POST['calc'])) {
       //validation for grades
       for($i=0;$i<count($grades);$i++){
             if(empty($grades[$i])){
-                  die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+                  $ERRmsg='<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
             }
       }//end of for loop for grades
 
@@ -39,7 +40,7 @@ if (isset($_POST['calc'])) {
       //gpa between 1.00 ~ 3.99 or 4.00 will work here, otherwise error.
       $pattGPA = "/^[1-3]{1}([\.]?([0-9]{1,2})?)|(4(\.00)?)$/";
       if(preg_match($pattGPA,$pastGPA)!= 1){
-            die('<h1 style="text-align:center;">Error: please enter your past GPA correctly</h1>');
+            $ERRmsg='<h1 style="text-align:center;">Error: please enter your past GPA correctly</h1>';
 
       }
 
@@ -48,7 +49,7 @@ if (isset($_POST['calc'])) {
       //gpa between 1.00 ~ 3.99 or 4.00 will work here, otherwise error.
       $pattHrs = "/^[^\-][0-1]([0-9]{1,3})?|[0-9]{1,2}$/";
       if(preg_match($pattHrs,$passedHrs)!= 1){
-            die('<h1 style="text-align:center;">Error: please enter your passed hrs  correctly</h1>');
+            $ERRmsg='<h1 style="text-align:center;">Error: please enter your passed hrs  correctly</h1>';
 
       }
 
