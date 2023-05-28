@@ -194,6 +194,10 @@ window.addEventListener('DOMContentLoaded', function() {
       });
 });
 
+if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+}
+
 // ====== AJAX for section number =======
 function updateSectionSelection(selectedValue) {
       var xhr = new XMLHttpRequest();

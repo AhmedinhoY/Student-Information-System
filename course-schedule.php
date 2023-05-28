@@ -16,13 +16,13 @@ try {
       $rs= $db->query($sql_query);
       $row= $rs->fetch();
 
-      $schedule_query= " select `studentClassroom`.`courseID`, `studentClassroom`.`section`, `staff`.`fullName`, `courseTiming`.`lecturesDay`, `courseTiming`.`lecturesTime`, `classroom`.`campus`, `classroom`.`room`, `course`.`credits`, `courseTiming`.`examDate`, `courseTiming`.`examTime`, `courseTiming`.`examPlace`
+      $schedule_query= " select `studentClassroom`.`courseID`, `studentClassroom`.`section`, `staff`.`fullName`, `courseTiming`.`lecturesDay`, `courseTiming`.`lecturesTime`, `classroom`.`room`, `course`.`credits`, `courseTiming`.`examDate`, `courseTiming`.`examTime`, `courseTiming`.`examPlace`
       FROM `studentClassroom` 
             LEFT JOIN `staff` ON `studentClassroom`.`instructorID` = `staff`.`staffID` 
             LEFT JOIN `courseTiming` ON `courseTiming`.`instructorID` = `staff`.`staffID` AND courseTiming.section = studentClassroom.section
             LEFT JOIN `classroom` ON `courseTiming`.`classroomID` = `classroom`.`classroomID` 
             LEFT JOIN `course` ON `courseTiming`.`courseID` = `course`.`courseID`
-      WHERE studentClassroom.studentID= '$student_id' AND studentClassroom.year= 2023. AND studentClassroom.semester=2;";
+      WHERE studentClassroom.studentID= '$student_id' AND studentClassroom.year= 2023 AND studentClassroom.semester=2";
 
       $schedule_rs= $db->query($schedule_query);
 
@@ -76,7 +76,6 @@ try {
                                                 <th scope="col">instructor</th>
                                                 <th scope="col">Day</th>
                                                 <th scope="col">Time</th>
-                                                <th scope="col">Campus</th>
                                                 <th scope="col">Room</th>
                                                 <th scope="col">CH</th>
                                                 <th scope="col">Exam Date</th>
@@ -93,9 +92,8 @@ try {
                                                 <td><?php echo $schedule_row[4]; ?></td>
                                                 <td><?php echo $schedule_row[5]; ?></td>
                                                 <td><?php echo $schedule_row[6]; ?></td>
-                                                <td><?php echo $schedule_row[7]; ?></td>
-                                                <td><?php echo $schedule_row[8]. "<br/>". $schedule_row[9]; ?></td>
-                                                <td><?php echo $schedule_row[10]; ?></td>
+                                                <td><?php echo $schedule_row[7]. "<br/>". $schedule_row[8]; ?></td>
+                                                <td><?php echo $schedule_row[9]; ?></td>
                                           </tr>
                                           <?php } ?>
 
