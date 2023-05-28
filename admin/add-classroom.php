@@ -2,21 +2,47 @@
 require('../includes/header.php');
 require('../includes/admin-sidebar.php');
 require('../includes/admin-sessions.php');
+require("../includes/functions.php");
+
 try {
       require('../includes/connection.php');
+      //Error massage
+      $err ="";
 
       //college selection
       $college_sql= "select collegeID, collegeName from college";
       $college_rs= $db->query($college_sql);
 
       if (isset($_POST["add-classroom"])) {
-            $college= $_POST["college"];
-            $capacity=$_POST["capacity"];
-            $room=$_POST["room"];
-            $type=$_POST["type"];
+
+            // test_input
+            $campus= $_POST["campus"];//selection
+            $college= test_input($_POST["college"]);//selection
+            $capacity=test_input($_POST["capacity"]);//do 
+            $room=test_input($_POST["room"]);//do
+            $type=test_input($_POST["type"]);//selection
+            //echo
+
+      
+            //empty
+            if(empty($campus)||empty($college)||empty($capacity)||empty($room)||empty($type)){
+                  $err = "please do not leave any input empty!"; //already validate using html
+                
+            }
+
+            //capacity regex
+            $pattCapacity ="/^[1-9]{1}$/";
+            if(preg_match($pattCapacity,$capacity)){
+                  $err = "please enter a number from 1 to 150 for capacity!";
+            }
+
+
+
+
+
             
-            $insertion_query= "insert into classroom (classroomID, collegeID, room, capacity, type)
-            values(null, '$college', '$room', '$capacity', '$type')";
+            $insertion_query= "insert into classroom (classroomID, campus, collegeID, room, capacity, type)
+            values(null, '$campus', '$college', '$room', '$capacity', '$type')";
             $result = $db->exec($insertion_query);
       }
 
@@ -34,7 +60,7 @@ die("error: " . $e->getMessage());
                   <div class="form-body">
                         <form action="" method="POST">
                               <div class="fields">
-
+                                    <h1><?php echo $err?></h1>
                                     <div style="width:100%">
                                           <div class="input-field" id="input-field">
                                                 <label>College</label>

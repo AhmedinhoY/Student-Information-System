@@ -86,7 +86,7 @@ if (isset($_POST['calc'])) {
                   <div class="form-body">
                         <form id="gpa-sim" method="POST">
                               <!-- <span style="color:red">
-                                    <?php echo $lgERRmsg; ?>
+                                    <?php echo $ERRmsg; ?>
                               </span> <br /> -->
                               <table class="table" id="GPA-calculator">
                                     <thead>
