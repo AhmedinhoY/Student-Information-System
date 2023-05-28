@@ -22,5 +22,5 @@ die("error: " . $e->getMessage());
 }
 ?>
 <label>Section</label>
-<input type="number" name="section" placeholder="<?php echo $row[0];?>" value="<?php echo $row[0];?>" disabled readonly>
+<input type="number" name="section" placeholder="<?php echo $row[0];?>" value="<?php echo $row[0];?>" readonly>
 </input>
