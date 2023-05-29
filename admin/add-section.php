@@ -31,7 +31,10 @@ try {
             $ex_place= $_POST["ex-place"];
 
 
-            $insertion_query= "insert into courseTiming values('$course','$instrutor)";
+            $insertion_query= "insert into courseTiming values('$course','$instructor','$section','$room',
+            '$lec_days','$lec_times','$year','$semester','$ex_date','$ex_time','$ex_place')";
+            $result = $db->exec($insertion_query);
+
 
       }
 
@@ -77,18 +80,14 @@ die("error: " . $e->getMessage());
                                                 <label>Instructor</label>
                                                 <select required id="instructor-select" name="instructor">
                                                       <option disabled selected>Instructor</option>
-                                                      <?php foreach ($instrucor_rs as $row) { ?>
-                                                      <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?>
-                                                      </option>
-                                                      <?php } ?>
+
                                                 </select>
                                           </div>
                                     </div>
                                     <div style="width:100%">
                                           <div class="input-field" id="section-select">
                                                 <label>Section</label>
-                                                <input type="number" placeholder="Section Number" name="section"
-                                                      required>
+                                                <input type="number" placeholder="Section Number" required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Room</label>
@@ -166,7 +165,7 @@ die("error: " . $e->getMessage());
                                           <div class="input-field" id="input-field">
                                                 <label>Exam Place</label>
                                                 <input type="text" value="TBA" placeholder="TBA" name="ex-place"
-                                                      disabled readonly>
+                                                      readonly>
                                           </div>
 
                                     </div>
@@ -194,6 +193,10 @@ window.addEventListener('DOMContentLoaded', function() {
             inputField.style.width = (inputField.placeholder.length + 5) + 'ch';
       });
 });
+
+if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+}
 
 // ====== AJAX for section number =======
 function updateSectionSelection(selectedValue) {

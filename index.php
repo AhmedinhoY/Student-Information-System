@@ -24,23 +24,39 @@ try {
       $row_1= $rigstered_rs->fetch();
 
       //query to find attendance %
-      $student_attendance_query_uth= "select studentClassroom.courseID,
-      100-((SUM(CASE STATUS WHEN 'absent' THEN 1 ELSE 0 END)+SUM(CASE STATUS WHEN 'absent with excuse' THEN 1 ELSE 0 END))/48)*100 'absence %'
-      FROM studentClassroom 
-            LEFT JOIN course ON studentClassroom.courseID = course.courseID 
-            LEFT JOIN courseAttendance ON courseAttendance.courseID = course.courseID
-            LEFT JOIN `courseTiming` ON `courseTiming`.`courseID` = `course`.`courseID`
-      WHERE studentClassroom.studentID = '$student_id' AND courseTiming.lecturesDay= 'uth' AND studentClassroom.year = 2023 AND studentClassroom.semester = 2";
+      $student_attendance_query_uth= "select
+      studentClassroom.courseID,
+      100-((SUM(CASE STATUS WHEN 'absent' THEN 1 ELSE 0 END) + SUM(CASE STATUS WHEN 'absent with excuse' THEN 1 ELSE 0 END)) / 48) * 100 AS `absence %`
+    FROM
+      studentClassroom
+      LEFT JOIN course ON studentClassroom.courseID = course.courseID
+      LEFT JOIN courseAttendance ON courseAttendance.courseID = course.courseID
+      LEFT JOIN `courseTiming` ON `courseTiming`.`courseID` = `course`.`courseID`
+    WHERE
+      studentClassroom.studentID = '$student_id'
+      AND courseTiming.lecturesDay = 'UTH'
+      AND studentClassroom.year = 2023
+      AND studentClassroom.semester = 2
+    GROUP BY
+      studentClassroom.courseID";
 
       $student_attendence_uth_rs= $db->query($student_attendance_query_uth);
 
-      $student_attendance_query_mw= "select studentClassroom.courseID, 
-      100-((SUM(CASE STATUS WHEN 'absent' THEN 1 ELSE 0 END)+SUM(CASE STATUS WHEN 'absent with excuse' THEN 1 ELSE 0 END))/32)*100 'absence %'
-      FROM studentClassroom 
-            LEFT JOIN course ON studentClassroom.courseID = course.courseID 
-            LEFT JOIN courseAttendance ON courseAttendance.courseID = course.courseID
-            LEFT JOIN `courseTiming` ON `courseTiming`.`courseID` = `course`.`courseID`
-      WHERE studentClassroom.studentID = '$student_id' AND courseTiming.lecturesDay= 'mw' AND studentClassroom.year = 2023 AND studentClassroom.semester = 2";
+      $student_attendance_query_mw= "select
+      studentClassroom.courseID,
+      100-((SUM(CASE STATUS WHEN 'absent' THEN 1 ELSE 0 END) + SUM(CASE STATUS WHEN 'absent with excuse' THEN 1 ELSE 0 END)) / 32) * 100 AS `absence %`
+    FROM
+      studentClassroom
+      LEFT JOIN course ON studentClassroom.courseID = course.courseID
+      LEFT JOIN courseAttendance ON courseAttendance.courseID = course.courseID
+      LEFT JOIN `courseTiming` ON `courseTiming`.`courseID` = `course`.`courseID`
+    WHERE
+      studentClassroom.studentID = '$student_id'
+      AND courseTiming.lecturesDay = 'MW'
+      AND studentClassroom.year = 2023
+      AND studentClassroom.semester = 2
+    GROUP BY
+      studentClassroom.courseID";
 
       $student_attendence_mw_rs= $db->query($student_attendance_query_mw);
 
