@@ -50,7 +50,7 @@ try {
             
             $pattRoom ="/^S[0-9][0-9]\-([\d]{2,4})$/";
             if(preg_match($pattRoom,$room)!=1){
-                  $err = "please refer to the example:  S40-3030 /S20-101 !";
+                  $err = "Invalid room input. Please refer to the example: S40-1020 / S30-101!!";
                   $c++;
             }
 
@@ -79,16 +79,16 @@ die("error: " . $e->getMessage());
                   <div class="form-header">
                         <h2>Add Classroom</h2>
                   </div>
+                  <h3 style="text-align: center; color: red;"><?php echo $err?></h3>
                   <div class="form-body">
                         <form action="" method="POST">
                               <div class="fields">
-                                    <h1><?php echo $err?></h1>
                                     <div style="width:100%">
                                           <div class="input-field" id="input-field">
                                                 <label>College</label>
                                                 <select required id="college-select" name="college"
                                                       onchange="updateCampusInput(this.value); updateRoomName(this.value)">
-                                                      <option disabled selected>College</option>
+                                                      <option value="" hidden disabled selected>College</option>
                                                       <?php foreach ($college_rs as $row) { ?>
                                                       <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?>
                                                       </option>
@@ -97,8 +97,8 @@ die("error: " . $e->getMessage());
                                           </div>
                                           <div class="input-field" id="campus-input">
                                                 <label>Campus</label>
-                                                <select id="campus-select">
-                                                      <option disabled selected>Campus</option>
+                                                <select id="campus-select" required>
+                                                      <option value="" hidden disabled selected>Campus</option>
 
                                                 </select>
                                           </div>
@@ -106,17 +106,18 @@ die("error: " . $e->getMessage());
                                     <div style="width:100%">
                                           <div class="input-field" id="room-input">
                                                 <label>Room</label>
-                                                <input type="text" name="room" placeholder="Room" required>
+                                                <input type="text" name="room" placeholder="Room" readonly required>
                                           </div>
 
                                           <div class="input-field" id="input-field">
                                                 <label>Capacity</label>
-                                                <input type="number" name="capacity" placeholder="Capacity" min="1" max="150"required>
+                                                <input type="number" name="capacity" placeholder="Capacity" min="1"
+                                                      max="150" required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Type</label>
                                                 <select required name="type">
-                                                      <option selected disabled>Room Type</option>
+                                                      <option value="" hidden selected disabled>Room Type</option>
                                                       <option>Study classroom</option>
                                                 </select>
                                           </div>

@@ -236,8 +236,8 @@ die("<h5 style='text-align:center margin-top:200px;margin-left:150px;'>error: ".
                   <div class="form-header">
                         <h2>Add Student</h2>
                         <div class="kkk">
-                  <h3><?php echo $err?></h3> 
-                            
+                              <h3><?php echo $err?></h3>
+
                         </div>
                   </div>
                   <div class="form-body">
@@ -248,7 +248,7 @@ die("<h5 style='text-align:center margin-top:200px;margin-left:150px;'>error: ".
                                           <div class="input-field" id="input-field">
                                                 <label>Sudent ID</label>
                                                 <input type="text" placeholder="<?php echo $row[0] ?>" name="student-id"
-                                                      value="<?php echo $row[0] ?>"  readonly>
+                                                      value="<?php echo $row[0] ?>" readonly>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Full Name</label>
@@ -348,6 +348,10 @@ window.addEventListener('DOMContentLoaded', function() {
             inputField.style.width = (inputField.placeholder.length + 3) + 'ch';
       });
 });
+
+if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+}
 </script>
 
 <?php require('../includes/footer.php'); ?>

@@ -2,6 +2,8 @@
 require('../includes/header.php');
 require('../includes/admin-sidebar.php');
 require('../includes/admin-sessions.php');
+require('../includes/functions.php');
+
 try {
       require('../includes/connection.php');
 
@@ -17,24 +19,24 @@ try {
       $course_sql= "select courseID from course";
       $course_rs= $db->query($course_sql);
 
+      
       if (isset($_POST["add-section"])) {
-            $course= $_POST["course"];
-            $instructor= $_POST["instructor"];
-            $section= $_POST["section"];
-            $room= $_POST["room"];
-            $lec_days= $_POST["lec-days"];
-            $lec_times= $_POST["lec-times"];
-            $year= $_POST["year"];
-            $semester= $_POST["semester"];
-            $ex_date= $_POST["ex-date"];
-            $ex_time= $_POST["ex-time"];
-            $ex_place= $_POST["ex-place"];
 
-
+            $course= test_input($_POST["course"]);
+            $instructor= test_input($_POST["instructor"]);
+            $section= test_input($_POST["section"]);
+            $room= test_input($_POST["room"]);
+            $lec_days= test_input($_POST["lec-days"]);
+            $lec_times= test_input($_POST["lec-times"]);
+            $year= test_input($_POST["year"]);
+            $semester= test_input($_POST["semester"]);
+            $ex_date= test_input($_POST["ex-date"]);
+            $ex_time= test_input($_POST["ex-time"]);
+            $ex_place= test_input($_POST["ex-place"]);
+                  
             $insertion_query= "insert into courseTiming values('$course','$instructor','$section','$room',
             '$lec_days','$lec_times','$year','$semester','$ex_date','$ex_time','$ex_place')";
             $result = $db->exec($insertion_query);
-
 
       }
 
@@ -52,7 +54,7 @@ die("error: " . $e->getMessage());
                         <h2>Add Section</h2>
                   </div>
                   <div class="form-body">
-                        <form action="" method="POST">
+                        <form action="" method="post">
                               <div class="fields">
 
                                     <div style="width:100%">
@@ -61,7 +63,7 @@ die("error: " . $e->getMessage());
                                                 <select name="college" id="college-select"
                                                       onchange="updateCourseSelection(this.value); updateInstructorSelection(this.value);"
                                                       required>
-                                                      <option disabled selected>College</option>
+                                                      <option value="" hidden disabled selected>College</option>
                                                       <?php foreach ($college_rs as $row) { ?>
                                                       <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?>
                                                       </option>
@@ -72,14 +74,14 @@ die("error: " . $e->getMessage());
                                                 <label>Course Code</label>
                                                 <select name="course" id="course-select"
                                                       onchange="updateSectionSelection(this.value);" required>
-                                                      <option disabled selected>Course Code</option>
+                                                      <option value="" hidden disabled selected>Course Code</option>
 
                                                 </select>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Instructor</label>
                                                 <select required id="instructor-select" name="instructor">
-                                                      <option disabled selected>Instructor</option>
+                                                      <option value="" hidden disabled selected>Instructor</option>
 
                                                 </select>
                                           </div>
@@ -87,12 +89,13 @@ die("error: " . $e->getMessage());
                                     <div style="width:100%">
                                           <div class="input-field" id="section-select">
                                                 <label>Section</label>
-                                                <input type="number" placeholder="Section Number" required>
+                                                <input type="number" name="section" placeholder="Section Number"
+                                                      readonly required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Room</label>
                                                 <select name="room" id="" required>
-                                                      <option selected disabled>Room</option>
+                                                      <option value="" hidden selected disabled>Room</option>
                                                       <?php foreach ($room_rs as $row) { ?>
                                                       <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?>
                                                       </option>
@@ -101,16 +104,16 @@ die("error: " . $e->getMessage());
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Lectures Days</label>
-                                                <select name="lec-days">
-                                                      <option selected disabled>Lectures Days</option>
+                                                <select name="lec-days" required>
+                                                      <option value="" hidden selected disabled>Lectures Days</option>
                                                       <option value="UTH">UTH</option>
                                                       <option value="MW">MW</option>
                                                 </select>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Lectures Times</label>
-                                                <select name="lec-times">
-                                                      <option selected disabled>Lectures Times</option>
+                                                <select name="lec-times" required>
+                                                      <option value="" hidden selected disabled>Lectures Times</option>
                                                       <optgroup label="UTH">
                                                             <option value="8:00-8:50">8:00-8:50</option>
                                                             <option value="9:00-9:50">9:00-9:50</option>
@@ -137,12 +140,16 @@ die("error: " . $e->getMessage());
                                     <div style="width:100%">
                                           <div class="input-field" id="input-field">
                                                 <label>Year</label>
-                                                <input type="number" placeholder="Year" name="year" required>
+                                                <?php $year=date("Y");
+                                                $next_year= date("Y")+1; ?>
+                                                <input type="number" placeholder="Year" name="year"
+                                                      min="<?php echo $year ?>" max="<?php echo $next_year ?>"
+                                                      value="<?php echo $year ?>" required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Semester</label>
-                                                <select name="semester">
-                                                      <option selected disabled>Semester</option>
+                                                <select name="semester" required>
+                                                      <option value="" hidden selected disabled>Semester</option>
                                                       <option value="1">1</option>
                                                       <option value="2">2</option>
                                                       <option value="3">3</option>
@@ -150,12 +157,12 @@ die("error: " . $e->getMessage());
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Exam Date</label>
-                                                <input type="date" name="ex-date">
+                                                <input type="date" name="ex-date" required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Exam Time</label>
-                                                <select name="ex-time">
-                                                      <option selected disabled>Exam Time</option>
+                                                <select name="ex-time" required>
+                                                      <option value="" hidden selected disabled>Exam Time</option>
                                                       <option value="8:30-10:30">8:30-10:30</option>
                                                       <option value="11:30-13:30">11:30-13:30</option>
                                                       <option value="14:30-16:30">14:30-16:30</option>
@@ -193,6 +200,7 @@ window.addEventListener('DOMContentLoaded', function() {
             inputField.style.width = (inputField.placeholder.length + 5) + 'ch';
       });
 });
+
 
 if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);

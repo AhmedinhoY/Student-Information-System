@@ -24,7 +24,7 @@ die("error: " . $e->getMessage());
 
 
 
-<option disabled selected>Instructor</option>
+<option value="" hidden disabled selected>Instructor</option>
 <?php foreach ($instructor_rs as $row) { ?>
 <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?>
 </option>

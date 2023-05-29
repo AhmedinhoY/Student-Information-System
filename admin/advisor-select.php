@@ -16,7 +16,7 @@ die("error: " . $e->getMessage());
 }
 ?>
 <select required id="select2">
-      <option disabled selected>Student's Advisor</option>
+      <option hidden value="" disabled selected>Student's Advisor</option>
       <!-- <option>B.Sc. in Computer Science</option> -->
       <?php
 foreach ($query_rs as $option) { ?>

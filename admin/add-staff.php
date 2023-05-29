@@ -21,17 +21,15 @@ try {
             //password
             $password= test_input($_POST["CPR"]);
             if(empty($password)){
-                  $err = '<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
+                  $err = '<h3 style="text-align:center; color: red;"> Error: No input must be left empty!</h3>';
                   $c++;
-
-
             }
             //regular expression
             //password
             //min pass word is 3 chars, max 15 chars
             $pattPass = "/^[a-zA-Z0-9\@\#]{3,15}$/";
             if(preg_match($pattPass,$password)!= 1){
-                  $err ='<h1 style="text-align:center;">Error: please enter your password correctly</h1>';
+                  $err ='<h3 style="text-align:center; color: red;"> Error: Please enter your password correctly!</h3>';
                   $c++;
 
 
@@ -54,7 +52,7 @@ try {
             //empty? 
             if(empty($prefix)||empty($full_name1)||empty($email)||empty($cpr)||empty($mobile_number)||empty($college)||
             empty($gender)||empty($job_title)){
-                  $err ='<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
+                  $err ='<h3 style="text-align:center; color: red;">Error: No input must be left empty!</h3>';
                   $c++;
 
 
@@ -64,7 +62,7 @@ try {
             // capital or small letters will be accepted with spaces , maximum 80 chars
             $pattFull = "/^[a-zA-Z\s]{3,80}$/";
             if(preg_match($pattFull,$full_name1)!= 1){
-                  $err ='<h1 style="text-align:center;">Error: please enter your Full name correctly</h1>';
+                  $err ='<h3 style="text-align:center; color: red;">Error: Please enter your Full name correctly!</h3>';
                   $c++;
 
 
@@ -76,7 +74,7 @@ try {
             //any email will work: alis3348s@gmail.com, 20197180@stu.uob.edu.bh
             $pattEmail = "/^[a-zA-Z0-9_-]+@[a-zA-Z0-9.]+$/";
             if(preg_match($pattEmail,$email)!= 1){
-                  $err ='<h1 style="text-align:center;">Error: please enter your email correctly</h1>';
+                  $err ='<h3 style="text-align:center; color: red;">Error: Please enter your email correctly!</h3>';
                   $c++;
 
 
@@ -87,7 +85,7 @@ try {
             //enter 9 digits, starts only from the 80's, any bahraini cpr will work: 010512345
             $pattCpr = "/^([8-9][0-9]|0{1}[0-9]|1{1}[0-9]|[2][0-3])([0][1-9]|[1][0-2])\d{5}$/";
             if(preg_match($pattCpr,$cpr)!= 1){
-                  $err ='<h1 style="text-align:center;">Error: please enter your Cpr correctly</h1>';
+                  $err ='<h3 style="text-align:center; color: red;">Error: Please enter your CPR correctly!</h3>';
                   $c++;
 
 
@@ -97,7 +95,7 @@ try {
             //ex: 00973 33992900, 33992900 both accepted, must be 8 numbers to be exact
             $pattMob = "/^((\+[0-9]{3}|00[0-9]{3})?)[0-9]{8}$/";
             if(preg_match($pattMob,$mobile_number)!= 1){
-                  $err ='<h1 style="text-align:center;">Error: please enter your mobile number correctly</h1>';
+                  $err ='<h3 style="text-align:center; color: red;">Error: Please enter your mobile number correctly!</h3>';
                   $c++;
 
 
@@ -106,7 +104,7 @@ try {
             //job_title
             $pattJob = "/^[a-zA-Z\s]{3,80}$/";
             if(preg_match($pattJob,$job_title)!= 1){
-                  $err ='<h1 style="text-align:center;">Error: Error: please enter your job title correctly </h1>';
+                  $err ='<h3 style="text-align:center; color: red;">Error: Error: Please enter your job title correctly!</h3>';
                   $c++;
 
 
@@ -120,18 +118,18 @@ try {
             foreach($rows as $row){
 
                   if($row[3]==$email){
-                  $err ='<h1 style="text-align:center;">Error: this email exits</h1>';
+                  $err ='<h3 style="text-align:center; color: red;">Error: this email exits</h3>';
                   $c++;
                   }
 
                   if($row[7]==$mobile_number){
-                        $err ='<h1 style="text-align:center;">Error: this mobile number exits</h1>';
+                        $err ='<h3 style="text-align:center; color: red;">Error: this mobile number exits</h3>';
                         $c++;
                         }
 
 
                   if($row[5]==$cpr){
-                        $err ='<h1 style="text-align:center;">Error: this CPR exits</h1>';
+                        $err ='<h3 style="text-align:center; color: red;">Error: this CPR exits</h3>';
                         $c++;
                         }//hello
 
@@ -167,9 +165,9 @@ die("error: " . $e->getMessage());
             <div class="form-element">
                   <div class="form-header">
                         <h2>Add Staff</h2>
-                        
+
                   </div>
-                  <h2>  <?php echo $err;?> </h2>
+                  <h2> <?php echo $err;?> </h2>
                   <div class="form-body">
                         <form action="" method="POST">
                               <div class="fields">
@@ -179,7 +177,7 @@ die("error: " . $e->getMessage());
                                           <div class="input-field" id="input-field">
                                                 <label>Prefix</label>
                                                 <select name="prefix" required>
-                                                      <option disabled selected value="">Prefix</option>
+                                                      <option hidden disabled selected value="">Prefix</option>
                                                       <option value="Dr.">Dr.</option>
                                                       <option value="Mr.">Mr.</option>
                                                       <option value="Ms.">Ms.</option>
@@ -205,7 +203,7 @@ die("error: " . $e->getMessage());
                                           <div class="input-field" id="input-field">
                                                 <label>Gender</label>
                                                 <select name="gender" required>
-                                                      <option disabled selected>Gender</option>
+                                                      <option hidden value="" disabled selected>Gender</option>
                                                       <option>Male</option>
                                                       <option>Female</option>
                                                 </select>
@@ -217,7 +215,7 @@ die("error: " . $e->getMessage());
                                           <div class="input-field" id="email" style="">
                                                 <label>Email</label>
                                                 <input type="text" placeholder="Staff's Email" value="" name="email"
-                                                      disable readonly>
+                                                      readonly required>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Mobile Number</label>
@@ -231,7 +229,7 @@ die("error: " . $e->getMessage());
                                           <div class="input-field" id="input-field">
                                                 <label>College</label>
                                                 <select name="college" required>
-                                                      <option disabled selected>College</option>
+                                                      <option value="" hidden disabled selected>College</option>
                                                       <?php foreach ($college_rs as $row) { ?>
                                                       <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?>
                                                       </option>
@@ -262,5 +260,9 @@ window.addEventListener('DOMContentLoaded', function() {
             inputField.style.width = (inputField.placeholder.length + 3) + 'ch';
       });
 });
+
+if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+}
 </script>
 <?php require('../includes/footer.php'); ?>

@@ -35,7 +35,7 @@ try {
             if(empty($course)||empty($course_name)||empty($college)||empty($course_description)||
             empty($pre_requisite)||empty($credits)){
 
-                  $err='<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
+                  $err='<h3 style="text-align:center; color: red;">Error: No input must be left empty!</h3>';
                   $c++;
 
 
@@ -48,7 +48,7 @@ try {
                   $pattCode = "/^[A-Z]{3,6}\s?\d{3,6}$/";
                   if(preg_match($pattCode,$course)!= 1){
 
-                        $err= '<h1 style="text-align:center;"> Error: please enter a correct course code </h1>';
+                        $err= '<h3 style="text-align:center; color: red;"> Error: Please enter a correct course code! </h3>';
                         $c++;
 
                   }
@@ -69,7 +69,7 @@ try {
                   $pattName = "/^[a-zA-Z\s]{3,80}$/";
                   if(preg_match($pattName,$course_name)!= 1){
 
-                        $err='<h1 style="text-align:center;"> Error: please enter a correct Course Name </h1>';
+                        $err='<h3 style="text-align:center; color:red;"> Error: Please enter a correct Course Name! </h3>';
                         $c++;
 
 
@@ -81,7 +81,7 @@ try {
                   $pattDescription = "/^[a-zA-Z\s\.\,\:]+$/";
                   if(preg_match($pattDescription,$course_description)!= 1){
 
-                        $err='<h1 style="text-align:center;"> Error: please enter a correct Course description </h1>';
+                        $err='<h3 style="text-align:center; color:red;"> Error: Please enter a correct Course description! </h3>';
                         $c++;
 
 
@@ -92,7 +92,7 @@ try {
                   $pattPreReq = "/^[A-Z]{3,6}\s?\d{3,6}$/";
                   if(preg_match($pattPreReq,$pre_requisite)!= 1){
 
-                        $err='<h1 style="text-align:center;"> Error: please enter a correct pre_requisite </h1>';
+                        $err='<h3 style="text-align:center; color: red;"> Error: Please enter a correct pre_requisite! </h3>';
                         $c++;
 
 
@@ -119,11 +119,9 @@ die("error: " . $e->getMessage());
             <div class="form-element">
                   <div class="form-header">
                         <h2>Add Course</h2>
-                        <div class="one">
-                        <h3><?php echo"<br>". $err;?></h3>
-                        </div>
-                       
+
                   </div>
+                  <div><?php echo $err;?></div>
                   <div class="form-body">
                         <form action="" method="POST">
                               <div class="fields">
@@ -142,7 +140,7 @@ die("error: " . $e->getMessage());
                                                 <label>College</label>
                                                 <select required id="college-select" name="college"
                                                       onchange="updateMajorSelection(this.value); updateAdvisorSelection(this.value)">
-                                                      <option disabled selected>College</option>
+                                                      <option value="" hidden disabled selected>College</option>
                                                       <?php foreach ($college_rs as $row) { ?>
                                                       <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?>
                                                       </option>
@@ -164,8 +162,8 @@ die("error: " . $e->getMessage());
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Credits</label>
-                                                <select name="credits">
-                                                      <option selected disabled>Credits</option>
+                                                <select name="credits" required>
+                                                      <option value="" hidden selected disabled>Credits</option>
                                                       <option>1</option>
                                                       <option>2</option>
                                                       <option>3</option>
