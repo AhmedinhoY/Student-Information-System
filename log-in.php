@@ -200,10 +200,11 @@ else if (isset($_POST['adm-sb'])) {
                                           <?php echo $lgERRmsg; ?>
                                     </span> <br />
                                     <label>Username</label></br>
-                                    <input type="text" name="stu-un"
-                                          placeholder="Enter your username (Student ID)"><br />
+                                    <input type="text" name="stu-un" placeholder="Enter your username (Student ID)"
+                                          required><br />
                                     <label>Password</label></br>
-                                    <input type="password" name="stu-ps" placeholder="Enter your password"><br />
+                                    <input type="password" name="stu-ps" placeholder="Enter your password"
+                                          required><br />
                                     <button type="submit" name="stu-sb" class="form-btn">Log in</button>
                               </form>
                         </div>
@@ -221,9 +222,11 @@ else if (isset($_POST['adm-sb'])) {
                                           <?php echo $lgERRmsg; ?>
                                     </span> <br />
                                     <label>Username</label></br>
-                                    <input type="text" name="sta-username" placeholder="Enter your username"><br />
+                                    <input type="text" name="sta-username" placeholder="Enter your username"
+                                          required><br />
                                     <label>Password</label></br>
-                                    <input type="password" name="sta-ps" placeholder="Enter your password"><br />
+                                    <input type="password" name="sta-ps" placeholder="Enter your password"
+                                          required><br />
                                     <button type="submit" name="sta-sb" class="form-btn">Log in</button>
 
                               </form>
@@ -242,9 +245,11 @@ else if (isset($_POST['adm-sb'])) {
                                           <?php echo $lgERRmsg; ?>
                                     </span> <br />
                                     <label>Username</label></br>
-                                    <input type="text" name="adm-username" placeholder="Enter your username"><br />
+                                    <input type="text" name="adm-username" placeholder="Enter your username"
+                                          required><br />
                                     <label>Password</label></br>
-                                    <input type="password" name="adm-ps" placeholder="Enter your password"><br />
+                                    <input type="password" name="adm-ps" placeholder="Enter your password"
+                                          required><br />
                                     <button type="submit" name="adm-sb" class="form-btn">Log in</button>
 
                               </form>
@@ -268,7 +273,11 @@ else if (isset($_POST['adm-sb'])) {
             </div>
       </div>
       <!-- footer section ends -->
-
+      <script>
+      if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+      }
+      </script>
 
       <script src="https://code.jquery.com/jquery-3.6.3.min.js"
             integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
