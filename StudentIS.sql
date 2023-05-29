@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 28, 2023 at 11:37 PM
+-- Generation Time: May 29, 2023 at 07:48 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -68,7 +68,9 @@ INSERT INTO `classroom` (`classroomID`, `collegeID`, `room`, `capacity`, `type`)
 (1, 1, 'S40-2046', 40, 'Study classroom'),
 (2, 1, 'S40-2050', 45, 'Study classroom'),
 (5, 1, 'S40-2047', 35, 'Study classroom'),
-(11, 1, 'S40-2049', 50, 'Study classroom');
+(11, 1, 'S40-2049', 50, 'Study classroom'),
+(12, 1, 'S40-2048', 50, 'Study classroom'),
+(13, 1, 'S40-2045', 45, 'Study classroom');
 
 -- --------------------------------------------------------
 
@@ -178,6 +180,10 @@ CREATE TABLE `courseTiming` (
 --
 
 INSERT INTO `courseTiming` (`courseID`, `instructorID`, `section`, `classroomID`, `lecturesDay`, `lecturesTime`, `year`, `semester`, `examDate`, `examTime`, `examPlace`) VALUES
+('ITCS316', 7, 1, 1, 'UTH', '9:00-9:50', '2023', '2', '2023-06-08', '11:30-13:30', 'TBA'),
+('ITCS317', 6, 1, 11, 'UTH', '11:00-11:50', '2023', '2', '2023-06-13', '14:30-16:30', 'TBA'),
+('ITCS321', 4, 1, 5, 'UTH', '10:00-10:50', '2023', '2', '2023-06-04', '11:30-13:30', 'TBA'),
+('ITCS333', 5, 1, 2, 'MW', '11:00-12:15', '2023', '2', '2023-06-12', '14:30-16:30', 'TBA'),
 ('ITCS347', 3, 1, 2, 'MW', '9:30-10:45', '2023', '2', '2023-06-05', '8:30-10:30', 'TBA'),
 ('ITCS389', 2, 1, 1, 'UTH', '11:00-11:50', '2023', '2', '2023-06-07', '13:30-15:30', 'TBA'),
 ('ITCS389', 2, 2, 1, 'UTH', '12:00-12:50', '2023', '2', '2023-06-07', '13:30-15:30', 'TBA');
@@ -240,8 +246,12 @@ CREATE TABLE `staff` (
 
 INSERT INTO `staff` (`staffID`, `fullName`, `picture`, `email`, `password`, `CPR`, `gender`, `phoneNumber`, `jobTitle`, `collegeID`, `officeNumber`) VALUES
 (1, 'Dr. Ali Hassan AlSaffar', NULL, 'aalsaffar@uob.edu.bh', '$2y$10$ZNGd4FmE.fsWb/28QPyGuuKbZFANRYGt9F3X2ohvGZpZ8YR0DevkC', '011111111', 'male', 34111111, 'Proffesor', 1, 'S40-2060'),
-(2, 'Dr. Taher Saleh Khaid Homeed', NULL, 'tskhomeed@uob.edu.bh', '$2y$10$Y298qHpLTgH/YdxBiqhQ5uJxElJFPouJHOjCoPFRx1UHUBKynuNfq', '022222222', 'male', 34222222, 'Professor', 1, 'S40-2061'),
-(3, 'Dr. Youssef Bin Mohammed Harrath', NULL, 'ybmharrath@uob.edu.bh', '$2y$10$VnyrhB47lPLAqiUEwn7xrOrAZgsonM5kS.c931U3SY8WnCux3x9yW', '03333333', 'male', 35111111, 'Proffesor', 1, NULL);
+(2, 'Dr. Taher Saleh Khaid Homeed', NULL, 'tskhomeed@uob.edu.bh', '$2y$10$Y298qHpLTgH/YdxBiqhQ5uJxElJFPouJHOjCoPFRx1UHUBKynuNfq', '021222222', 'male', 34222222, 'Professor', 1, 'S40-2061'),
+(3, 'Dr. Youssef Bin Mohammed Harrath', NULL, 'ybmharrath@uob.edu.bh', '$2y$10$VnyrhB47lPLAqiUEwn7xrOrAZgsonM5kS.c931U3SY8WnCux3x9yW', '030333333', 'male', 35111111, 'Proffesor', 1, NULL),
+(4, 'Dr. ABDULFATTAH MAHMOOD SALMAN', NULL, 'amsalman@uob.edu.bh', '$2y$10$E4L8tXyGqMolpCE2Voy9yuyBr0Qnio9HCW6JKvNQAmYk3PhckezA2', '031111122', 'male', 38111111, 'Proffesor', 1, NULL),
+(5, 'Dr. Faisal Abdulhameed Alqaed', NULL, 'faalqaed@uob.edu.bh', '$2y$10$CbYzuMgFL7gkhRspCh9Qw.AHua3wIv2YSlvgly.B8bE5WWZ6STdZK', '031111113', 'male', 38111112, 'Proffesor', 1, NULL),
+(6, 'Dr. Hesham Mohammed Alammal', NULL, 'hmalammal@uob.edu.bh', '$2y$10$deenWEulbz9YNJY4/nXqw.wiw4AGTxeu1CnM2LjicMPHZ2WVhbH9K', '010512555', 'male', 38111116, 'Proffesor', 1, NULL),
+(7, 'Dr. Hadeel Shawket Alobaidy', NULL, 'hsalobaidy@uob.edu.bh', '$2y$10$VOOHFUY7zSDndct.cpBeDOz7mUA2sWAMCUBuexkJ8EwiHE/o9soUi', '990212345', 'female', 36777712, 'Proffesor', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -268,9 +278,10 @@ INSERT INTO `studentClassroom` (`studentClassroomID`, `studentID`, `section`, `c
 (3, 202003838, 1, 'ITCS113', 1, 1, '2021', '1'),
 (1, 202003838, 1, 'ITCS254', 1, 1, '2022', '1'),
 (6, 202003838, 1, 'ITCS285', 1, 2, '2023', '1'),
+(14, 202003838, 1, 'ITCS321', 4, 5, '2023', '2'),
 (13, 202003838, 1, 'ITCS347', 3, 2, '2023', '2'),
+(16, 202003838, 1, 'ITCS389', 2, 1, '2023', '2'),
 (7, 202003838, 2, 'ITCS255', 1, 1, '2023', '1'),
-(11, 202003838, 2, 'ITCS389', 2, 1, '2023', '2'),
 (4, 202003838, 3, 'ITCS114', 2, 2, '2021', '2'),
 (2, 202003838, 3, 'ITCS214', 1, 2, '2022', '1');
 
@@ -298,10 +309,10 @@ CREATE TABLE `studentInfo` (
   `enrollmentStatus` varchar(20) NOT NULL,
   `advisorID` int(9) NOT NULL,
   `yearOfJoin` varchar(15) NOT NULL,
-  `flat` varchar(4) NOT NULL DEFAULT '',
-  `building` int(5) DEFAULT NULL,
-  `road` int(5) DEFAULT NULL,
-  `block` int(5) DEFAULT NULL
+  `flat` varchar(4) DEFAULT NULL,
+  `building` varchar(4) DEFAULT NULL,
+  `road` varchar(4) DEFAULT NULL,
+  `block` varchar(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -309,7 +320,7 @@ CREATE TABLE `studentInfo` (
 --
 
 INSERT INTO `studentInfo` (`studentID`, `fullName`, `picture`, `CPR`, `email`, `password`, `phoneNumber`, `collegeID`, `gender`, `majorID`, `CGPA`, `MCGPA`, `passedCH`, `academicStatus`, `enrollmentStatus`, `advisorID`, `yearOfJoin`, `flat`, `building`, `road`, `block`) VALUES
-(202003838, 'Ahmed Yusuf Ahmed Saleh', NULL, '021201111', '202003838@stu.uob.edu.bh', '$2y$10$nx6dgnkuZ6n9u4.tW7tBkOHDKQLoVj4rf8McFue6mJMXncnvUR04C', 36728829, 1, 'male', 1, 4.00, 4.00, 75, 'Excellence', 'Enrolled', 1, '2020', '', 2013, 587, 605);
+(202003838, 'Ahmed Yusuf Ahmed Saleh', NULL, '021201111', '202003838@stu.uob.edu.bh', '$2y$10$nx6dgnkuZ6n9u4.tW7tBkOHDKQLoVj4rf8McFue6mJMXncnvUR04C', 36728829, 1, 'male', 1, 4.00, 4.00, 75, 'Excellence', 'Enrolled', 1, '2020', '', '2013', '587', '605');
 
 --
 -- Indexes for dumped tables
@@ -404,7 +415,6 @@ ALTER TABLE `studentClassroom`
 ALTER TABLE `studentInfo`
   ADD PRIMARY KEY (`studentID`),
   ADD UNIQUE KEY `phoneNumber` (`phoneNumber`),
-  ADD UNIQUE KEY `sID` (`studentID`) USING BTREE,
   ADD UNIQUE KEY `CPR` (`CPR`),
   ADD KEY `advisorID` (`advisorID`),
   ADD KEY `collegeID` (`collegeID`),
@@ -424,7 +434,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `classroom`
 --
 ALTER TABLE `classroom`
-  MODIFY `classroomID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `classroomID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `college`
@@ -448,13 +458,13 @@ ALTER TABLE `major`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staffID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `staffID` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `studentClassroom`
 --
 ALTER TABLE `studentClassroom`
-  MODIFY `studentClassroomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `studentClassroomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
