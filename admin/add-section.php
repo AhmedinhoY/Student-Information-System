@@ -12,7 +12,7 @@ try {
       $college_rs= $db->query($college_sql);
 
       //room selection
-      $room_sql= "select classroomID,room from classroom";
+      $room_sql= "select classroomID,room from classroom order by room asc";
       $room_rs= $db->query($room_sql);
 
       //course selection

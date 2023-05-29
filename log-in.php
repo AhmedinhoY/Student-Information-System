@@ -16,7 +16,7 @@ if (isset($_POST['stu-sb'])) {
             $lg_result = $db->query($login_sql);
             
             if (!preg_match("/^((201)\d)|((202)[0-4])\d\d\d\d\d$/", $lg_stuUsername)) {
-                $lgERRmsg = "Invalid username format, please enter a valid username (your academic ID number)";
+                $lgERRmsg = "*Invalid username format, please enter a valid username (your academic ID number)";
             } else {    
                   if ($row = $lg_result->fetch()) {
                       if (password_verify($_POST['stu-ps'], $row[5])) {
