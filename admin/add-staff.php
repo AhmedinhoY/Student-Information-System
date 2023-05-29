@@ -133,7 +133,9 @@ try {
                   if($row[5]==$cpr){
                         $err ='<h1 style="text-align:center;">Error: this CPR exits</h1>';
                         $c++;
-                        }
+                        }//hello
+
+        
 
           
 
