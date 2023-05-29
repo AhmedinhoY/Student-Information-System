@@ -118,18 +118,18 @@ try {
             foreach($rows as $row){
 
                   if($row[3]==$email){
-                  $err ='<h3 style="text-align:center; color: red;">Error: this email exits</h3>';
+                  $err ='<h3 style="text-align:center; color: red;">Error: This email exits</h3>';
                   $c++;
                   }
 
                   if($row[7]==$mobile_number){
-                        $err ='<h3 style="text-align:center; color: red;">Error: this mobile number exits</h3>';
+                        $err ='<h3 style="text-align:center; color: red;">Error: This mobile number exits</h3>';
                         $c++;
                         }
 
 
                   if($row[5]==$cpr){
-                        $err ='<h3 style="text-align:center; color: red;">Error: this CPR exits</h3>';
+                        $err ='<h3 style="text-align:center; color: red;">Error: This CPR exits</h3>';
                         $c++;
                         }//hello
 

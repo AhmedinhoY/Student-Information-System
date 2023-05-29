@@ -9,7 +9,7 @@ try {
       `classroom`.`type`, `classroom`.`capacity`
       FROM `classroom` 
       LEFT JOIN `college` ON `classroom`.`collegeID` = `college`.`collegeID`  
-      ORDER BY `college`.`collegeName` ASC";
+      ORDER BY `college`.`collegeName`, `classroom`.`room` ASC";
       $rs= $db->query($sql_query);
 
 }catch (PDOException $e){
