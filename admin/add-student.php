@@ -5,7 +5,8 @@ require('../includes/admin-sessions.php');
 require('../includes/functions.php');
 try {
       require('../includes/connection.php');
-
+      $c=0;
+      $err="";
       //college selection
       $college_sql= "select collegeID, collegeName from college";
       $college_rs= $db->query($college_sql);
@@ -27,7 +28,7 @@ try {
       if (isset($_POST["add-student"])){
 
             //validation here
-            //test_input function... 
+            //test_input function... ------------------------------------------------------------------------------------------------------------------------------------------------
             $student_id= test_input($_POST["student-id"]);
             $full_name= test_input($_POST["full-name"]);
             $cpr= test_input($_POST["CPR"]);
@@ -36,9 +37,9 @@ try {
             $password= test_input($_POST["CPR"]);
 
             if(empty($password)){
-
-                 
-            die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+    
+            $err ='<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
+            $c++;
 
             }
 
@@ -46,7 +47,9 @@ try {
             //min pass word is 3 chars, max 15 chars
             $pattPass = "/^[a-zA-Z0-9\@\#]{3,15}$/";
             if(preg_match($pattPass,$password)!= 1){
-            die('<h1 style="text-align:center;">Error: please enter your password correctly</h1>');
+                  $err ='<h1 style="text-align:center;">Error: please enter your password correctly</h1>';
+                  $c++;
+
 
             }
 
@@ -54,16 +57,37 @@ try {
 
 
             $mobile_number= test_input($_POST["mobile-number"]);
-            $college= test_input($_POST["college"]);
-            $gender= test_input($_POST["gender"]);
-            $major= test_input($_POST["major"]);
-            $advisor= test_input($_POST["advisor"]);
+           
+            
+      
+            
+
+            if(!empty($_POST["college"])){
+                  $college= test_input($_POST["college"]);//select 
+
+            }
+            if(!empty($_POST["gender"])){
+                  $gender= test_input($_POST["gender"]); //select 
+                  
+            }
+            if(!empty($_POST["major"])){
+
+                  $major= test_input($_POST["major"]);//select
+            }  
+             if(!empty($_POST["advisor"])){
+
+                  $advisor= test_input($_POST["advisor"]);//select
+
+            }
+            
 
             //is empty
             if(empty($student_id)||empty($full_name)||empty($cpr)||empty($email)||empty($mobile_number)||empty($college)||empty($gender)
             ||empty($major)||empty($advisor)){
                   
-                  die('<h1 style="text-align:center;">Error: no input must be left empty!</h1>');
+                  $err ='<h1 style="text-align:center;">Error: no input must be left empty!</h1>';
+                   $c++;
+
 
 
             }
@@ -76,7 +100,9 @@ try {
             $pattStu = "/^(20){1}([1-2]{1}[0-9]{1})\d{4,5}$/";
             if(preg_match($pattStu,$student_id)!= 1){
 
-            die('<h1 style="text-align:center;">Error: please check your student id</h1>');
+                  $err ='<h1 style="text-align:center;">Error: please check your student id</h1>';
+                  $c++;
+
 
             }
 
@@ -84,7 +110,9 @@ try {
             //and capital or small letters will be accepted, maximum 80 chars
             $pattFull = "/^[a-zA-Z\s]{3,80}$/";
             if(preg_match($pattFull,$full_name)!= 1){
-            die('<h1 style="text-align:center;">Error: please enter your Full name correctly</h1>');
+                  $err ='<h1 style="text-align:center;">Error: please enter your Full name correctly</h1>';
+                   $c++;
+
 
                   
             }
@@ -93,7 +121,9 @@ try {
             //enter 9 digits, starts only from the 80's, any bahraini cpr will work: 010512345
             $pattCpr = "/^([8-9][0-9]|0{1}[0-9]|1{1}[0-9]|[2][0-3])([0][1-9]|[1][0-2])\d{5}$/";
             if(preg_match($pattCpr,$cpr)!= 1){
-            die('<h1 style="text-align:center;">Error: please enter your Cpr correctly</h1>');
+                  $err ='<h1 style="text-align:center;">Error: please enter your Cpr correctly</h1>';
+                  $c++;
+
 
             }
 
@@ -102,7 +132,9 @@ try {
             //any email will work: alis3348s@gmail.com, 20197180@stu.uob.edu.bh
             $pattEmail = "/^[a-zA-Z0-9_-]+@[a-zA-Z0-9.]+$/";
             if(preg_match($pattEmail,$email)!= 1){
-                  die('<h1 style="text-align:center;">Error: please enter your email correctly</h1>');
+                  $err ='<h1 style="text-align:center;">Error: please enter your email correctly</h1>';
+                  $c++;
+
             }
 
 
@@ -113,31 +145,45 @@ try {
             $pattMob = "/^((\+[0-9]{3}|00[0-9]{3})?)[0-9]{8}$/";
             if(preg_match($pattMob,$mobile_number)!= 1){
 
-                  die('<h1 style="text-align:center;">Error: please enter your mobile number correctly</h1>');
+                  $err ='<h1 style="text-align:center;">Error: please enter your mobile number correctly</h1>';
+                  $c++;
+
 
             }
 
 
-            //i did not remove this on purpose, see if you want to remove it:)
-            /*
-            $student_id= $_POST["student-id"];
-            $full_name= $_POST["full-name"];
-            $cpr= $_POST["CPR"];
-            $email= $_POST["email"];
-            $password= $_POST["CPR"];
-            $hashed_password= password_hash($password, PASSWORD_DEFAULT);
-            $mobile_number= $_POST["mobile-number"];
-            $college= $_POST["college"];
-            $gender= $_POST["gender"];
-            $major= $_POST["major"];
-            $advisor= $_POST["advisor"];
-            */
 
+            $sql11='select * from studentInfo';
+            $s =$db->prepare($sql11); 
+            $s->execute();
+            $rows = $s->fetchAll(PDO::FETCH_NUM);
+            foreach($rows as $row){
+                  if($row[0]==$student_id){
+                  $err ='<h1 style="text-align:center;">Error: this username exits</h1>';
+                  $c++;
+                  }
+
+                  if($row[3]==$cpr){
+                        $err ='<h1 style="text-align:center;">Error: this cpr exits</h1>';
+                        $c++;
+                        }
+
+                                        
+                  if($row[6]==$mobile_number){
+                        $err ='<h1 style="text-align:center;">Error: this mobile number exits</h1>';
+                        $c++;
+                        }
+
+       
+                        
+
+
+            }
             //----------------------------------------VALIDATION END--------------------------------------------------------------
 
             //do we need to validate these? 
 
-
+           
             if (empty($_POST['flat'])){
                   $flat= "null";
 
@@ -162,19 +208,25 @@ try {
             } else {
                   $block= $_POST["block"];
             }
+
             $current_year= date('y');
 
+           if($c==0){
             $insertion_query= "insert into studentInfo (studentID, fullName, CPR, email, password, phoneNumber, collegeID,
             gender, majorID, CGPA, MCGPA, passedCH, academicStatus, enrollmentStatus, advisorID, yearOfJoin, flat, building, road, block)
             values('$student_id', '$full_name', '$cpr', '$email', '$hashed_password', '$mobile_number', '$college',
             '$gender', '$major', 0, 0, 0, '--', 'enrolled', '$advisor', '$current_year' , '$flat', '$building', '$road', '$block')";
             $result = $db->exec($insertion_query);
-      }
+           }
+            
+   
+
+      } //end of the submit button
 
 
 
 } catch (PDOException $e){
-die("error: " . $e->getMessage());
+die("<h5 style='text-align:center margin-top:200px;margin-left:150px;'>error: ". $e->getMessage()."</h5>");
 }
 ?>
 
@@ -183,6 +235,10 @@ die("error: " . $e->getMessage());
             <div class="form-element">
                   <div class="form-header">
                         <h2>Add Student</h2>
+                        <div class="kkk">
+                  <h3><?php echo $err?></h3> 
+                            
+                        </div>
                   </div>
                   <div class="form-body">
                         <form action="" method="POST">
@@ -192,7 +248,7 @@ die("error: " . $e->getMessage());
                                           <div class="input-field" id="input-field">
                                                 <label>Sudent ID</label>
                                                 <input type="text" placeholder="<?php echo $row[0] ?>" name="student-id"
-                                                      value="<?php echo $row[0] ?>" disable readonly>
+                                                      value="<?php echo $row[0] ?>"  readonly>
                                           </div>
                                           <div class="input-field" id="input-field">
                                                 <label>Full Name</label>
